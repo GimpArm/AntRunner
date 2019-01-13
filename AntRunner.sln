@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntRunner", "AntRunner\AntRunner.csproj", "{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntRunner.Interface", "AntRunner.Interface\AntRunner.Interface.csproj", "{EEB3F445-C29E-4488-8902-D47CF3760039}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB3F445-C29E-4488-8902-D47CF3760039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB3F445-C29E-4488-8902-D47CF3760039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB3F445-C29E-4488-8902-D47CF3760039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB3F445-C29E-4488-8902-D47CF3760039}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E692D192-9089-47A6-9657-72DFAEB1F20A}
+	EndGlobalSection
+EndGlobal

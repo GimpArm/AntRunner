@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6647BC59-BBE1-48DA-B07E-ED8B4AD13C05}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AntRunner</RootNamespace>
+    <AssemblyName>AntRunner</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Waf.Core, Version=4.3.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Waf.Core.4.3.0\lib\portable45-net45+win8\System.Waf.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Waf.Wpf, Version=4.3.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Waf.Wpf.4.3.0\lib\net461\System.Waf.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\Ant\Views\PlayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Ant\Views\StatusControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Map\Views\MapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\BombControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\BombKitControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\BrickWallControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\FlagControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\HealthKitControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\ShieldKitControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\ShootControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Tiles\Views\SteelWallControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\LoadAntControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="Controls\Ant\Converters\InverseHealthToVisibilityConverter.cs" />
+    <Compile Include="Controls\Ant\Converters\HealthToVisibilityConverter.cs" />
+    <Compile Include="Controls\Ant\Converters\LevelToBarWidthConverter.cs" />
+    <Compile Include="Controls\Tiles\Converters\ShotRotatationConverter.cs" />
+    <Compile Include="Controls\Ant\Views\PlayerControl.xaml.cs">
+      <DependentUpon>PlayerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Ant\Views\StatusControl.xaml.cs">
+      <DependentUpon>StatusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Map\ViewModels\MapViewModel.cs" />
+    <Compile Include="Controls\Map\Views\MapControl.xaml.cs">
+      <DependentUpon>MapControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Converters\ShotDistanceConverter.cs" />
+    <Compile Include="Controls\Tiles\Converters\ShotLocationMultiConverter.cs" />
+    <Compile Include="Controls\Tiles\Views\BombControl.xaml.cs">
+      <DependentUpon>BombControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\BombKitControl.xaml.cs">
+      <DependentUpon>BombKitControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\BrickWallControl.xaml.cs">
+      <DependentUpon>BrickWallControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\FlagControl.xaml.cs">
+      <DependentUpon>FlagControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\HealthKitControl.xaml.cs">
+      <DependentUpon>HealthKitControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\HomeControl.xaml.cs">
+      <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\ShieldKitControl.xaml.cs">
+      <DependentUpon>ShieldKitControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\ShootControl.xaml.cs">
+      <DependentUpon>ShootControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tiles\Views\SteelWallControl.xaml.cs">
+      <DependentUpon>SteelWallControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\DirectionToRotationConverter.cs" />
+    <Compile Include="Converters\InverseNullToVisibilityConverter.cs" />
+    <Compile Include="Converters\PositionToCanvasScaleConverter.cs" />
+    <Compile Include="Events\GameOverEventArgs.cs" />
+    <Compile Include="Events\ShootEventHandler.cs" />
+    <Compile Include="Main\Converters\ColorComparerMultiConverter.cs" />
+    <Compile Include="Main\Converters\NullToParameterTextConverter.cs" />
+    <Compile Include="Main\Converters\PlayerLookupConverter.cs" />
+    <Compile Include="Main\ViewModels\MainViewModel.cs" />
+    <Compile Include="Main\ViewModels\StartupViewModel.cs" />
+    <Compile Include="Main\Views\LoadAntControl.xaml.cs">
+      <DependentUpon>LoadAntControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Main\Views\MapTileControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\Views\StartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main\Views\MapTileControl.xaml.cs">
+      <DependentUpon>MapTileControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Views\StartupWindow.xaml.cs">
+      <DependentUpon>StartupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AntWrapper.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\GameManager.cs" />
+    <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\MapTile.cs" />
+    <Compile Include="Models\MouseCommands.cs" />
+    <Compile Include="Models\NotifyBaseModel.cs" />
+    <Compile Include="Models\Utilities.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\Bottle.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\Maze.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AntRunner.Interface\AntRunner.Interface.csproj">
+      <Project>{eeb3f445-c29e-4488-8902-d47cf3760039}</Project>
+      <Name>AntRunner.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

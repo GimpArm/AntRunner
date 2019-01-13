@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="AntRunner.Controls.Tiles.Views.ShootControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters1="clr-namespace:AntRunner.Controls.Tiles.Converters"
+             xmlns:converters2="clr-namespace:AntRunner.Converters"
+             mc:Ignorable="d" 
+             HorizontalAlignment="Left" VerticalAlignment="Top"
+             x:Name="ShotControlElement"
+             d:DesignHeight="20" d:DesignWidth="10">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters2:DirectionToRotationConverter x:Key="DirectionToRotationConverter" />
+            <converters1:ShotDistanceConverter x:Key="ShotDistanceConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.LayoutTransform>
+        <RotateTransform Angle="{Binding Direction, ElementName=ShotControlElement, Converter={StaticResource DirectionToRotationConverter}}" />
+    </UserControl.LayoutTransform>
+    <Rectangle Height="{Binding ShotDistance, ElementName=ShotControlElement, Converter={StaticResource ShotDistanceConverter}}" Width="10" Margin="0,0,0,0">
+        <Rectangle.Fill>
+            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <GradientStop Color="LightCyan" Offset="0.0" />
+                <GradientStop Color="DeepSkyBlue" Offset="0.3" />
+                <GradientStop Color="MediumPurple"  Offset="0.5" />
+                <GradientStop Color="DeepSkyBlue" Offset="0.7" />
+                <GradientStop Color="LightCyan" Offset="1.0" />
+            </LinearGradientBrush>
+        </Rectangle.Fill>
+    </Rectangle>
+</UserControl>

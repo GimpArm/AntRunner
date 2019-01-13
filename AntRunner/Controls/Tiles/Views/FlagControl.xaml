@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="AntRunner.Controls.Tiles.Views.FlagControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Path Data="M2.4915056,2.2260001C3.8691173,2.2260004,4.9830005,3.3431869,4.9830005,4.7181533L4.9830005,52.518807C4.9830005,53.897702 3.8691173,55.010998 2.4915056,55.010998 1.1132736,55.010998 0,53.897702 0,52.518807L0,4.7181533C0,3.3431869,1.1132736,2.2260004,2.4915056,2.2260001z M21.916903,2.1072685E-05C34.563281,-0.013741149 44.850898,6.7199533 60.671,0.96500372 60.671,11.992384 60.671,23.027636 60.671,34.061489 39.577531,41.738621 28.30889,27.205954 8.1920012,36.075898L8.1920012,2.9753833C13.223898,0.75891303,17.701443,0.0046082785,21.916903,2.1072685E-05z" 
+          Stretch="Uniform" Fill="Gold" Stroke="Black" StrokeThickness="0.25" Width="10" Height="10" />
+</UserControl>

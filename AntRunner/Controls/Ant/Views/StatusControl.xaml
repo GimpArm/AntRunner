@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="AntRunner.Controls.Ant.Views.StatusControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:AntRunner.Controls.Ant.Converters"
+             xmlns:converters1="clr-namespace:AntRunner.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="110" d:DesignWidth="200"
+             x:Name="ThisControl">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters1:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+            <converters:InverseHealthToVisibilityConverter x:Key="InverseHealthToVisibilityConverter" />
+            <converters:LevelToBarWidthConverter x:Key="LevelToBarWidthConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Background="{Binding Color, ElementName=ThisControl, Converter={StaticResource ColorToBrushConverter}}">
+                <Border Width="40" Height="40" BorderThickness="1" BorderBrush="Black">
+                    <Grid>
+                        <Label Content="X" Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource InverseHealthToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" FontWeight="Bold" FontSize="40" Margin="0,-10,0,0" />
+                        <Image Source="{Binding Ant.Icon, ElementName=ThisControl}" Stretch="Uniform" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Background="{Binding Color, ElementName=ThisControl, Converter={StaticResource ColorToBrushConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="{Binding Ant.Name, ElementName=ThisControl}" MinHeight="24" HorizontalAlignment="Left" FontSize="12" FontWeight="Bold" VerticalAlignment="Center" Margin="0" Padding="0" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Path Data="M9.49552160155622,0.000188407395171453C10.2470350826964,0.00924925191225157 11.0889902676329,0.345134735683814 12.012339648126,1.00530910549583 13.0533476437315,1.74527573643149 13.6053543652281,3.07622706947745 14.1433601940855,4.36320388374747 15.0403624142393,6.50513398704948 15.7083750332579,7.80309665260734 17.3893871868834,7.73708951530875 17.825388010858,7.71908462105216 18.1913872326597,8.05806338844718 18.2093926037535,8.49405372200431 18.2263908947691,8.92903792915763 17.8863850201353,9.29404628334464 17.4533825482115,9.31104457436027 14.5543585385069,9.42703807411613 13.5193548763975,6.95510137138785 12.6903458203062,4.97118604240836 12.2143450344786,3.83920323906364 11.7723398770079,2.76523220596732 11.0963326061949,2.28725063858451 10.595329340814,1.93026745377006 9.673324641107,1.37428534088554 9.1063194836363,1.65928006229819 8.44631868254987,1.99526774940909 8.16530996215192,3.36723339615287 8.1003151501402,4.23518693504752L9.20132165801374,4.15419566688956C9.63532262694685,4.12120711861076,10.0143309200987,4.44718539772452,10.0453291500792,4.88216912804069L10.160327967523,6.43012416420402C11.0843391979918,6.74612367210807 11.9283390606627,7.22709596214713 12.6703491772398,7.86809718666495 15.8693714703306,10.6289957767528 16.22637563598,15.4788473850292 13.4643545712217,18.6797350650829 10.7043314541563,21.8786371952099 5.85429578673688,22.2356203800243 2.65427428138105,19.4747217899364 -0.545754793764672,16.7127856021923 -0.902752104879937,11.8629654651684 1.85826307189313,8.66305434761466 2.61727147948591,7.78408515510978 3.56928211104719,7.08909976540031 4.64128881347028,6.6331204181713L4.54228931319562,5.28517139015617C4.51028352629987,4.85317838249625,4.83728938948957,4.47520005760612,5.27029138457624,4.44120442924918L6.51430421721784,4.35218751488151C6.54630237471906,3.56321108398856 6.78230386626569,1.07629072723807 8.39031797301618,0.255332977156058 8.73303705108015,0.0803688174289618 9.1018725002989,-0.0045579135241951 9.49552160155622,0.000188407395171453z" 
+                        Stretch="Uniform" Fill="Gray" Stroke="Black" StrokeThickness="1" Width="20" Height="20" />
+                    <Label ContentStringFormat="{}x {0}" Content="{Binding Ant.Bombs, ElementName=ThisControl, TargetNullValue='x 0'}" />
+                </StackPanel>
+            </Grid>
+            <Label Grid.Row="1" Grid.Column="0" Content="Health" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Width="150" Height="28" Margin="0,2,0,2">
+                <Grid>
+                    <Border Background="Green" Width="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource LevelToBarWidthConverter}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+                    <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Health, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
+                </Grid>
+            </Border>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Shields" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
+            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Width="150" Height="28" Margin="0,2,0,2">
+                <Grid>
+                    <Border Background="Green" Width="{Binding Ant.Shields, ElementName=ThisControl, Converter={StaticResource LevelToBarWidthConverter}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+                    <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Shields, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="AntRunner.Controls.Map.Views.MapControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:AntRunner.Controls.Map.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModels:MapViewModel, IsDesignTimeCreatable=False}">
+    <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+        <Border BorderThickness="1" BorderBrush="Black" VerticalAlignment="Top">
+            <Canvas x:Name="MapArea" Width="{Binding MapWidth}" Height="{Binding MapHeight}" />
+        </Border>
+    </Viewbox>
+</UserControl>

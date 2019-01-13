@@ -1,0 +1,251 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using AntRunner.Interface;
+
+namespace AntRunner.Models
+{
+    public class Map : IEnumerable<MapTile>
+    {
+        private const int EmptyColor = -1; //white
+        private const int SteelWallColor = -16777216; //black
+        private const int BrickWallColor = -65536; //red
+        private const int FlagColor = -16711936; //green
+        private const int HomeColor = -16776961; // blue
+
+        private readonly MapTile[,] _tiles;
+        public int Width { get; }
+        public int Height { get; }
+
+        public Map(Bitmap mapDefinition, IList<Colors> colorList)
+        {
+            Width = mapDefinition.Width;
+            Height = mapDefinition.Height;
+            _tiles = new MapTile[Width, Height];
+
+            var possibleFlags = new List<MapTile>();
+            var possibleHomes = new List<MapTile>();
+
+
+            for (var y = 0; y < Height; ++y)
+            {
+                for (var x = 0; x < Width; ++x)
+                {
+                    var tile = new MapTile(x, y);
+                    _tiles[x, y] = tile;
+                    var pixel = mapDefinition.GetPixel(x, y).ToArgb();
+                    if (pixel.Equals(EmptyColor)) continue;
+
+                    if (pixel.Equals(SteelWallColor))
+                    {
+                        tile.Item = Items.SteelWall;
+                    }
+                    else if (pixel.Equals(BrickWallColor))
+                    {
+                        tile.Item = Items.BrickWall;
+                    }
+                    else if (pixel.Equals(FlagColor))
+                    {
+                        possibleFlags.Add(tile);
+                    }
+                    else if (pixel.Equals(HomeColor))
+                    {
+                        possibleHomes.Add(tile);
+                    }
+                }
+            }
+
+            if (possibleFlags.Any())
+            {
+                possibleFlags[Utilities.Random.Next(0, possibleFlags.Count - 1)].Item = Items.Flag;
+            }
+            else
+            {
+                RandomTile().Item = Items.Flag;
+            }
+
+            while (colorList.Any())
+            {
+                var color = colorList[Utilities.Random.Next(0, colorList.Count - 1)];
+                MapTile tile;
+                if (possibleHomes.Any())
+                {
+                    tile = possibleHomes[Utilities.Random.Next(0, possibleHomes.Count - 1)];
+                    possibleHomes.Remove(tile);
+                }
+                else
+                {
+                    tile = RandomTile();
+                }
+                tile.Item = Utilities.ColorToAntHomeItem(color);
+                colorList.Remove(color);
+            }
+        }
+
+        public MapTile RandomTile()
+        {
+            MapTile tile;
+            do
+            {
+                tile = _tiles[Utilities.Random.Next(0, Width - 1), Utilities.Random.Next(0, Height - 1)];
+            } while (tile.Item != Items.Nothing);
+
+            return tile;
+        }
+
+        public MapTile this[int x, int y] => _tiles[x, y];
+
+        public GameEvent MoveTo(int x, int y, AntWrapper ant, Action<AntWrapper, GameEvent> sideEvents)
+        {
+            if (IsEdge(x, y)) return GameEvent.CollisionDamage;
+
+            var tile = this[x, y];
+            if (tile.Item == Items.Nothing)
+            {
+                ant.CurrentTile = tile;
+                return GameEvent.Nothing;
+            }
+
+            if (ant.HasFlag && tile.Item.HasFlag(ant.AntHome))
+            {
+                return GameEvent.GameOver;
+            }
+
+            if (tile.Item.HasFlag(Items.SteelWall) || tile.Item.HasFlag(Items.BrickWall))
+            {
+                return GameEvent.CollisionDamage;
+            }
+
+            if (tile.Item >= Items.RedAnt && tile.Item <= Items.WhiteHome)
+            {
+                if (tile.OccupiedBy != null)
+                {
+                    if (x == ant.CurrentTile.X)
+                    {
+                        if (y < ant.CurrentTile.Y)
+                        {
+                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageDown);
+                        }
+                        else
+                        {
+                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageUp);
+                        }
+                    }
+                    else
+                    {
+                        if (x < ant.CurrentTile.X)
+                        {
+                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageRight);
+                        }
+                        else
+                        {
+                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageLeft);
+                        }
+                    }
+                }
+
+                if (!tile.Item.HasFlag(ant.AntHome))
+                {
+                    return GameEvent.CollisionDamage;
+                }
+
+                if (ant.HasFlag)
+                {
+                    return GameEvent.GameOver;
+                }
+            }
+            
+            ant.CurrentTile = tile;
+            if (tile.Item.HasFlag(Items.Bomb))
+            {
+                tile.Item &= ~Items.Bomb;
+                return GameEvent.BombDamage;
+            }
+            if (tile.Item.HasFlag(Items.PowerUpBomb))
+            {
+                tile.Item &= ~Items.PowerUpBomb;
+                return GameEvent.PickUpBomb;
+            }
+            if (tile.Item.HasFlag(Items.PowerUpHealth))
+            {
+                tile.Item &= ~Items.PowerUpHealth;
+                return GameEvent.PickUpHealth;
+            }
+            if (tile.Item.HasFlag(Items.PowerUpShield))
+            {
+                tile.Item &= ~Items.PowerUpShield;
+                return GameEvent.PickUpShield;
+            }
+            if (tile.Item.HasFlag(Items.Flag))
+            {
+                tile.Item &= ~Items.Flag;
+                return GameEvent.PickUpFlag;
+            }
+
+            return GameEvent.Nothing;
+        }
+
+        public MapTile GetTileTo(AntWrapper ant, Actions action)
+        {
+            var x = ant.CurrentTile.X;
+            var y = ant.CurrentTile.Y;
+            switch (action)
+            {
+                case Actions.ShootRight:
+                case Actions.EchoRight:
+                    return GetTileTo(() => ++x, () => y);
+                case Actions.ShootDown:
+                case Actions.EchoDown:
+                    return GetTileTo(() => x, () => ++y);
+                case Actions.ShootLeft:
+                case Actions.EchoLeft:
+                    return GetTileTo(() => --x, () => y);
+                case Actions.ShootUp:
+                case Actions.EchoUp:
+                    return GetTileTo(() => x, () => --y);
+            }
+
+            return null;
+        }
+
+        private MapTile GetTileTo(Func<int> getX, Func<int> getY)
+        {
+            MapTile tile;
+            do
+            {
+                var x = getX();
+                var y = getY();
+                if (IsEdge(x, y))
+                {
+                    return OuterWall(x, y);
+                }
+                tile = this[x, y];
+            } while (tile.Item == Items.Nothing);
+
+            return tile;
+        }
+
+        private static MapTile OuterWall(int x, int y)
+        {
+            return new MapTile(x, y){Item = Items.SteelWall};
+        }
+
+        private bool IsEdge(int x, int y)
+        {
+            return x >= Width || y >= Height || x < 0 || y < 0;
+        }
+
+        public IEnumerator<MapTile> GetEnumerator()
+        {
+            return _tiles.Cast<MapTile>().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+}
