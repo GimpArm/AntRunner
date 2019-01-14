@@ -2,10 +2,11 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/AntRunner/bin
-/AntRunner/obj
-/AntRunner.Interface/bin/Debug/netstandard2.0
-/AntRunner.Interface/obj
-/packages
 *.DotSettings
+/src/packages
+/src/AntRunner.Interface/obj
+/src/AntRunner.Interface/bin
+/src/.vs
+/src/AntRunner/bin
+/src/AntRunner/obj
+*.user

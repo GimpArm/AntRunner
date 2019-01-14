@@ -117,7 +117,7 @@ namespace AntRunner.Models
 
             try
             {
-                Icon = BitmapFrame.Create(ant.GetType().Assembly.GetManifestResourceStream(ant.IconResource), BitmapCreateOptions.None, BitmapCacheOption.Default);
+                Icon = BitmapFrame.Create(ant.Icon, BitmapCreateOptions.None, BitmapCacheOption.Default);
             }
             catch
             {

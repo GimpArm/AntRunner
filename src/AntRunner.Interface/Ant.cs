@@ -1,4 +1,6 @@
-﻿namespace AntRunner.Interface
+﻿using System.IO;
+
+namespace AntRunner.Interface
 {
     public abstract class Ant
     {
@@ -9,5 +11,7 @@
         public abstract void Tick(GameState state);
 
         public virtual string IconResource => "AntRunner.Interface.Icon.png";
+
+        public virtual Stream Icon => GetType().Assembly.GetManifestResourceStream(IconResource) ?? GetType().Assembly.GetManifestResourceStream("AntRunner.Interface.Icon.png");
     }
 }
