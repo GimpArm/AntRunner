@@ -30,7 +30,14 @@ namespace AntRunner.Controls.Map.ViewModels
         public void AddPlayer(AntWrapper ant)
         {
             _mapControl.MapArea.Children.Add(new PlayerControl(ant));
+            ant.ShootEventHandler -= AntOnShootEventHandler;
             ant.ShootEventHandler += AntOnShootEventHandler;
+        }
+
+        public void ClearPlayer(AntWrapper ant)
+        {
+            ant.ShootEventHandler -= AntOnShootEventHandler;
+            ant.CurrentTile = null;
         }
 
         private void AntOnShootEventHandler(object sender, ShootEventHandler e)

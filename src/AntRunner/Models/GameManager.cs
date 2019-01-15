@@ -8,7 +8,7 @@ using AntRunner.Interface;
 
 namespace AntRunner.Models
 {
-    public class GameManager
+    public class GameManager: IDisposable
     {
         public readonly int MapHeight;
         public readonly int MapWidth;
@@ -29,7 +29,7 @@ namespace AntRunner.Models
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
 
-        public GameManager(Bitmap mapDefinition, IList<AntWrapper> players, bool isDebug)
+        public GameManager(Bitmap mapDefinition, IEnumerable<AntWrapper> players, bool isDebug)
         {
             _isDebug = isDebug;
             MapHeight = mapDefinition.Height;
@@ -43,19 +43,19 @@ namespace AntRunner.Models
         {
             foreach (var player in Players.Values)
             {
-                var tile = Map.RandomTile();
-                try
-                {
-                    player.Initialize(Map, tile);
-                }
-                catch
-                {
-                    //TODO: errors
-                }
+                player.Initialize(Map, Map.RandomTile());
             }
 
             GameRunning = true;
             _gameTicker.Start();
+        }
+
+        public void Stop()
+        {
+            _gameTicker.Stop();
+            GameRunning = false;
+            _eventStack.Clear();
+            _echoStack.Clear();
         }
 
         private void GameTickerOnElapsed(object sender, ElapsedEventArgs e)
@@ -73,7 +73,7 @@ namespace AntRunner.Models
             }
             if (!GameRunning)
             {
-                _gameTicker.Stop();
+                Stop();
                 if (_hasFlag && _antWithFlag != null)
                 {
                     OnGameOver?.Invoke(this, new GameOverEventArgs(_antWithFlag.Color, _antWithFlag.Name));
@@ -82,8 +82,6 @@ namespace AntRunner.Models
                 {
                     OnGameOver?.Invoke(this, new GameOverEventArgs());
                 }
-                _eventStack.Clear();
-                _echoStack.Clear();
                 return;
             }
 
@@ -100,7 +98,7 @@ namespace AntRunner.Models
             {
 
                 _hasFlag = false;
-                _flagCarrierDiedTile.Item |= Items.Flag;
+                _flagCarrierDiedTile.Item = Items.Flag;
                 _antWithFlag = null;
                 _flagCarrierDiedTile = null;
             }
@@ -161,7 +159,7 @@ namespace AntRunner.Models
                     case Actions.DropBomb:
                         if (current.Bombs == 0) break;
                         current.Bombs--;
-                        current.CurrentTile.Item |= Items.Bomb;
+                        current.CurrentTile.Item = Items.Bomb;
                         break;
                     case Actions.ShootUp:
                     case Actions.ShootLeft:
@@ -292,15 +290,19 @@ namespace AntRunner.Models
                 {
                     SetEvent(tile.OccupiedBy, Utilities.ShotDirectionToEvent(action));
                 }
-                else if (tile.Item != Items.Nothing)
+                else
                 {
-                    if (tile.Item.HasFlag(Items.BrickWall))
+                    switch (tile.Item)
                     {
-                        BreakWall(tile);
-                    }
-                    else if (tile.Item.HasFlag(Items.Bomb) || tile.Item.HasFlag(Items.PowerUpBomb) || tile.Item.HasFlag(Items.PowerUpHealth) || tile.Item.HasFlag(Items.PowerUpShield))
-                    {
-                        tile.Item = Items.Nothing;
+                        case Items.BrickWall:
+                            BreakWall(tile);
+                            break;
+                        case Items.Bomb:
+                        case Items.PowerUpBomb:
+                        case Items.PowerUpHealth:
+                        case Items.PowerUpShield:
+                            tile.Item = Items.Nothing;
+                            break;
                     }
                 }
                 ant.Shoot(tile);
@@ -368,6 +370,12 @@ namespace AntRunner.Models
             }
 
             return Direction.Up;
+        }
+
+        public void Dispose()
+        {
+            Stop();
+            _gameTicker?.Dispose();
         }
     }
 }

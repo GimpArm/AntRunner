@@ -2,7 +2,6 @@
 {
     public partial class MapControl
     {
-
         public MapControl()
         {
             InitializeComponent();

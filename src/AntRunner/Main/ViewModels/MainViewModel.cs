@@ -23,7 +23,7 @@ namespace AntRunner.Main.ViewModels
         private GameManager _gameManager;
         private MapViewModel _mapViewModel;
 
-        private bool _gameStopped = true;
+        private bool _gameStopped;
         public bool GameStopped
         {
             get => _gameStopped;
@@ -56,8 +56,8 @@ namespace AntRunner.Main.ViewModels
 
         private void Initialize()
         {
-           _control.MapArea.MapArea.Children.Clear();
-           _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, _isDebug);
+            _control.MapArea.MapArea.Children.Clear();
+            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, _isDebug);
             _gameManager.OnGameOver += OnGameOver;
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
@@ -83,13 +83,24 @@ namespace AntRunner.Main.ViewModels
                 WinnerColor = e.Color;
                 WinnerName = e.Name;
             }
-            GameStopped = true;
+
+            StopGame();
         }
 
         public void StartGame()
         {
             GameStopped = false;
             _gameManager.Start();
+        }
+
+        public void StopGame()
+        {
+            GameStopped = true;
+            _gameManager.Stop();
+            foreach (var p in _players)
+            {
+                _mapViewModel.ClearPlayer(p);
+            }
         }
 
         private void RunAgain()

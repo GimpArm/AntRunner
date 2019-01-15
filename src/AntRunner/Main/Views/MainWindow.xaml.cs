@@ -20,7 +20,11 @@ namespace AntRunner.Main.Views
         private void OnClosing(object sender, CancelEventArgs e)
         {
             if (((MainViewModel) DataContext).GameStopped) return;
-            if (MessageBox.Show("Game in progress, are you sure?", "Game Running", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) return;
+            if (MessageBox.Show("Game in progress, are you sure?", "Game Running", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                ((MainViewModel)DataContext).StopGame();
+                return;
+            }
 
             e.Cancel = true;
         }

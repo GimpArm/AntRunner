@@ -17,14 +17,18 @@ namespace AntRunner.Main.Views
 
         public BitmapImage Map { get; }
 
-        public MapTileControl(string filename)
+        public MapTileControl(FileSystemInfo info)
         {
             InitializeComponent();
             
-            var info = new FileInfo(filename);
             NameLabel.Content = Path.GetFileNameWithoutExtension(info.Name);
             Map = new BitmapImage(new Uri(info.FullName));
             Image.Source = Map;
+        }
+
+        public MapTileControl(string filename) : this(new FileInfo(filename))
+        {
+            
         }
     }
 }

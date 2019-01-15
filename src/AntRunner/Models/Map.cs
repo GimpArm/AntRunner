@@ -9,7 +9,6 @@ namespace AntRunner.Models
 {
     public class Map : IEnumerable<MapTile>
     {
-        private const int EmptyColor = -1; //white
         private const int SteelWallColor = -16777216; //black
         private const int BrickWallColor = -65536; //red
         private const int FlagColor = -16711936; //green
@@ -36,23 +35,21 @@ namespace AntRunner.Models
                     var tile = new MapTile(x, y);
                     _tiles[x, y] = tile;
                     var pixel = mapDefinition.GetPixel(x, y).ToArgb();
-                    if (pixel.Equals(EmptyColor)) continue;
 
-                    if (pixel.Equals(SteelWallColor))
+                    switch (pixel)
                     {
-                        tile.Item = Items.SteelWall;
-                    }
-                    else if (pixel.Equals(BrickWallColor))
-                    {
-                        tile.Item = Items.BrickWall;
-                    }
-                    else if (pixel.Equals(FlagColor))
-                    {
-                        possibleFlags.Add(tile);
-                    }
-                    else if (pixel.Equals(HomeColor))
-                    {
-                        possibleHomes.Add(tile);
+                        case SteelWallColor:
+                            tile.Item = Items.SteelWall;
+                            break;
+                        case BrickWallColor:
+                            tile.Item = Items.BrickWall;
+                            break;
+                        case FlagColor:
+                            possibleFlags.Add(tile);
+                            break;
+                        case HomeColor:
+                            possibleHomes.Add(tile);
+                            break;
                     }
                 }
             }
@@ -102,89 +99,71 @@ namespace AntRunner.Models
             if (IsEdge(x, y)) return GameEvent.CollisionDamage;
 
             var tile = this[x, y];
-            if (tile.Item == Items.Nothing)
-            {
-                ant.CurrentTile = tile;
-                return GameEvent.Nothing;
-            }
 
-            if (ant.HasFlag && tile.Item.HasFlag(ant.AntHome))
+            var eventResult = GameEvent.Nothing;
+            switch (tile.Item)
             {
-                return GameEvent.GameOver;
-            }
-
-            if (tile.Item.HasFlag(Items.SteelWall) || tile.Item.HasFlag(Items.BrickWall))
-            {
-                return GameEvent.CollisionDamage;
-            }
-
-            if (tile.Item >= Items.RedAnt && tile.Item <= Items.WhiteHome)
-            {
-                if (tile.OccupiedBy != null)
-                {
-                    if (x == ant.CurrentTile.X)
-                    {
-                        if (y < ant.CurrentTile.Y)
-                        {
-                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageDown);
-                        }
-                        else
-                        {
-                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageUp);
-                        }
-                    }
-                    else
-                    {
-                        if (x < ant.CurrentTile.X)
-                        {
-                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageRight);
-                        }
-                        else
-                        {
-                            sideEvents(tile.OccupiedBy, GameEvent.ImpactDamageLeft);
-                        }
-                    }
-                }
-
-                if (!tile.Item.HasFlag(ant.AntHome))
-                {
+                case Items.Nothing:
+                    eventResult = GameEvent.Nothing;
+                    break;
+                case Items.SteelWall:
+                case Items.BrickWall:
                     return GameEvent.CollisionDamage;
-                }
-
-                if (ant.HasFlag)
-                {
-                    return GameEvent.GameOver;
-                }
+                case Items.Bomb:
+                    eventResult = GameEvent.BombDamage;
+                    break;
+                case Items.PowerUpBomb:
+                    eventResult = GameEvent.PickUpBomb;
+                    break;
+                case Items.PowerUpHealth:
+                    eventResult = GameEvent.PickUpHealth;
+                    break;
+                case Items.PowerUpShield:
+                    eventResult = GameEvent.PickUpShield;
+                    break;
+                case Items.Flag:
+                    eventResult = GameEvent.PickUpFlag;
+                    break;
+                case Items.RedAnt:
+                case Items.BlueAnt:
+                case Items.GreenAnt:
+                case Items.OrangeAnt:
+                case Items.PinkAnt:
+                case Items.YellowAnt:
+                case Items.GrayAnt:
+                case Items.WhiteAnt:
+                    AntCollision(x, y, ant, tile, sideEvents);
+                    return GameEvent.CollisionDamage;
+                case Items.RedHome:
+                case Items.BlueHome:
+                case Items.GreenHome:
+                case Items.OrangeHome:
+                case Items.PinkHome:
+                case Items.YellowHome:
+                case Items.GrayHome:
+                case Items.WhiteHome:
+                    if (ant.HasFlag && tile.Item == ant.AntHome)
+                    {
+                        return GameEvent.GameOver;
+                    }
+                    return GameEvent.CollisionDamage;
             }
             
             ant.CurrentTile = tile;
-            if (tile.Item.HasFlag(Items.Bomb))
-            {
-                tile.Item &= ~Items.Bomb;
-                return GameEvent.BombDamage;
-            }
-            if (tile.Item.HasFlag(Items.PowerUpBomb))
-            {
-                tile.Item &= ~Items.PowerUpBomb;
-                return GameEvent.PickUpBomb;
-            }
-            if (tile.Item.HasFlag(Items.PowerUpHealth))
-            {
-                tile.Item &= ~Items.PowerUpHealth;
-                return GameEvent.PickUpHealth;
-            }
-            if (tile.Item.HasFlag(Items.PowerUpShield))
-            {
-                tile.Item &= ~Items.PowerUpShield;
-                return GameEvent.PickUpShield;
-            }
-            if (tile.Item.HasFlag(Items.Flag))
-            {
-                tile.Item &= ~Items.Flag;
-                return GameEvent.PickUpFlag;
-            }
+            return eventResult;
+        }
 
-            return GameEvent.Nothing;
+        private static void AntCollision(int x, int y, AntWrapper ant, MapTile tile, Action<AntWrapper, GameEvent> sideEvents)
+        {
+            if (tile.OccupiedBy == null) return;
+            if (x == ant.CurrentTile.X)
+            {
+                sideEvents(tile.OccupiedBy, y < ant.CurrentTile.Y ? GameEvent.ImpactDamageDown : GameEvent.ImpactDamageUp);
+            }
+            else
+            {
+                sideEvents(tile.OccupiedBy, x < ant.CurrentTile.X ? GameEvent.ImpactDamageRight : GameEvent.ImpactDamageLeft);
+            }
         }
 
         public MapTile GetTileTo(AntWrapper ant, Actions action)
@@ -247,5 +226,4 @@ namespace AntRunner.Models
             return GetEnumerator();
         }
     }
-
 }

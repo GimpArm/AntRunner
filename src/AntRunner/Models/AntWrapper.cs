@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -44,12 +45,12 @@ namespace AntRunner.Models
             {
                 if (_currentTile != null)
                 {
-                    _currentTile.Item &= ~AntItem;
+                    _currentTile.Item = Items.Nothing;
                     _currentTile.OccupiedBy = null;
                 }
                 if (value != null)
                 {
-                    value.Item |= AntItem;
+                    value.Item = AntItem;
                     value.OccupiedBy = this;
                 }
                 SetValue(ref _currentTile, value);
@@ -140,7 +141,14 @@ namespace AntRunner.Models
             ShieldsOn = false;
             HasFlag = false;
             CurrentTile = currentTile;
-            Ant.Initialize(map.Width, map.Height, Color, CurrentTile.X, CurrentTile.Y);
+            try
+            {
+                Ant.Initialize(map.Width, map.Height, Color, CurrentTile.X, CurrentTile.Y);
+            }
+            catch (Exception e)
+            {
+                Debug.Print(e.ToString());
+            }
         }
 
         private void AntWorkerThreadOnDoWork(object sender, DoWorkEventArgs e)
@@ -195,9 +203,9 @@ namespace AntRunner.Models
                     Task.Delay(10).Wait();
                 }
             }
-            catch
+            catch(Exception e)
             {
-                //TODO: Error handling
+                Debug.Print(e.ToString());
             }
         }
 
@@ -223,7 +231,6 @@ namespace AntRunner.Models
                     ShootEventHandler?.Invoke(this, new ShootEventHandler(CurrentTile.Y, Direction));
                     break;
             }
-            
         }
     }
 }

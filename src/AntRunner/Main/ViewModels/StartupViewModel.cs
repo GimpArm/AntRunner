@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Waf.Applications;
 using System.Windows.Input;
+using AntRunner.Interface;
 using AntRunner.Main.Views;
 using AntRunner.Models;
 
@@ -26,12 +29,13 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _isDebug, value);
         }
 
-        public StartupViewModel(StartupWindow control, bool isDebug = false)
+        public StartupViewModel(StartupWindow control, FileSystemInfo map, IEnumerable<Ant> ants, bool isDebug = false)
         {
             _control = control;
             IsDebug = isDebug;
-            LoadMaps();
+            LoadMaps(map);
             Players.CollectionChanged += PlayersOnCollectionChanged;
+            LoadAnts(ants);
         }
 
         private void PlayersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -39,12 +43,13 @@ namespace AntRunner.Main.ViewModels
             RaisePropertyChanged(nameof(CanStart));
         }
 
-        private void LoadMaps()
+        private void LoadMaps(FileSystemInfo selected)
         {
             var first = true;
             foreach (var map in Directory.GetFiles("Maps\\", "*.bmp"))
             {
-                var tile = new MapTileControl(map);
+                var info = new FileInfo(map);
+                var tile = new MapTileControl(info);
                 tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
                 if (first)
                 {
@@ -52,7 +57,33 @@ namespace AntRunner.Main.ViewModels
                     _selectedMap = tile;
                     first = false;
                 }
+                else if (selected != null && info.FullName.Equals(selected.FullName))
+                {
+                    LoadMap(tile);
+                    selected = null;
+                }
                 _control.MapSelectionArea.Children.Add(tile);
+            }
+
+            if (selected != null)
+            {
+                var tile = new MapTileControl(selected);
+                tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
+                _control.MapSelectionArea.Children.Add(tile);
+                LoadMap(tile);
+            }
+        }
+
+        private void LoadAnts(IEnumerable<Ant> ants)
+        {
+            if (ants == null) return;
+            foreach (var ant in ants)
+            {
+                var slot = _control.LoadAntArea.Children.OfType<LoadAntControl>().Reverse().FirstOrDefault(x => x.Ant == null);
+                if (slot == null) return;
+                var color = Enum.GetValues(typeof(Colors)).OfType<Colors>().FirstOrDefault(c => c != Colors.None && Players.All(p => p.Color != c));
+                slot.Ant = new AntWrapper(ant, color);
+                Players.Add(slot.Ant);
             }
         }
 
