@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Waf.Applications;
 using System.Windows.Input;
+using System.Windows.Media;
 using AntRunner.Controls.Ant.Views;
 using AntRunner.Controls.Map.ViewModels;
 using AntRunner.Events;
-using AntRunner.Interface;
 using AntRunner.Main.Views;
 using AntRunner.Models;
+using Colors = AntRunner.Interface.Colors;
 
 namespace AntRunner.Main.ViewModels
 {
@@ -34,8 +36,14 @@ namespace AntRunner.Main.ViewModels
         public Colors WinnerColor
         {
             get => _winnerColor;
-            set => SetValue(ref _winnerColor, value);
+            set
+            {
+                SetValue(ref _winnerColor, value); 
+                RaisePropertyChanged(nameof(WinnerLogo));
+            }
         }
+
+        public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
 
         private string _winnerName;
         public string WinnerName
@@ -61,6 +69,7 @@ namespace AntRunner.Main.ViewModels
             _gameManager.OnGameOver += OnGameOver;
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
+            ScreenLockManager.DisableSleep();
         }
 
         public ICommand RunAgainCommand => _runAgainCommand ?? (_runAgainCommand = new DelegateCommand(RunAgain));
@@ -101,6 +110,7 @@ namespace AntRunner.Main.ViewModels
             {
                 _mapViewModel.ClearPlayer(p);
             }
+            ScreenLockManager.EnableSleep();
         }
 
         private void RunAgain()

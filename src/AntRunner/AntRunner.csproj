@@ -206,6 +206,7 @@
     <Compile Include="Models\MapTile.cs" />
     <Compile Include="Models\MouseCommands.cs" />
     <Compile Include="Models\NotifyBaseModel.cs" />
+    <Compile Include="Models\ScreenLockManager.cs" />
     <Compile Include="Models\Utilities.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
