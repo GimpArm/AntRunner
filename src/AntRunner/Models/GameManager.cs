@@ -265,7 +265,7 @@ namespace AntRunner.Models
             var tile = _echoStack[ant.Color];
             if (tile == null) return null;
 
-            return new EchoResponse(Utilities.CalculateDistance(ant, tile), tile.Item);
+            return new EchoResponse(Utilities.CalculateDistance(ant, tile), tile.OccupiedBy?.AntItem ?? tile.Item);
         }
         
 

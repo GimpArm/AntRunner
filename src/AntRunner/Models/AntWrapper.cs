@@ -45,12 +45,10 @@ namespace AntRunner.Models
             {
                 if (_currentTile != null)
                 {
-                    _currentTile.Item = Items.Nothing;
                     _currentTile.OccupiedBy = null;
                 }
                 if (value != null)
                 {
-                    value.Item = AntItem;
                     value.OccupiedBy = this;
                 }
                 SetValue(ref _currentTile, value);

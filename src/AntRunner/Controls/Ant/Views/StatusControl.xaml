@@ -30,8 +30,10 @@
             <Grid Grid.Row="0" Grid.Column="0" Background="{Binding Color, ElementName=ThisControl, Converter={StaticResource ColorToBrushConverter}}">
                 <Border Width="40" Height="40" BorderThickness="1" BorderBrush="Black">
                     <Grid>
-                        <Label Content="X" Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource InverseHealthToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" FontWeight="Bold" FontSize="40" Margin="0,-10,0,0" />
                         <Image Source="{Binding Ant.Icon, ElementName=ThisControl}" Stretch="Uniform" />
+                        <Path Data="M65.2,226.2l-9.1-11.3h9.3l4.3,6.3l4.3-6.3h9.3l-9.1,11.3l10.2,12.2h-9.7l-5-7.1l-5,7.1H55L65.2,226.2z" 
+                              Stretch="Uniform" Fill="Black" Stroke="White" StrokeThickness="1" Width="34" Height="34"
+                              Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource InverseHealthToVisibilityConverter}}" />
                     </Grid>
                 </Border>
             </Grid>

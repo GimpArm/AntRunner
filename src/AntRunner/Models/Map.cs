@@ -124,16 +124,6 @@ namespace AntRunner.Models
                 case Items.Flag:
                     eventResult = GameEvent.PickUpFlag;
                     break;
-                case Items.RedAnt:
-                case Items.BlueAnt:
-                case Items.GreenAnt:
-                case Items.OrangeAnt:
-                case Items.PinkAnt:
-                case Items.YellowAnt:
-                case Items.GrayAnt:
-                case Items.WhiteAnt:
-                    AntCollision(x, y, ant, tile, sideEvents);
-                    return GameEvent.CollisionDamage;
                 case Items.RedHome:
                 case Items.BlueHome:
                 case Items.GreenHome:
@@ -148,14 +138,20 @@ namespace AntRunner.Models
                     }
                     return GameEvent.CollisionDamage;
             }
+
+            if (tile.OccupiedBy != null)
+            {
+                AntCollision(x, y, ant, tile, sideEvents);
+                return GameEvent.CollisionDamage;
+            }
             
             ant.CurrentTile = tile;
+            tile.Item = Items.Nothing;
             return eventResult;
         }
 
         private static void AntCollision(int x, int y, AntWrapper ant, MapTile tile, Action<AntWrapper, GameEvent> sideEvents)
         {
-            if (tile.OccupiedBy == null) return;
             if (x == ant.CurrentTile.X)
             {
                 sideEvents(tile.OccupiedBy, y < ant.CurrentTile.Y ? GameEvent.ImpactDamageDown : GameEvent.ImpactDamageUp);
@@ -201,7 +197,7 @@ namespace AntRunner.Models
                     return OuterWall(x, y);
                 }
                 tile = this[x, y];
-            } while (tile.Item == Items.Nothing);
+            } while (tile.Item == Items.Nothing && tile.OccupiedBy == null);
 
             return tile;
         }

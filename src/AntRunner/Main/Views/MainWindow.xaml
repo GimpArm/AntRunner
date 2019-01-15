@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel>
-        <Viewbox Stretch="Uniform" VerticalAlignment="Top" DockPanel.Dock="Right" Width="200">
+        <Viewbox Stretch="Uniform" VerticalAlignment="Top" DockPanel.Dock="Right" MaxWidth="200">
             <StackPanel x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Right"></StackPanel>
         </Viewbox>
         <Grid>
