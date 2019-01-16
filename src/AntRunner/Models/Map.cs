@@ -18,7 +18,7 @@ namespace AntRunner.Models
         public int Width { get; }
         public int Height { get; }
 
-        public Map(Bitmap mapDefinition, IList<Colors> colorList)
+        public Map(Bitmap mapDefinition, IList<ItemColor> colorList)
         {
             Width = mapDefinition.Width;
             Height = mapDefinition.Height;
@@ -39,10 +39,10 @@ namespace AntRunner.Models
                     switch (pixel)
                     {
                         case SteelWallColor:
-                            tile.Item = Items.SteelWall;
+                            tile.Item = Item.SteelWall;
                             break;
                         case BrickWallColor:
-                            tile.Item = Items.BrickWall;
+                            tile.Item = Item.BrickWall;
                             break;
                         case FlagColor:
                             possibleFlags.Add(tile);
@@ -56,11 +56,11 @@ namespace AntRunner.Models
 
             if (possibleFlags.Any())
             {
-                possibleFlags[Utilities.Random.Next(0, possibleFlags.Count - 1)].Item = Items.Flag;
+                possibleFlags[Utilities.Random.Next(0, possibleFlags.Count - 1)].Item = Item.Flag;
             }
             else
             {
-                RandomTile().Item = Items.Flag;
+                RandomTile().Item = Item.Flag;
             }
 
             while (colorList.Any())
@@ -87,7 +87,7 @@ namespace AntRunner.Models
             do
             {
                 tile = _tiles[Utilities.Random.Next(0, Width - 1), Utilities.Random.Next(0, Height - 1)];
-            } while (tile.Item != Items.Nothing);
+            } while (tile.Item != Item.Empty);
 
             return tile;
         }
@@ -103,35 +103,35 @@ namespace AntRunner.Models
             var eventResult = GameEvent.Nothing;
             switch (tile.Item)
             {
-                case Items.Nothing:
+                case Item.Empty:
                     eventResult = GameEvent.Nothing;
                     break;
-                case Items.SteelWall:
-                case Items.BrickWall:
+                case Item.SteelWall:
+                case Item.BrickWall:
                     return GameEvent.CollisionDamage;
-                case Items.Bomb:
+                case Item.Bomb:
                     eventResult = GameEvent.BombDamage;
                     break;
-                case Items.PowerUpBomb:
+                case Item.PowerUpBomb:
                     eventResult = GameEvent.PickUpBomb;
                     break;
-                case Items.PowerUpHealth:
+                case Item.PowerUpHealth:
                     eventResult = GameEvent.PickUpHealth;
                     break;
-                case Items.PowerUpShield:
+                case Item.PowerUpShield:
                     eventResult = GameEvent.PickUpShield;
                     break;
-                case Items.Flag:
+                case Item.Flag:
                     eventResult = GameEvent.PickUpFlag;
                     break;
-                case Items.RedHome:
-                case Items.BlueHome:
-                case Items.GreenHome:
-                case Items.OrangeHome:
-                case Items.PinkHome:
-                case Items.YellowHome:
-                case Items.GrayHome:
-                case Items.WhiteHome:
+                case Item.RedHome:
+                case Item.BlueHome:
+                case Item.GreenHome:
+                case Item.OrangeHome:
+                case Item.PinkHome:
+                case Item.YellowHome:
+                case Item.GrayHome:
+                case Item.WhiteHome:
                     if (ant.HasFlag && tile.Item == ant.AntHome)
                     {
                         return GameEvent.GameOver;
@@ -146,7 +146,7 @@ namespace AntRunner.Models
             }
             
             ant.CurrentTile = tile;
-            tile.Item = Items.Nothing;
+            tile.Item = Item.Empty;
             return eventResult;
         }
 
@@ -162,23 +162,23 @@ namespace AntRunner.Models
             }
         }
 
-        public MapTile GetTileTo(AntWrapper ant, Actions action)
+        public MapTile GetTileTo(AntWrapper ant, AntAction action)
         {
             var x = ant.CurrentTile.X;
             var y = ant.CurrentTile.Y;
             switch (action)
             {
-                case Actions.ShootRight:
-                case Actions.EchoRight:
+                case AntAction.ShootRight:
+                case AntAction.EchoRight:
                     return GetTileTo(() => ++x, () => y);
-                case Actions.ShootDown:
-                case Actions.EchoDown:
+                case AntAction.ShootDown:
+                case AntAction.EchoDown:
                     return GetTileTo(() => x, () => ++y);
-                case Actions.ShootLeft:
-                case Actions.EchoLeft:
+                case AntAction.ShootLeft:
+                case AntAction.EchoLeft:
                     return GetTileTo(() => --x, () => y);
-                case Actions.ShootUp:
-                case Actions.EchoUp:
+                case AntAction.ShootUp:
+                case AntAction.EchoUp:
                     return GetTileTo(() => x, () => --y);
             }
 
@@ -197,14 +197,14 @@ namespace AntRunner.Models
                     return OuterWall(x, y);
                 }
                 tile = this[x, y];
-            } while (tile.Item == Items.Nothing && tile.OccupiedBy == null);
+            } while (tile.Item == Item.Empty && tile.OccupiedBy == null);
 
             return tile;
         }
 
         private static MapTile OuterWall(int x, int y)
         {
-            return new MapTile(x, y){Item = Items.SteelWall};
+            return new MapTile(x, y){Item = Item.SteelWall};
         }
 
         private bool IsEdge(int x, int y)

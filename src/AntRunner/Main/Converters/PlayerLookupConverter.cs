@@ -11,10 +11,10 @@ namespace AntRunner.Main.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Dictionary<Colors, AntWrapper> lookup)) return null;
+            if (!(value is Dictionary<ItemColor, AntWrapper> lookup)) return null;
             if (!(parameter is string colorString)) return null;
 
-            if (!Enum.TryParse<Colors>(colorString, true, out var color)) return null;
+            if (!Enum.TryParse<ItemColor>(colorString, true, out var color)) return null;
             return lookup[color];
         }
 

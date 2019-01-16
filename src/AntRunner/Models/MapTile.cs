@@ -4,8 +4,8 @@ namespace AntRunner.Models
 {
     public class MapTile : NotifyBaseModel
     {
-        private Items _item;
-        public Items Item
+        private Item _item;
+        public Item Item
         {
             get => _item;
             set => SetValue(ref _item, value);

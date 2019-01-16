@@ -55,7 +55,7 @@ namespace AntRunner.Main.Views
                     return;
                 }
 
-                Colors color;
+                ItemColor color;
                 if (Ant != null)
                 {
                     Players.Remove(Ant);
@@ -63,7 +63,7 @@ namespace AntRunner.Main.Views
                 }
                 else
                 {
-                    color = Enum.GetValues(typeof(Colors)).OfType<Colors>().FirstOrDefault(c => c != Colors.None && Players.All(p => p.Color != c));
+                    color = Enum.GetValues(typeof(ItemColor)).OfType<ItemColor>().FirstOrDefault(c => c != ItemColor.None && Players.All(p => p.Color != c));
                 }
                 Ant = new AntWrapper(ant, color);
                 Players.Add(Ant);
@@ -80,7 +80,7 @@ namespace AntRunner.Main.Views
             {
                 LoadAnt();
             }
-            if (Ant == null || !(target is FrameworkElement element) || !(element.Tag is Colors color)) return;
+            if (Ant == null || !(target is FrameworkElement element) || !(element.Tag is ItemColor color)) return;
             if (Players.Any(p => p.Color == color)) return;
             Ant.SetColor(color);
         }

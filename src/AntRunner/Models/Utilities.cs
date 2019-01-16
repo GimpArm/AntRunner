@@ -36,67 +36,67 @@ namespace AntRunner.Models
             }
         }
 
-        public static Items ColorToAntItem(Colors color)
+        public static Item ColorToAntItem(ItemColor color)
         {
             switch (color)
             {
-                case Colors.Red:
-                    return Items.RedAnt;
-                case Colors.Blue:
-                    return Items.BlueAnt;
-                case Colors.Green:
-                    return Items.GreenAnt;
-                case Colors.Orange:
-                    return Items.OrangeAnt;
-                case Colors.Pink:
-                    return Items.PinkAnt;
-                case Colors.Yellow:
-                    return Items.YellowAnt;
-                case Colors.Gray:
-                    return Items.GrayAnt;
-                case Colors.White:
-                    return Items.WhiteAnt;
+                case ItemColor.Red:
+                    return Item.RedAnt;
+                case ItemColor.Blue:
+                    return Item.BlueAnt;
+                case ItemColor.Green:
+                    return Item.GreenAnt;
+                case ItemColor.Orange:
+                    return Item.OrangeAnt;
+                case ItemColor.Pink:
+                    return Item.PinkAnt;
+                case ItemColor.Yellow:
+                    return Item.YellowAnt;
+                case ItemColor.Gray:
+                    return Item.GrayAnt;
+                case ItemColor.White:
+                    return Item.WhiteAnt;
                 default:
-                    return Items.Nothing;
+                    return Item.Empty;
             }
         }
 
-        public static Items ColorToAntHomeItem(Colors color)
+        public static Item ColorToAntHomeItem(ItemColor color)
         {
             switch (color)
             {
-                case Colors.Red:
-                    return Items.RedHome;
-                case Colors.Blue:
-                    return Items.BlueHome;
-                case Colors.Green:
-                    return Items.GreenHome;
-                case Colors.Orange:
-                    return Items.OrangeHome;
-                case Colors.Pink:
-                    return Items.PinkHome;
-                case Colors.Yellow:
-                    return Items.YellowHome;
-                case Colors.Gray:
-                    return Items.GrayHome;
-                case Colors.White:
-                    return Items.WhiteHome;
+                case ItemColor.Red:
+                    return Item.RedHome;
+                case ItemColor.Blue:
+                    return Item.BlueHome;
+                case ItemColor.Green:
+                    return Item.GreenHome;
+                case ItemColor.Orange:
+                    return Item.OrangeHome;
+                case ItemColor.Pink:
+                    return Item.PinkHome;
+                case ItemColor.Yellow:
+                    return Item.YellowHome;
+                case ItemColor.Gray:
+                    return Item.GrayHome;
+                case ItemColor.White:
+                    return Item.WhiteHome;
                 default:
-                    return Items.Nothing;
+                    return Item.Empty;
             }
         }
 
-        public static GameEvent ShotDirectionToEvent(Actions a)
+        public static GameEvent ShotDirectionToEvent(AntAction a)
         {
             switch (a)
             {
-                case Actions.ShootRight:
+                case AntAction.ShootRight:
                     return GameEvent.ImpactDamageLeft;
-                case Actions.ShootDown:
+                case AntAction.ShootDown:
                     return GameEvent.ImpactDamageUp;
-                case Actions.ShootLeft:
+                case AntAction.ShootLeft:
                     return GameEvent.ShotDamageRight;
-                case Actions.ShootUp:
+                case AntAction.ShootUp:
                     return GameEvent.ShotDamageDown;
                 default:
                     return GameEvent.Nothing;

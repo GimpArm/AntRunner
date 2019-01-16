@@ -81,7 +81,7 @@ namespace AntRunner.Main.ViewModels
             {
                 var slot = _control.LoadAntArea.Children.OfType<LoadAntControl>().Reverse().FirstOrDefault(x => x.Ant == null);
                 if (slot == null) return;
-                var color = Enum.GetValues(typeof(Colors)).OfType<Colors>().FirstOrDefault(c => c != Colors.None && Players.All(p => p.Color != c));
+                var color = Enum.GetValues(typeof(ItemColor)).OfType<ItemColor>().FirstOrDefault(c => c != ItemColor.None && Players.All(p => p.Color != c));
                 slot.Ant = new AntWrapper(ant, color);
                 Players.Add(slot.Ant);
             }

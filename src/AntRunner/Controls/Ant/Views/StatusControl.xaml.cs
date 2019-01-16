@@ -1,17 +1,17 @@
 ﻿using System.Windows;
 using AntRunner.Models;
-using Colors = AntRunner.Interface.Colors;
+using ItemColor = AntRunner.Interface.ItemColor;
 
 namespace AntRunner.Controls.Ant.Views
 {
     public partial class StatusControl
     {
-        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Colors), typeof(StatusControl), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(ItemColor), typeof(StatusControl), new UIPropertyMetadata(null));
         public static readonly DependencyProperty AntProperty = DependencyProperty.Register(nameof(Ant), typeof(AntWrapper), typeof(StatusControl), new UIPropertyMetadata(null));
 
-        public Colors Color
+        public ItemColor Color
         {
-            get => (Colors)GetValue(ColorProperty);
+            get => (ItemColor)GetValue(ColorProperty);
             set => SetValue(ColorProperty, value);
         }
 

@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icon.png" />
+    <None Remove="Flag.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Icon.png" />
+    <EmbeddedResource Include="Flag.png" />
   </ItemGroup>
 
 </Project>

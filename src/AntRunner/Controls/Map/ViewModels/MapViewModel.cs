@@ -70,53 +70,53 @@ namespace AntRunner.Controls.Map.ViewModels
                 {
                     switch (t.Item)
                     {
-                        case Items.Nothing:
+                        case Item.Empty:
                             this[t.X, t.Y] = null;
                             return;
-                        case Items.SteelWall:
+                        case Item.SteelWall:
                             this[t.X, t.Y] = new SteelWallControl(t);
                             break;
-                        case Items.BrickWall:
+                        case Item.BrickWall:
                             this[t.X, t.Y] = new BrickWallControl(t);
                             break;
-                        case Items.Flag:
+                        case Item.Flag:
                             this[t.X, t.Y] = new FlagControl(t);
                             break;
-                        case Items.PowerUpShield:
+                        case Item.PowerUpShield:
                             this[t.X, t.Y] = new ShieldKitControl(t);
                             break;
-                        case Items.PowerUpBomb:
+                        case Item.PowerUpBomb:
                             this[t.X, t.Y] = new BombKitControl(t);
                             break;
-                        case Items.PowerUpHealth:
+                        case Item.PowerUpHealth:
                             this[t.X, t.Y] = new HealthKitControl(t);
                             break;
-                        case Items.Bomb:
+                        case Item.Bomb:
                             this[t.X, t.Y] = new BombControl(t);
                             break;
-                        case Items.RedHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Red, t);
+                        case Item.RedHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Red, t);
                             break;
-                        case Items.BlueHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Blue, t);
+                        case Item.BlueHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Blue, t);
                             break;
-                        case Items.GreenHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Green, t);
+                        case Item.GreenHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Green, t);
                             break;
-                        case Items.OrangeHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Orange, t);
+                        case Item.OrangeHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Orange, t);
                             break;
-                        case Items.PinkHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Pink, t);
+                        case Item.PinkHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Pink, t);
                             break;
-                        case Items.YellowHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Yellow, t);
+                        case Item.YellowHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Yellow, t);
                             break;
-                        case Items.GrayHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.Gray, t);
+                        case Item.GrayHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.Gray, t);
                             break;
-                        case Items.WhiteHome:
-                            this[t.X, t.Y] = new HomeControl(Colors.White, t);
+                        case Item.WhiteHome:
+                            this[t.X, t.Y] = new HomeControl(ItemColor.White, t);
                             break;
                     }
                 }

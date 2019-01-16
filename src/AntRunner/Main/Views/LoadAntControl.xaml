@@ -115,14 +115,14 @@
             </Viewbox>
 
             <StackPanel x:Name="ColorPanel" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="Collapsed" Height="0">
-                <Rectangle Tag="{x:Static interface:Colors.Red}" />
-                <Rectangle Tag="{x:Static interface:Colors.Blue}"/>
-                <Rectangle Tag="{x:Static interface:Colors.Green}" />
-                <Rectangle Tag="{x:Static interface:Colors.Orange}" />
-                <Rectangle Tag="{x:Static interface:Colors.Pink}" />
-                <Rectangle Tag="{x:Static interface:Colors.Yellow}" />
-                <Rectangle Tag="{x:Static interface:Colors.Gray}" />
-                <Rectangle Tag="{x:Static interface:Colors.White}"/>
+                <Rectangle Tag="{x:Static interface:ItemColor.Red}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.Blue}"/>
+                <Rectangle Tag="{x:Static interface:ItemColor.Green}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.Orange}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.Pink}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.Yellow}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.Gray}" />
+                <Rectangle Tag="{x:Static interface:ItemColor.White}"/>
             </StackPanel>
         </Grid>
     </Border>

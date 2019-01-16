@@ -13,8 +13,8 @@ namespace AntRunner.Models
         public readonly int MapHeight;
         public readonly int MapWidth;
         private readonly Timer _gameTicker = new Timer(250);
-        private readonly Dictionary<Colors, GameEvent> _eventStack = new Dictionary<Colors, GameEvent>();
-        private readonly Dictionary<Colors, MapTile> _echoStack = new Dictionary<Colors, MapTile>();
+        private readonly Dictionary<ItemColor, GameEvent> _eventStack = new Dictionary<ItemColor, GameEvent>();
+        private readonly Dictionary<ItemColor, MapTile> _echoStack = new Dictionary<ItemColor, MapTile>();
         private readonly bool _isDebug;
         private long _currentTick;
         private int _startPlayer;
@@ -24,7 +24,7 @@ namespace AntRunner.Models
         private MapTile _flagCarrierDiedTile;
         private AntWrapper _antWithFlag;
 
-        public Dictionary<Colors, AntWrapper> Players { get; }
+        public Dictionary<ItemColor, AntWrapper> Players { get; }
         
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
@@ -87,7 +87,7 @@ namespace AntRunner.Models
 
             if (_hasFlag && _antWithFlag != null)
             {
-                SetTicks(new GameState(_currentTick, true,  _antWithFlag.CurrentTile?.X ?? _flagCarrierDiedTile.X, _antWithFlag.CurrentTile?.Y ?? _flagCarrierDiedTile.Y, _antWithFlag.Color));
+                SetTicks(new GameState(_currentTick, _antWithFlag.CurrentTile?.X ?? _flagCarrierDiedTile.X, _antWithFlag.CurrentTile?.Y ?? _flagCarrierDiedTile.Y, _antWithFlag.Color));
             }
             else
             {
@@ -98,7 +98,7 @@ namespace AntRunner.Models
             {
 
                 _hasFlag = false;
-                _flagCarrierDiedTile.Item = Items.Flag;
+                _flagCarrierDiedTile.Item = Item.Flag;
                 _antWithFlag = null;
                 _flagCarrierDiedTile = null;
             }
@@ -125,46 +125,46 @@ namespace AntRunner.Models
                 }
                 switch (kvp.Value)
                 {
-                    case Actions.Wait:
+                    case AntAction.Wait:
                         break;
-                    case Actions.MoveRight:
+                    case AntAction.MoveRight:
                         current.Direction = ActionToDirection(kvp.Value);
                         SetEvent(current, Map.MoveTo(current.CurrentTile.X + 1, current.CurrentTile.Y, current, SetEvent));
                         break;
-                    case Actions.MoveDown:
+                    case AntAction.MoveDown:
                         current.Direction = ActionToDirection(kvp.Value);
                         SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y + 1, current, SetEvent));
                         break;
-                    case Actions.MoveLeft:
+                    case AntAction.MoveLeft:
                         current.Direction = ActionToDirection(kvp.Value);
                         SetEvent(current, Map.MoveTo(current.CurrentTile.X - 1, current.CurrentTile.Y, current, SetEvent));
                         break;
-                    case Actions.MoveUp:
+                    case AntAction.MoveUp:
                         current.Direction = ActionToDirection(kvp.Value);
                         SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y - 1, current, SetEvent));
                         break;
-                    case Actions.EchoRight:
-                    case Actions.EchoDown:
-                    case Actions.EchoLeft:
-                    case Actions.EchoUp:
+                    case AntAction.EchoRight:
+                    case AntAction.EchoDown:
+                    case AntAction.EchoLeft:
+                    case AntAction.EchoUp:
                         current.Direction = ActionToDirection(kvp.Value);
                         _echoStack.Add(current.Color, Map.GetTileTo(current, kvp.Value));
                         break;
-                    case Actions.ShieldOn:
+                    case AntAction.ShieldOn:
                         current.ShieldsOn = true;
                         break;
-                    case Actions.ShieldOff:
+                    case AntAction.ShieldOff:
                         current.ShieldsOn = false;
                         break;
-                    case Actions.DropBomb:
+                    case AntAction.DropBomb:
                         if (current.Bombs == 0) break;
                         current.Bombs--;
-                        current.CurrentTile.Item = Items.Bomb;
+                        current.CurrentTile.Item = Item.Bomb;
                         break;
-                    case Actions.ShootUp:
-                    case Actions.ShootLeft:
-                    case Actions.ShootDown:
-                    case Actions.ShootRight:
+                    case AntAction.ShootUp:
+                    case AntAction.ShootLeft:
+                    case AntAction.ShootDown:
+                    case AntAction.ShootRight:
                         current.Direction = ActionToDirection(kvp.Value);
                         ProcessShot(current, kvp.Value);
                         break;
@@ -200,15 +200,15 @@ namespace AntRunner.Models
 
                 if (events.HasFlag(GameEvent.PickUpHealth))
                 {
-                    current.Health += ItemBonus.Health;
+                    current.Health += ItemBonusValues.Health;
                 }
                 if (events.HasFlag(GameEvent.PickUpShield))
                 {
-                    current.Shields += ItemBonus.Shield;
+                    current.Shields += ItemBonusValues.Shield;
                 }
                 if (events.HasFlag(GameEvent.PickUpBomb))
                 {
-                    current.Bombs += ItemBonus.Bomb;
+                    current.Bombs += ItemBonusValues.Bomb;
                 }
                 if (events.HasFlag(GameEvent.PickUpFlag))
                 {
@@ -218,20 +218,20 @@ namespace AntRunner.Models
                 }
                 if (events.HasFlag(GameEvent.BombDamage))
                 {
-                    current.Damage(Damage.Bomb);
+                    current.Damage(DamageValues.Bomb);
                 }
 
                 if (events.HasFlag(GameEvent.ShotDamageDown) || events.HasFlag(GameEvent.ShotDamageLeft) || events.HasFlag(GameEvent.ShotDamageRight) || events.HasFlag(GameEvent.ShotDamageUp))
                 {
-                    current.Damage(Damage.Shot);
+                    current.Damage(DamageValues.Shot);
                 }
                 if (events.HasFlag(GameEvent.CollisionDamage))
                 {
-                    current.Damage(Damage.Collision);
+                    current.Damage(DamageValues.Collision);
                 }
                 if (events.HasFlag(GameEvent.ImpactDamageDown) || events.HasFlag(GameEvent.ImpactDamageLeft) || events.HasFlag(GameEvent.ImpactDamageRight) || events.HasFlag(GameEvent.ImpactDamageUp))
                 {
-                    current.Damage(Damage.Impact);
+                    current.Damage(DamageValues.Impact);
                 }
 
                 if (current.Health == 0)
@@ -281,7 +281,7 @@ namespace AntRunner.Models
             }
         }
 
-        private void ProcessShot(AntWrapper ant, Actions action)
+        private void ProcessShot(AntWrapper ant, AntAction action)
         {
             var tile = Map.GetTileTo(ant, action);
             if (tile != null && tile.X >= 0 && tile.X < MapWidth && tile.Y >= 0 && tile.Y < MapHeight)
@@ -294,14 +294,14 @@ namespace AntRunner.Models
                 {
                     switch (tile.Item)
                     {
-                        case Items.BrickWall:
+                        case Item.BrickWall:
                             BreakWall(tile);
                             break;
-                        case Items.Bomb:
-                        case Items.PowerUpBomb:
-                        case Items.PowerUpHealth:
-                        case Items.PowerUpShield:
-                            tile.Item = Items.Nothing;
+                        case Item.Bomb:
+                        case Item.PowerUpBomb:
+                        case Item.PowerUpHealth:
+                        case Item.PowerUpShield:
+                            tile.Item = Item.Empty;
                             break;
                     }
                 }
@@ -318,19 +318,19 @@ namespace AntRunner.Models
             var result = Utilities.Random.Next(0, 99);
             if (result < 70)
             {
-                tile.Item = Items.Nothing;
+                tile.Item = Item.Empty;
             }
             else if (result < 80)
             {
-                tile.Item = Items.PowerUpBomb;
+                tile.Item = Item.PowerUpBomb;
             }
             else if (result < 90)
             {
-                tile.Item = Items.PowerUpHealth;
+                tile.Item = Item.PowerUpHealth;
             }
             else if (result < 100)
             {
-                tile.Item = Items.PowerUpShield;
+                tile.Item = Item.PowerUpShield;
             }
         }
 
@@ -347,25 +347,25 @@ namespace AntRunner.Models
             }
         }
 
-        private static Direction ActionToDirection(Actions action)
+        private static Direction ActionToDirection(AntAction action)
         {
             switch (action)
             {
-                case Actions.ShootRight:
-                case Actions.EchoRight:
-                case Actions.MoveRight:
+                case AntAction.ShootRight:
+                case AntAction.EchoRight:
+                case AntAction.MoveRight:
                     return Direction.Right;
-                case Actions.ShootDown:
-                case Actions.EchoDown:
-                case Actions.MoveDown:
+                case AntAction.ShootDown:
+                case AntAction.EchoDown:
+                case AntAction.MoveDown:
                     return Direction.Down;
-                case Actions.ShootLeft:
-                case Actions.EchoLeft:
-                case Actions.MoveLeft:
+                case AntAction.ShootLeft:
+                case AntAction.EchoLeft:
+                case AntAction.MoveLeft:
                     return Direction.Left;
-                case Actions.ShootUp:
-                case Actions.EchoUp:
-                case Actions.MoveUp:
+                case AntAction.ShootUp:
+                case AntAction.EchoUp:
+                case AntAction.MoveUp:
                     return Direction.Up;
             }
 

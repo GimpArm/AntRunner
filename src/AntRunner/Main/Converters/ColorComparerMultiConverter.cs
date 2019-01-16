@@ -9,7 +9,7 @@ namespace AntRunner.Main.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length != 2 || !(values[0] is Colors boxColor) || !(values[1] is Colors antColor)) return false;
+            if (values.Length != 2 || !(values[0] is ItemColor boxColor) || !(values[1] is ItemColor antColor)) return false;
             return boxColor == antColor;
         }
 

@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using AntRunner.Events;
 using AntRunner.Interface;
-using Colors = AntRunner.Interface.Colors;
+using ItemColor = AntRunner.Interface.ItemColor;
 
 namespace AntRunner.Models
 {
@@ -17,14 +17,14 @@ namespace AntRunner.Models
         public string Name => Ant.Name;
 
         public Ant Ant { get; }
-        public Items AntItem { get; private set; }
-        public Items AntHome { get; private set; }
-        public Actions LastAction { get; private set; }
+        public Item AntItem { get; private set; }
+        public Item AntHome { get; private set; }
+        public AntAction LastAction { get; private set; }
 
         public ImageSource Icon { get; }
 
-        private Colors _color;
-        public Colors Color
+        private ItemColor _color;
+        public ItemColor Color
         {
             get => _color;
             private set => SetValue(ref _color, value);
@@ -108,7 +108,7 @@ namespace AntRunner.Models
             set => SetValue(ref _bombs, value);
         }
 
-        public AntWrapper(Ant ant, Colors color)
+        public AntWrapper(Ant ant, ItemColor color)
         {
             Ant = ant;
             SetColor(color);
@@ -116,7 +116,7 @@ namespace AntRunner.Models
 
             try
             {
-                Icon = BitmapFrame.Create(ant.Icon, BitmapCreateOptions.None, BitmapCacheOption.Default);
+                Icon = BitmapFrame.Create(ant.Flag, BitmapCreateOptions.None, BitmapCacheOption.Default);
             }
             catch
             {
@@ -124,7 +124,7 @@ namespace AntRunner.Models
             }
         }
 
-        public void SetColor(Colors color)
+        public void SetColor(ItemColor color)
         {
             Color = color;
             AntItem = Utilities.ColorToAntItem(Color);
@@ -182,10 +182,10 @@ namespace AntRunner.Models
             }
         }
 
-        public Actions GetAction()
+        public AntAction GetAction()
         {
             LastAction = Ant.Action;
-            Ant.Action = Actions.Wait;
+            Ant.Action = AntAction.Wait;
             return LastAction;
         }
 

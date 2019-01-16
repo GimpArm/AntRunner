@@ -26,7 +26,7 @@
 
         <views:MapControl Grid.Column="0" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <Viewbox Grid.Column="1" Stretch="Uniform" MaxWidth="300">
+        <Viewbox Grid.Column="1" Stretch="Uniform" MaxWidth="300" VerticalAlignment="Top">
             <StackPanel x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
         </Viewbox>
 

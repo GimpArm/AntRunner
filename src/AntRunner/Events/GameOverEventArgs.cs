@@ -7,7 +7,7 @@ namespace AntRunner.Events
     {
         public bool HasWinner { get; }
 
-        public Colors Color { get; }
+        public ItemColor Color { get; }
         public string Name { get; }
 
         public GameOverEventArgs()
@@ -15,7 +15,7 @@ namespace AntRunner.Events
             
         }
 
-        public GameOverEventArgs(Colors color, string name)
+        public GameOverEventArgs(ItemColor color, string name)
         {
             HasWinner = true;
             Color = color;

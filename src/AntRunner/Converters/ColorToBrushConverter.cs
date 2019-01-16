@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using Colors = AntRunner.Interface.Colors;
+using ItemColor = AntRunner.Interface.ItemColor;
 
 namespace AntRunner.Converters
 {
@@ -10,24 +10,24 @@ namespace AntRunner.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Colors color)) return Brushes.DimGray;
+            if (!(value is ItemColor color)) return Brushes.DimGray;
             switch (color)
             {
-                case Colors.Red:
+                case ItemColor.Red:
                     return Brushes.Red;
-                case Colors.Blue:
+                case ItemColor.Blue:
                     return Brushes.DodgerBlue;
-                case Colors.Green:
+                case ItemColor.Green:
                     return Brushes.ForestGreen;
-                case Colors.Orange:
+                case ItemColor.Orange:
                     return Brushes.Orange;
-                case Colors.Pink:
+                case ItemColor.Pink:
                     return Brushes.Pink;
-                case Colors.Yellow:
+                case ItemColor.Yellow:
                     return Brushes.Yellow;
-                case Colors.Gray:
+                case ItemColor.Gray:
                     return Brushes.Gray;
-                case Colors.White:
+                case ItemColor.White:
                     return Brushes.White;
                 default:
                    return Brushes.DimGray;

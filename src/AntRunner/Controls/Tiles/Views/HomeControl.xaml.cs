@@ -9,11 +9,11 @@ namespace AntRunner.Controls.Tiles.Views
 {
     public partial class HomeControl
     {
-        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Colors), typeof(HomeControl), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(ItemColor), typeof(HomeControl), new UIPropertyMetadata(null));
 
-        public Colors Color
+        public ItemColor Color
         {
-            get => (Colors)GetValue(ColorProperty);
+            get => (ItemColor)GetValue(ColorProperty);
             set => SetValue(ColorProperty, value);
         }
 
@@ -25,7 +25,7 @@ namespace AntRunner.Controls.Tiles.Views
             SetBinding(Canvas.LeftProperty, new Binding("X") { Converter = new PositionToCanvasScaleConverter() });
         }
 
-        public HomeControl(Colors color, MapTile tile) : this(tile)
+        public HomeControl(ItemColor color, MapTile tile) : this(tile)
         {
             Color = color;
         }

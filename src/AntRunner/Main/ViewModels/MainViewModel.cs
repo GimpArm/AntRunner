@@ -9,7 +9,7 @@ using AntRunner.Controls.Map.ViewModels;
 using AntRunner.Events;
 using AntRunner.Main.Views;
 using AntRunner.Models;
-using Colors = AntRunner.Interface.Colors;
+using ItemColor = AntRunner.Interface.ItemColor;
 
 namespace AntRunner.Main.ViewModels
 {
@@ -32,8 +32,8 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _gameStopped, value);
         }
 
-        private Colors _winnerColor;
-        public Colors WinnerColor
+        private ItemColor _winnerColor;
+        public ItemColor WinnerColor
         {
             get => _winnerColor;
             set
