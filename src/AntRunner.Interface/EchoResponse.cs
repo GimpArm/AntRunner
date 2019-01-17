@@ -1,8 +1,11 @@
-﻿namespace AntRunner.Interface
+﻿using System;
+
+namespace AntRunner.Interface
 {
     /// <summary>
     /// Response item when an Echo action is made.
     /// </summary>
+    [Serializable]
     public class EchoResponse
     {
         /// <summary>

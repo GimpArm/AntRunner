@@ -15,7 +15,7 @@ namespace AntRunner.Main.Views
         public static readonly DependencyProperty AntProperty = DependencyProperty.Register(nameof(Ant), typeof(AntWrapper), typeof(LoadAntControl), new UIPropertyMetadata(null));
         public static readonly DependencyProperty PlayersProperty = DependencyProperty.Register(nameof(Players), typeof(ObservableCollection<AntWrapper>), typeof(LoadAntControl), new UIPropertyMetadata(null));
 
-        private ICommand _loadAntCommand, _selectColorCommand;
+        private ICommand _loadAntCommand, _selectColorCommand, _unloadAntCommand;
 
         public AntWrapper Ant
         {
@@ -36,6 +36,7 @@ namespace AntRunner.Main.Views
 
         public ICommand LoadAntCommand => _loadAntCommand ?? (_loadAntCommand = new DelegateCommand(LoadAnt));
         public ICommand SelectColorCommand => _selectColorCommand ?? (_selectColorCommand = new DelegateCommand(SelectColor));
+        public ICommand UnloadAntCommand => _unloadAntCommand ?? (_unloadAntCommand = new DelegateCommand(UnloadAnt));
 
         private void LoadAnt()
         {
@@ -48,7 +49,7 @@ namespace AntRunner.Main.Views
 
             try
             {
-                var ant = Utilities.LoadAnt(dialog.FileName);
+                var ant = AntLoader.Load(dialog.FileName, out var domain);
                 if (ant == null)
                 {
                     Ant = null;
@@ -65,7 +66,7 @@ namespace AntRunner.Main.Views
                 {
                     color = Enum.GetValues(typeof(ItemColor)).OfType<ItemColor>().FirstOrDefault(c => c != ItemColor.None && Players.All(p => p.Color != c));
                 }
-                Ant = new AntWrapper(ant, color);
+                Ant = new AntWrapper(ant, domain, color);
                 Players.Add(Ant);
             }
             catch (Exception e)
@@ -83,6 +84,15 @@ namespace AntRunner.Main.Views
             if (Ant == null || !(target is FrameworkElement element) || !(element.Tag is ItemColor color)) return;
             if (Players.Any(p => p.Color == color)) return;
             Ant.SetColor(color);
+        }
+
+        private void UnloadAnt()
+        {
+            if (Ant == null) return;
+            var current = Ant;
+            Ant = null;
+            Players.Remove(current);
+            current.Dispose();
         }
     }
 }

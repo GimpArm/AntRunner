@@ -199,6 +199,8 @@
     <Compile Include="Main\Views\StartupWindow.xaml.cs">
       <DependentUpon>StartupWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AntLoader.cs" />
+    <Compile Include="Models\AntProxy.cs" />
     <Compile Include="Models\AntWrapper.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\GameManager.cs" />

@@ -18,10 +18,10 @@ namespace AntRunner
             main.Show();
         }
 
-        private static bool ParseArgs(IEnumerable<string> args, out FileSystemInfo map, out IEnumerable<Ant> ants, bool checkSubFolder = true)
+        private static bool ParseArgs(IEnumerable<string> args, out FileSystemInfo map, out IDictionary<AntProxy, AppDomain> ants, bool checkSubFolder = true)
         {
             map = null;
-            var antList = new List<Ant>();
+            var antList = new Dictionary<AntProxy, AppDomain>();
             var debug = false;
 
             foreach (var a in args)
@@ -38,7 +38,10 @@ namespace AntRunner
                     {
                         ParseArgs(Directory.GetFiles(a), out var subMap, out var subAnts, false);
                         map = subMap;
-                        antList.AddRange(subAnts);
+                        foreach (var v in subAnts)
+                        {
+                            antList.Add(v.Key, v.Value);
+                        }
                     }
                     continue;
                 }
@@ -46,9 +49,9 @@ namespace AntRunner
                 var info = new FileInfo(a);
                 if (info.Extension.Equals(".dll", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var ant = Utilities.LoadAnt(info.FullName);
+                    var ant = AntLoader.Load(info.FullName, out var domain);
                     if (ant == null) continue;
-                    antList.Add(ant);
+                    antList.Add(ant, domain);
                 }
                 else if (info.Extension.Equals(".bmp", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -56,7 +59,7 @@ namespace AntRunner
                 }
             }
 
-            ants = antList.Take(8).ToArray();
+            ants = antList.Take(8).ToDictionary(x => x.Key, y => y.Value);
             return debug;
         }
     }

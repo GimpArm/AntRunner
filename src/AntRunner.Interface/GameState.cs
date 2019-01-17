@@ -1,5 +1,8 @@
-﻿namespace AntRunner.Interface
+﻿using System;
+
+namespace AntRunner.Interface
 {
+    [Serializable]
     public readonly struct GameState
     {
         /// <summary>

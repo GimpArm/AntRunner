@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
 using AntRunner.Interface;
 
 namespace AntRunner.Models
@@ -10,31 +7,6 @@ namespace AntRunner.Models
     {
         public static readonly Random Random = new Random(DateTime.Now.Millisecond);
 
-        public static Ant LoadAnt(string filename)
-        {
-            try
-            {
-                var loadedAssembly = Assembly.LoadFrom(filename);
-
-                var antType = loadedAssembly.GetTypes().FirstOrDefault(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Ant)));
-                if (antType == null)
-                {
-                    throw new Exception("Could not find class derived from AntRunner.Interface.Ant");
-                }
-
-                if (!(Activator.CreateInstance(antType) is Ant ant))
-                {
-                    throw new Exception($"Could not initialize Ant class {antType.Name}");
-                }
-
-                return ant;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-        }
 
         public static Item ColorToAntItem(ItemColor color)
         {

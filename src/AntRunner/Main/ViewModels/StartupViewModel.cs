@@ -29,7 +29,7 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _isDebug, value);
         }
 
-        public StartupViewModel(StartupWindow control, FileSystemInfo map, IEnumerable<Ant> ants, bool isDebug = false)
+        public StartupViewModel(StartupWindow control, FileSystemInfo map, IDictionary<AntProxy, AppDomain> ants, bool isDebug = false)
         {
             _control = control;
             IsDebug = isDebug;
@@ -74,7 +74,7 @@ namespace AntRunner.Main.ViewModels
             }
         }
 
-        private void LoadAnts(IEnumerable<Ant> ants)
+        private void LoadAnts(IDictionary<AntProxy, AppDomain> ants)
         {
             if (ants == null) return;
             foreach (var ant in ants)
@@ -82,7 +82,7 @@ namespace AntRunner.Main.ViewModels
                 var slot = _control.LoadAntArea.Children.OfType<LoadAntControl>().Reverse().FirstOrDefault(x => x.Ant == null);
                 if (slot == null) return;
                 var color = Enum.GetValues(typeof(ItemColor)).OfType<ItemColor>().FirstOrDefault(c => c != ItemColor.None && Players.All(p => p.Color != c));
-                slot.Ant = new AntWrapper(ant, color);
+                slot.Ant = new AntWrapper(ant.Key, ant.Value, color);
                 Players.Add(slot.Ant);
             }
         }
