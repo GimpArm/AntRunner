@@ -20,7 +20,7 @@ namespace AntRunner.Interface
         /// <summary>
         /// Overridable Stream to return binary data for use by BitmapFrame.Create() of the ant's Flag.
         /// </summary>
-        public virtual Stream Flag => GetType().Assembly.GetManifestResourceStream(FlagResource) ?? GetType().Assembly.GetManifestResourceStream("AntRunner.Interface.Flag.png");
+        public virtual Stream Flag => GetType().Assembly.GetManifestResourceStream(FlagResource) ?? typeof(Ant).Assembly.GetManifestResourceStream("AntRunner.Interface.Flag.png");
 
         /// <summary>
         /// Action which will be performed for the end of the current tick cycle. Will be set to Wait after being read.

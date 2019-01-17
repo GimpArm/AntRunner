@@ -240,6 +240,7 @@ namespace AntRunner.Models
                     if (_hasFlag && _antWithFlag != null && _antWithFlag.Color == current.Color)
                     {
                         _flagCarrierDiedTile = current.CurrentTile;
+                        current.HasFlag = false;
                     }
                     current.CurrentTile = null;
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -141,7 +142,12 @@ namespace AntRunner.Models
             CurrentTile = currentTile;
             try
             {
-                Ant.Initialize(map.Width, map.Height, Color, CurrentTile.X, CurrentTile.Y);
+                var t = new Thread(() => Ant.Initialize(map.Width, map.Height, Color, CurrentTile.X, CurrentTile.Y));
+                t.Start();
+                while (t.IsAlive)
+                {
+                    Thread.Sleep(10);
+                }
             }
             catch (Exception e)
             {
