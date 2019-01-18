@@ -118,56 +118,63 @@ namespace AntRunner.Models
             var deadCount = 0;
             foreach (var kvp in Players.Where(x => x.Value != null).ToDictionary(x => x.Value, y => y.Value.GetAction()).OrderBy(x => x.Value))
             {
-                var current = kvp.Key;
-                if (current.Health == 0)
+                try
                 {
-                    deadCount++;
+                    var current = kvp.Key;
+                    if (current.Health == 0)
+                    {
+                        deadCount++;
+                    }
+                    switch (kvp.Value)
+                    {
+                        case AntAction.Wait:
+                            break;
+                        case AntAction.MoveRight:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            SetEvent(current, Map.MoveTo(current.CurrentTile.X + 1, current.CurrentTile.Y, current, SetEvent));
+                            break;
+                        case AntAction.MoveDown:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y + 1, current, SetEvent));
+                            break;
+                        case AntAction.MoveLeft:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            SetEvent(current, Map.MoveTo(current.CurrentTile.X - 1, current.CurrentTile.Y, current, SetEvent));
+                            break;
+                        case AntAction.MoveUp:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y - 1, current, SetEvent));
+                            break;
+                        case AntAction.EchoRight:
+                        case AntAction.EchoDown:
+                        case AntAction.EchoLeft:
+                        case AntAction.EchoUp:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            _echoStack.Add(current.Color, Map.GetTileTo(current, kvp.Value));
+                            break;
+                        case AntAction.ShieldOn:
+                            current.ShieldsOn = true;
+                            break;
+                        case AntAction.ShieldOff:
+                            current.ShieldsOn = false;
+                            break;
+                        case AntAction.DropBomb:
+                            if (current.Bombs == 0) break;
+                            current.Bombs--;
+                            current.CurrentTile.Item = Item.Bomb;
+                            break;
+                        case AntAction.ShootUp:
+                        case AntAction.ShootLeft:
+                        case AntAction.ShootDown:
+                        case AntAction.ShootRight:
+                            current.Direction = ActionToDirection(kvp.Value);
+                            ProcessShot(current, kvp.Value);
+                            break;
+                    }
                 }
-                switch (kvp.Value)
+                catch
                 {
-                    case AntAction.Wait:
-                        break;
-                    case AntAction.MoveRight:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        SetEvent(current, Map.MoveTo(current.CurrentTile.X + 1, current.CurrentTile.Y, current, SetEvent));
-                        break;
-                    case AntAction.MoveDown:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y + 1, current, SetEvent));
-                        break;
-                    case AntAction.MoveLeft:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        SetEvent(current, Map.MoveTo(current.CurrentTile.X - 1, current.CurrentTile.Y, current, SetEvent));
-                        break;
-                    case AntAction.MoveUp:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        SetEvent(current, Map.MoveTo(current.CurrentTile.X, current.CurrentTile.Y - 1, current, SetEvent));
-                        break;
-                    case AntAction.EchoRight:
-                    case AntAction.EchoDown:
-                    case AntAction.EchoLeft:
-                    case AntAction.EchoUp:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        _echoStack.Add(current.Color, Map.GetTileTo(current, kvp.Value));
-                        break;
-                    case AntAction.ShieldOn:
-                        current.ShieldsOn = true;
-                        break;
-                    case AntAction.ShieldOff:
-                        current.ShieldsOn = false;
-                        break;
-                    case AntAction.DropBomb:
-                        if (current.Bombs == 0) break;
-                        current.Bombs--;
-                        current.CurrentTile.Item = Item.Bomb;
-                        break;
-                    case AntAction.ShootUp:
-                    case AntAction.ShootLeft:
-                    case AntAction.ShootDown:
-                    case AntAction.ShootRight:
-                        current.Direction = ActionToDirection(kvp.Value);
-                        ProcessShot(current, kvp.Value);
-                        break;
+                    //Do Nothing
                 }
             }
 
@@ -179,70 +186,77 @@ namespace AntRunner.Models
             var playerEnumerator = NextPlayer();
             while (playerEnumerator.MoveNext() && playerEnumerator.Current != null)
             {
-                var current = playerEnumerator.Current;
-                if (!_eventStack.ContainsKey(current.Color)) continue;
-                var events = _eventStack[playerEnumerator.Current.Color];
-                if (current.ShieldsOn)
+                try
                 {
-                    current.ShieldCounter++;
-                    if (current.ShieldCounter >= 4)
+                    var current = playerEnumerator.Current;
+                    if (!_eventStack.ContainsKey(current.Color)) continue;
+                    var events = _eventStack[playerEnumerator.Current.Color];
+                    if (current.ShieldsOn)
                     {
-                        current.Shields--;
-                        current.ShieldCounter = 0;
+                        current.ShieldCounter++;
+                        if (current.ShieldCounter >= 4)
+                        {
+                            current.Shields--;
+                            current.ShieldCounter = 0;
+                        }
+                    }
+
+                    if (events.HasFlag(GameEvent.GameOver))
+                    {
+                        GameRunning = false;
+                        return;
+                    }
+
+                    if (events.HasFlag(GameEvent.PickUpHealth))
+                    {
+                        current.Health += ItemBonusValues.Health;
+                    }
+                    if (events.HasFlag(GameEvent.PickUpShield))
+                    {
+                        current.Shields += ItemBonusValues.Shield;
+                    }
+                    if (events.HasFlag(GameEvent.PickUpBomb))
+                    {
+                        current.Bombs += ItemBonusValues.Bomb;
+                    }
+                    if (events.HasFlag(GameEvent.PickUpFlag))
+                    {
+                        _hasFlag = true;
+                        _antWithFlag = current;
+                        current.HasFlag = true;
+                    }
+                    if (events.HasFlag(GameEvent.BombDamage))
+                    {
+                        current.Damage(DamageValues.Bomb);
+                    }
+
+                    if (events.HasFlag(GameEvent.ShotDamageDown) || events.HasFlag(GameEvent.ShotDamageLeft) || events.HasFlag(GameEvent.ShotDamageRight) || events.HasFlag(GameEvent.ShotDamageUp))
+                    {
+                        current.Damage(DamageValues.Shot);
+                    }
+                    if (events.HasFlag(GameEvent.CollisionDamage))
+                    {
+                        current.Damage(DamageValues.Collision);
+                    }
+                    if (events.HasFlag(GameEvent.ImpactDamageDown) || events.HasFlag(GameEvent.ImpactDamageLeft) || events.HasFlag(GameEvent.ImpactDamageRight) || events.HasFlag(GameEvent.ImpactDamageUp))
+                    {
+                        current.Damage(DamageValues.Impact);
+                    }
+
+                    if (current.Health == 0)
+                    {
+                        _eventStack[current.Color] = GameEvent.Dead;
+                        if (_hasFlag && _antWithFlag != null && _antWithFlag.Color == current.Color)
+                        {
+                            _flagCarrierDiedTile = current.CurrentTile;
+                            current.HasFlag = false;
+                        }
+                        current.CurrentTile = null;
                     }
                 }
-
-                if (events.HasFlag(GameEvent.GameOver))
+                catch
                 {
-                    GameRunning = false;
-                    return;
-                }
-
-                if (events.HasFlag(GameEvent.PickUpHealth))
-                {
-                    current.Health += ItemBonusValues.Health;
-                }
-                if (events.HasFlag(GameEvent.PickUpShield))
-                {
-                    current.Shields += ItemBonusValues.Shield;
-                }
-                if (events.HasFlag(GameEvent.PickUpBomb))
-                {
-                    current.Bombs += ItemBonusValues.Bomb;
-                }
-                if (events.HasFlag(GameEvent.PickUpFlag))
-                {
-                    _hasFlag = true;
-                    _antWithFlag = current;
-                    current.HasFlag = true;
-                }
-                if (events.HasFlag(GameEvent.BombDamage))
-                {
-                    current.Damage(DamageValues.Bomb);
-                }
-
-                if (events.HasFlag(GameEvent.ShotDamageDown) || events.HasFlag(GameEvent.ShotDamageLeft) || events.HasFlag(GameEvent.ShotDamageRight) || events.HasFlag(GameEvent.ShotDamageUp))
-                {
-                    current.Damage(DamageValues.Shot);
-                }
-                if (events.HasFlag(GameEvent.CollisionDamage))
-                {
-                    current.Damage(DamageValues.Collision);
-                }
-                if (events.HasFlag(GameEvent.ImpactDamageDown) || events.HasFlag(GameEvent.ImpactDamageLeft) || events.HasFlag(GameEvent.ImpactDamageRight) || events.HasFlag(GameEvent.ImpactDamageUp))
-                {
-                    current.Damage(DamageValues.Impact);
-                }
-
-                if (current.Health == 0)
-                {
-                    _eventStack[current.Color] = GameEvent.Dead;
-                    if (_hasFlag && _antWithFlag != null && _antWithFlag.Color == current.Color)
-                    {
-                        _flagCarrierDiedTile = current.CurrentTile;
-                        current.HasFlag = false;
-                    }
-                    current.CurrentTile = null;
+                    //Do Nothing
                 }
             }
         }

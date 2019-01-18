@@ -58,6 +58,7 @@ namespace AntRunner.Main.ViewModels
             _selectedMap = map;
             _isDebug = isDebug;
             _players = players;
+            _players.Shuffle();
 
             Initialize();
         }

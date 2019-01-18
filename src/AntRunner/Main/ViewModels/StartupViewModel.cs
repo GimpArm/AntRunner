@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Waf.Applications;
 using System.Windows.Input;
 using AntRunner.Interface;
@@ -29,6 +30,8 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _isDebug, value);
         }
 
+        public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
+
         public StartupViewModel(StartupWindow control, FileSystemInfo map, IDictionary<AntProxy, AppDomain> ants, bool isDebug = false)
         {
             _control = control;
@@ -49,7 +52,7 @@ namespace AntRunner.Main.ViewModels
             foreach (var map in Directory.GetFiles("Maps\\", "*.bmp"))
             {
                 var info = new FileInfo(map);
-                var tile = new MapTileControl(info);
+                var tile = new MapTileControl(info) { Command = LoadMapCommand };
                 tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
                 if (first)
                 {
@@ -67,8 +70,7 @@ namespace AntRunner.Main.ViewModels
 
             if (selected != null)
             {
-                var tile = new MapTileControl(selected);
-                tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
+                var tile = new MapTileControl(selected) { Command = LoadMapCommand };
                 _control.MapSelectionArea.Children.Add(tile);
                 LoadMap(tile);
             }

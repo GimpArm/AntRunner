@@ -56,6 +56,7 @@ namespace AntRunner.Models
 
             if (possibleFlags.Any())
             {
+                possibleFlags.Shuffle();
                 possibleFlags[Utilities.Random.Next(0, possibleFlags.Count - 1)].Item = Item.Flag;
             }
             else
@@ -63,6 +64,8 @@ namespace AntRunner.Models
                 RandomTile().Item = Item.Flag;
             }
 
+            colorList.Shuffle();
+            possibleHomes.Shuffle();
             while (colorList.Any())
             {
                 var color = colorList[Utilities.Random.Next(0, colorList.Count - 1)];

@@ -18,13 +18,12 @@
             <converters1:NullToParameterTextConverter x:Key="NullToParameterTextConverter" />
             <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
             <converters2:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-            <Style TargetType="Rectangle">
-                <Setter Property="StrokeThickness" Value="2" />
+            <Style x:Key="ColorButton" TargetType="Button">
+                <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="Width" Value="30" />
                 <Setter Property="Height" Value="30" />
-                <Setter Property="Fill" Value="{Binding Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource ColorToBrushConverter}}" />
-                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="{Binding Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource ColorToBrushConverter}}" />
                 <Setter Property="models:MouseCommands.LeftClick">
                     <Setter.Value>
                         <Binding Path="SelectColorCommand" ElementName="ThisControl" />
@@ -38,8 +37,8 @@
                                 <Binding Path="Ant.Color" ElementName="ThisControl" />
                             </MultiBinding>
                         </DataTrigger.Binding>
-                        <Setter Property="Stroke" Value="CornflowerBlue" />
-                        <Setter Property="StrokeThickness" Value="2" />
+                        <Setter Property="BorderBrush" Value="CornflowerBlue" />
+                        <Setter Property="BorderThickness" Value="2" />
                     </DataTrigger>
                     <DataTrigger Value="False">
                         <DataTrigger.Binding>
@@ -48,8 +47,8 @@
                                 <Binding Path="Ant.Color" ElementName="ThisControl" />
                             </MultiBinding>
                         </DataTrigger.Binding>
-                        <Setter Property="Stroke" Value="Black" />
-                        <Setter Property="StrokeThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="1" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -97,40 +96,36 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Cursor="Hand" Width="75" Height="75" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Margin="5">
-                <Border.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding LoadAntCommand, ElementName=ThisControl}" />
-                </Border.InputBindings>
+
+            <Border Grid.Row="0" Grid.Column="0" Width="75" Height="75" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Margin="5">
                 <Grid>
                     <Label Content="?" Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource InverseNullToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" FontWeight="Bold" FontSize="70" Margin="0,-15,0,0" />
                     <Image Source="{Binding Ant.Icon, ElementName=ThisControl}" Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToVisibilityConverter}}" Stretch="Uniform" />
                 </Grid>
             </Border>
 
-            <Viewbox Grid.Row="0" Grid.Column="1" Cursor="Hand" Stretch="UniformToFill" MaxWidth="220" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Viewbox.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding LoadAntCommand, ElementName=ThisControl}" />
-                </Viewbox.InputBindings>
-                <Label Content="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToParameterTextConverter}, ConverterParameter='Load Ant'}" MinHeight="24" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0" Padding="0" />
+            <Viewbox Grid.Row="0" Grid.Column="1" Stretch="UniformToFill" MaxWidth="220" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label MinHeight="20" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" Margin="0" Padding="0"
+                        Content="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToParameterTextConverter}, ConverterParameter='Load Ant'}" />
             </Viewbox>
 
-            <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="1" Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                    Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToVisibilityConverter}}">
-                <Border.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding UnloadAntCommand, ElementName=ThisControl}" />
-                </Border.InputBindings>
-                <Label Content="X" Padding="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Border>
+            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Transparent" Opacity="0.5" BorderThickness="0"
+                    Command="{Binding LoadAntCommand, ElementName=ThisControl}" />
+
+            <Button Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="1" Background="Transparent"
+                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                    Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToVisibilityConverter}}"
+                    Command="{Binding UnloadAntCommand, ElementName=ThisControl}" Content="X" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
 
             <StackPanel x:Name="ColorPanel" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="Collapsed" Height="0">
-                <Rectangle Tag="{x:Static interface:ItemColor.Red}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.Blue}"/>
-                <Rectangle Tag="{x:Static interface:ItemColor.Green}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.Orange}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.Pink}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.Yellow}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.Gray}" />
-                <Rectangle Tag="{x:Static interface:ItemColor.White}"/>
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Red}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Blue}"/>
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Green}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Orange}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Pink}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Yellow}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.Gray}" />
+                <Button Style="{StaticResource ColorButton}" Tag="{x:Static interface:ItemColor.White}"/>
             </StackPanel>
         </Grid>
     </Border>

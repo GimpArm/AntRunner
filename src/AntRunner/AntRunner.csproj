@@ -203,6 +203,7 @@
     <Compile Include="Models\AntProxy.cs" />
     <Compile Include="Models\AntWrapper.cs" />
     <Compile Include="Models\Direction.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\GameManager.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MapTile.cs" />
@@ -255,6 +256,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\Hex_Maze.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\Maze2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
