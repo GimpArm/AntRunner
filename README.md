@@ -284,3 +284,23 @@ Amount of shield that is restored when a shield power-up is acquired. **25**
 
 ### Bomb
 Amount of bombs added to an ant's inventory when a bomb power-up is acquired. **4**
+
+
+## Maps
+Maps can be created by making a simple bitmap (bmp) image file and placing it in the Maps folder. Each pixel is a point on the map. All colors which are not defined are ignored.
+
+### SteelWall
+Black rgb(0,0,0)
+Do not create empty spaces completely surrounded by SteelWall. It is possible for an ant/home/flag to randomly be placed in this space.
+
+### BrickWall
+Red rgb(255,0,0)
+There should always be some included because the only way to obtain power-ups is by shooting BrickWalls.
+
+### AntHome 
+Blue rgb(255,0,0)
+If there aren't enough home locations on the map for the ants loaded then homes will be randomly placed. Colors are randomly assigned to each home location. There can be more possible home locations than 8 but there will only be homes allocated for as many ants loaded.
+
+### Flag
+Green rgb(0,255,0)
+If there is no flag location set then the flag will randomly be placed. There can be multiple possible flag locations and a location will be chosen at random.
