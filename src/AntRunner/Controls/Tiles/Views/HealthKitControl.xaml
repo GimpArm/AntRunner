@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">
-    <Grid>
+             Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Path Data="M429.1,59.6v86.1h258.4V59.6H429.1z M365.1,0h385.7v145.6H1116V960H0V145.6h365.1V0z" 
               Stretch="Uniform" Fill="White" Stroke="Black" StrokeThickness="0.25" Width="10" Height="10" />
         <Path Data="M603.8,316.9h-91.5c-15.3,0-27.8,12.5-27.8,28V477H352c-15.3,0-27.8,12.5-27.8,28v95.7 c0,15.5,12.4,28.1,27.8,28.1h132.5v132c0,15.5,12.5,28.1,27.8,28.1h91.5c15.3,0,27.8-12.6,27.8-28.1v-132H764 c15.3,0,27.8-12.6,27.8-28.1V505c0-15.5-12.5-28-27.8-28H631.6V345C631.6,329.4,619.1,316.9,603.8,316.9z" 

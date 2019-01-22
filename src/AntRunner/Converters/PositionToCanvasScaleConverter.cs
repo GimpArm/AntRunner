@@ -10,12 +10,12 @@ namespace AntRunner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int?) value * 10 ?? 0;
+            return (int?) value * 10 - 5 ?? 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int?)value / 10 ?? 0;
+            return ((int?)value - 5) / 10 ?? 0;
         }
     }
 }

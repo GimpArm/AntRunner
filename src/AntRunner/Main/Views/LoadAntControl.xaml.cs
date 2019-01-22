@@ -59,8 +59,9 @@ namespace AntRunner.Main.Views
                 ItemColor color;
                 if (Ant != null)
                 {
-                    Players.Remove(Ant);
                     color = Ant.Color;
+                    Players.Remove(Ant);
+                    Ant.Dispose();
                 }
                 else
                 {

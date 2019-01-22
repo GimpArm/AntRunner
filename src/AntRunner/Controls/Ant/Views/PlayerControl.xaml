@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:AntRunner.Converters"
              xmlns:models="clr-namespace:AntRunner.Models"
-             Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top"
+             Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance models:AntWrapper, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
@@ -17,7 +17,22 @@
     </UserControl.Resources>
     <Grid>
         <Path Data="M369.859,0.002011C374.732,0.274531 393.115,28.1447 410.125,60.147 420.783,80.2602 418.623,88.2229 412.992,90.4028 407.361,92.5084 388.671,107.3 362.834,121.129 372.278,143.338 377.876,171.028 377.876,201.06 377.876,228.547 360.237,233.421 335.999,233.453 353.557,241.511 367.893,256.698 373.597,279.077 410.749,256.185 445.674,243.349 452.627,240.571 459.555,237.739 516.86,198.462 528.922,192.296 530.709,187.123 575.236,128.14 582.331,134.103 588.419,139.148 539.821,202.396 536.88,206.029 495.397,257.169 454.33,258.921 449.218,266.499 444.189,274.075 419.703,299.362 376.173,306.897 376.007,318.535 375.144,329.533 373.981,339.888 400.733,332.397 431.089,325.899 447.95,325.856 465.748,325.856 525.596,343.105 536.329,348.321 540.122,350.159 609.051,348.502 609,356.24 609.051,363.979 540.579,366.894 537.793,362.918 512.902,367.022 442.622,353.76 435.068,355.171 427.548,356.582 369.951,373.566 369.567,373.62 365.182,394.104 358.969,405.573 351.521,419.221 380.173,418.335 431.473,447.467 460.179,476.995 483.958,501.48 523.562,541.024 529.597,549.714 551.975,582.235 541.909,684 529.597,684 519.78,684 543.04,592.804 520.61,560.315 514.119,550.91 442.372,500.283 433.936,490.4 426.009,481.056 386.127,467.923 365.784,454.543 382.5,467.123 393.783,485.985 393.73,511.11 393.73,611.081 343.188,651.521 305.103,652.032 266.062,651.436 215.281,611.081 215.281,510.938 215.281,487.346 225.134,469.391 240.238,456.872L243.258,454.503 243.218,454.532C222.846,467.973 183.099,481.038 175.209,490.347 166.794,500.283 94.7266,550.91 88.2853,560.272 65.8867,592.804 89.1995,683.871 79.4649,683.871 67.0503,683.871 57.0352,582.15 79.4132,549.628 85.3866,540.884 125.052,501.312 148.832,476.838 177.505,447.349 228.889,418.196 257.511,419.05 250.04,405.402 243.766,394.243 239.433,373.766 239.028,373.695 181.401,356.443 173.911,355 166.441,353.621 96.1082,366.855 71.2684,362.779 68.4215,366.715 0,363.851 0,356.069 0,348.363 68.7227,350.159 72.515,348.321 83.2776,343.148 143.419,325.856 161.195,325.899 178.056,325.856 208.163,332.354 234.914,339.931 233.762,329.489 233.107,318.492 232.94,306.854 189.442,299.405 164.987,274.075 159.876,266.499 154.785,258.878 113.738,257.125 72.2654,206.072 69.263,202.396 20.7259,139.191 26.7516,134.103 33.8991,128.097 78.3223,186.995 80.0886,192.125 92.1499,198.281 149.424,237.867 156.385,240.657 163.283,243.478 198.398,256.142 235.538,279.034 241.22,256.741 255.588,241.554 273.093,233.453 248.877,233.453 231.237,228.494 231.237,201.102 231.237,171.071 236.868,143.294 246.332,121.129 220.525,107.3 201.805,92.5084 196.154,90.3599 190.523,88.2654 188.196,80.1324 198.886,59.9652 216.444,26.9303 235.57,-1.48728 239.683,0.104984 243.818,1.68683 224.474,66.0033 207.997,79.7905 227.456,83.392 240.193,90.0499 256.514,101.624 269.281,81.6175 286.08,69.4769 304.281,69.2205 323.149,69.7012 339.625,81.6822 352.413,101.624 368.672,90.0181 381.503,83.5202 401.002,79.972 384.526,66.0887 365.327,1.72988 369.43,0.062594 369.56,0.013159 369.703,-0.006768 369.859,0.002011z" 
-              Stretch="Uniform" Fill="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Stroke="Black" StrokeThickness="0.25" Width="10" Height="10" RenderTransformOrigin="0.5,0.5">
+              Stretch="Uniform" Fill="{Binding Color, Converter={StaticResource ColorToBrushConverter}}" Stroke="Black" StrokeThickness="0.25" Width="20" Height="20" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <TransformGroup.Children>
+                        <RotateTransform Angle="{Binding Direction, Converter={StaticResource DirectionToRotationConverter}}" />
+                        <ScaleTransform ScaleX="0.5" ScaleY="0.5" />
+                    </TransformGroup.Children>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+
+        <Path Stroke="BlueViolet" Fill="DarkMagenta" Opacity="0.3" StrokeThickness="0.5" RenderTransformOrigin="0.5,0.5" ClipToBounds="False" Width="20" Height="20"
+              Visibility="{Binding ShieldsOn, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Path.Data>
+                <EllipseGeometry Center="10,10.5"  RadiusX="6" RadiusY="6" />
+            </Path.Data>
             <Path.RenderTransform>
                 <TransformGroup>
                     <TransformGroup.Children>
@@ -26,16 +41,6 @@
                 </TransformGroup>
             </Path.RenderTransform>
         </Path>
-        <Ellipse Width="9" Height="10" RenderTransformOrigin="0.5,0.5" Stroke="BlueViolet" Fill="DarkMagenta" Opacity="0.3" StrokeThickness="0.5" VerticalAlignment="Center"
-                 Visibility="{Binding ShieldsOn, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <TransformGroup.Children>
-                        <RotateTransform Angle="{Binding Direction, Converter={StaticResource DirectionToRotationConverter}}" />
-                    </TransformGroup.Children>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
         <Grid RenderTransformOrigin="0.5,0.5" Visibility="{Binding HasFlag, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RenderTransform>
                 <TransformGroup>
@@ -45,11 +50,12 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Path Data="M2.4915056,2.2260001C3.8691173,2.2260004,4.9830005,3.3431869,4.9830005,4.7181533L4.9830005,52.518807C4.9830005,53.897702 3.8691173,55.010998 2.4915056,55.010998 1.1132736,55.010998 0,53.897702 0,52.518807L0,4.7181533C0,3.3431869,1.1132736,2.2260004,2.4915056,2.2260001z M21.916903,2.1072685E-05C34.563281,-0.013741149 44.850898,6.7199533 60.671,0.96500372 60.671,11.992384 60.671,23.027636 60.671,34.061489 39.577531,41.738621 28.30889,27.205954 8.1920012,36.075898L8.1920012,2.9753833C13.223898,0.75891303,17.701443,0.0046082785,21.916903,2.1072685E-05z" 
-              Stretch="Uniform" Fill="Gold" Stroke="Black" StrokeThickness="0.25" Width="5" Height="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+              Stretch="Uniform" Fill="Gold" Stroke="Black" StrokeThickness="0.25" Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Path.RenderTransform>
                 <TransformGroup>
                     <TransformGroup.Children>
-                        <TranslateTransform X="2.5" Y="1.5" />
+                        <TranslateTransform X="9" Y="5" />
+                        <ScaleTransform ScaleX="0.5" ScaleY="0.5" />
                     </TransformGroup.Children>
                 </TransformGroup>
             </Path.RenderTransform>

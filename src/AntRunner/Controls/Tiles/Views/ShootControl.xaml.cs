@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
 using AntRunner.Controls.Tiles.Converters;
-using AntRunner.Converters;
 using AntRunner.Models;
 
 namespace AntRunner.Controls.Tiles.Views

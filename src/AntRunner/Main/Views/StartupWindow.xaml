@@ -6,14 +6,13 @@
         xmlns:local="clr-namespace:AntRunner.Main.Views"
         xmlns:viewModels="clr-namespace:AntRunner.Main.ViewModels"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Ant Runner" Height="500" Width="800"
+        Title="Ant Runner" Width="800" Height="600"
         d:DataContext="{d:DesignInstance viewModels:StartupViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
-    <Viewbox Stretch="Uniform">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -32,7 +31,7 @@
                 <Label Grid.Row="0" Grid.Column="0" Content="Map" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Verdana" Margin="10" FontSize="20" />
                 <Label Grid.Row="0" Grid.Column="1" Content="Debug" HorizontalAlignment="Right" Foreground="OrangeRed" FontWeight="Bold" FontFamily="Verdana" Margin="10" FontSize="20" Visibility="{Binding IsDebug, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="202" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="202" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
                     <StackPanel x:Name="MapSelectionArea" Orientation="Horizontal" />
                 </ScrollViewer>
             </Grid>
@@ -57,5 +56,4 @@
                 </Grid>
             </Viewbox>
         </Grid>
-    </Viewbox>
 </Window>
