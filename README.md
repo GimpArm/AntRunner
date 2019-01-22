@@ -304,3 +304,10 @@ If there aren't enough home locations on the map for the ants loaded then homes 
 ### Flag
 Green rgb(0,255,0)
 If there is no flag location set then the flag will randomly be placed. There can be multiple possible flag locations and a location will be chosen at random.
+
+## Debugging
+Execute the AntRunner.exe with the argument `debug` then attach to the process with the Visual Studio debugger. The debug argument waits for each ant to finish before continuing so you have time to debug.
+```
+AntRunner.exe debug
+```
+
