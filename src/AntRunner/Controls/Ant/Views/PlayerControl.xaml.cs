@@ -12,8 +12,8 @@ namespace AntRunner.Controls.Ant.Views
         {
             InitializeComponent();
             DataContext = ant;
-            SetBinding(Canvas.TopProperty, new Binding("CurrentTile.Y") { Converter = new PositionToCanvasScaleConverter() });
-            SetBinding(Canvas.LeftProperty, new Binding("CurrentTile.X") { Converter = new PositionToCanvasScaleConverter() });
+            SetBinding(Canvas.TopProperty, new Binding("CurrentTile.Y") { Converter = PositionToCanvasScaleConverter.Default });
+            SetBinding(Canvas.LeftProperty, new Binding("CurrentTile.X") { Converter = PositionToCanvasScaleConverter.Default });
 
             SetBinding(VisibilityProperty, new Binding("Health") { Converter = new HealthToVisibilityConverter() });
         }

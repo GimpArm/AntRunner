@@ -16,7 +16,6 @@
             <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
             <converters1:ColorComparerMultiConverter x:Key="ColorComparerMultiConverter" />
             <converters1:NullToParameterTextConverter x:Key="NullToParameterTextConverter" />
-            <converters:InverseNullToVisibilityConverter x:Key="InverseNullToVisibilityConverter" />
             <converters2:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <Style x:Key="ColorButton" TargetType="Button">
                 <Setter Property="BorderThickness" Value="2" />
@@ -86,7 +85,7 @@
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
-    <Border BorderBrush="Black" BorderThickness="1" Padding="1" Background="WhiteSmoke">
+    <Border BorderBrush="Black" BorderThickness="1" Background="WhiteSmoke">
         <Grid Background="{Binding Ant.Color, ElementName=ThisControl, Converter={StaticResource ColorToBrushConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -99,7 +98,7 @@
 
             <Border Grid.Row="0" Grid.Column="0" Width="75" Height="75" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="Black" Margin="5">
                 <Grid>
-                    <Label Content="?" Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource InverseNullToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" FontWeight="Bold" FontSize="70" Margin="0,-15,0,0" />
+                    <Label Content="?" Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=invert}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" FontWeight="Bold" FontSize="70" Margin="0,-15,0,0" />
                     <Image Source="{Binding Ant.Icon, ElementName=ThisControl}" Visibility="{Binding Ant, ElementName=ThisControl, Converter={StaticResource NullToVisibilityConverter}}" Stretch="Uniform" />
                 </Grid>
             </Border>

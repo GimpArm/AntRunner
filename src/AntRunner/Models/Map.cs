@@ -18,10 +18,15 @@ namespace AntRunner.Models
         public int Width { get; }
         public int Height { get; }
 
+        public int MaxWidth { get; }
+        public int MaxHeight { get; }
+
         public Map(Bitmap mapDefinition, IList<ItemColor> colorList)
         {
             Width = mapDefinition.Width;
             Height = mapDefinition.Height;
+            MaxWidth = Width - 1;
+            MaxHeight = Height - 1;
             _tiles = new MapTile[Width, Height];
 
             var possibleFlags = new List<MapTile>();

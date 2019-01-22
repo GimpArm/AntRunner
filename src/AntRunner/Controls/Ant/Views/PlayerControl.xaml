@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:AntRunner.Converters"
              xmlns:models="clr-namespace:AntRunner.Models"
-             xmlns:converters1="clr-namespace:AntRunner.Controls.Ant.Converters"
              Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance models:AntWrapper, IsDesignTimeCreatable=False}">

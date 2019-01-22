@@ -8,7 +8,7 @@
              d:DataContext="{d:DesignInstance viewModels:MapViewModel, IsDesignTimeCreatable=False}">
     <Viewbox Stretch="Uniform" VerticalAlignment="Top">
         <Border BorderThickness="1" BorderBrush="Black" VerticalAlignment="Top">
-            <Canvas x:Name="MapArea" Width="{Binding MapWidth}" Height="{Binding MapHeight}" />
+            <Canvas x:Name="MapArea" Width="{Binding MapWidth}" Height="{Binding MapHeight}" ClipToBounds="True" />
         </Border>
     </Viewbox>
 </UserControl>

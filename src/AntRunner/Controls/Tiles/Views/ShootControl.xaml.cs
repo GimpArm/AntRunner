@@ -31,8 +31,8 @@ namespace AntRunner.Controls.Tiles.Views
         {
             InitializeComponent();
             DataContext = tile;
-            SetBinding(Canvas.TopProperty, new MultiBinding { ConverterParameter = true, Bindings = { new Binding("Y"), new Binding("ShotDistance") { ElementName = "ShotControlElement" }, new Binding("Direction"){ElementName = "ShotControlElement" } }, Converter = new ShotLocationMultiConverter() });
-            SetBinding(Canvas.LeftProperty, new MultiBinding { ConverterParameter = false, Bindings = { new Binding("X"), new Binding("ShotDistance") { ElementName = "ShotControlElement" }, new Binding("Direction") { ElementName = "ShotControlElement" } }, Converter = new ShotLocationMultiConverter() });
+            SetBinding(Canvas.TopProperty, new MultiBinding { ConverterParameter = true, Bindings = { new Binding("Y"), new Binding("ShotDistance") { ElementName = "ShotControlElement" }, new Binding("Direction"){ElementName = "ShotControlElement" } }, Converter = ShotLocationMultiConverter.Default });
+            SetBinding(Canvas.LeftProperty, new MultiBinding { ConverterParameter = false, Bindings = { new Binding("X"), new Binding("ShotDistance") { ElementName = "ShotControlElement" }, new Binding("Direction") { ElementName = "ShotControlElement" } }, Converter = ShotLocationMultiConverter.Default });
             
             BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, new Duration(new TimeSpan(0, 0, 0, 0, 125))));
             

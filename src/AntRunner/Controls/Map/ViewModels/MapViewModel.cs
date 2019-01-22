@@ -7,6 +7,7 @@ using AntRunner.Controls.Tiles.Views;
 using AntRunner.Events;
 using AntRunner.Interface;
 using AntRunner.Models;
+using WallRender = AntRunner.Controls.Map.Models.WallRender;
 
 namespace AntRunner.Controls.Map.ViewModels
 {
@@ -18,6 +19,9 @@ namespace AntRunner.Controls.Map.ViewModels
 
         public int MapWidth => _gameManager.MapWidth * 10;
         public int MapHeight => _gameManager.MapHeight * 10;
+
+        public int MaxHeight => _gameManager.Map.MaxHeight;
+        public int MaxWidth => _gameManager.Map.MaxWidth;
 
         public MapViewModel(GameManager gameManager, MapControl mapControl)
         {
@@ -74,10 +78,18 @@ namespace AntRunner.Controls.Map.ViewModels
                             this[t.X, t.Y] = null;
                             return;
                         case Item.SteelWall:
-                            this[t.X, t.Y] = new SteelWallControl(t);
+                            if (t.Processed != null) break;
+                            if (!WallRender.Create(_gameManager.Map, t)) break;
+
+                            var steelRender = new WallRender(_gameManager.Map, t.Item);
+                            _mapControl.MapArea.Children.Insert(0, steelRender.Render(t));
                             break;
                         case Item.BrickWall:
-                            this[t.X, t.Y] = new BrickWallControl(t);
+                            if (t.Processed != null) break;
+                            if (!WallRender.Create(_gameManager.Map, t)) break;
+
+                            var brickRender = new WallRender(_gameManager.Map, t.Item);
+                            _mapControl.MapArea.Children.Insert(0, brickRender.Render(t));
                             break;
                         case Item.Flag:
                             this[t.X, t.Y] = new FlagControl(t);
@@ -92,7 +104,7 @@ namespace AntRunner.Controls.Map.ViewModels
                             this[t.X, t.Y] = new HealthKitControl(t);
                             break;
                         case Item.Bomb:
-                            this[t.X, t.Y] = new BombControl(t);
+                            this[t.X, t.Y, true] = new BombControl(t);
                             break;
                         case Item.RedHome:
                             this[t.X, t.Y] = new HomeControl(ItemColor.Red, t);
@@ -123,7 +135,7 @@ namespace AntRunner.Controls.Map.ViewModels
             );
         }
 
-        public UIElement this[int x, int y]
+        public UIElement this[int x, int y, bool insert = false]
         {
             get
             {
@@ -142,14 +154,28 @@ namespace AntRunner.Controls.Map.ViewModels
                     if (value == null) return;
 
                     _tileLookup[y].Add(x, value);
-                    _mapControl.MapArea.Children.Insert(0, value);
+                    if (insert)
+                    {
+                        _mapControl.MapArea.Children.Insert(0, value);
+                    }
+                    else
+                    {
+                        _mapControl.MapArea.Children.Add(value);
+                    }
                 }
                 else
                 {
                     _mapControl.MapArea.Children.Remove(_tileLookup[y][x]);
                     if (value != null)
                     {
-                        _mapControl.MapArea.Children.Insert(0, value);
+                        if (insert)
+                        {
+                            _mapControl.MapArea.Children.Insert(0, value);
+                        }
+                        else
+                        {
+                            _mapControl.MapArea.Children.Add(value);
+                        }
                     }
                     _tileLookup[y][x] = value;
                 }

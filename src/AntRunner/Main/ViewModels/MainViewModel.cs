@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Waf.Applications;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -41,6 +42,13 @@ namespace AntRunner.Main.ViewModels
                 SetValue(ref _winnerColor, value); 
                 RaisePropertyChanged(nameof(WinnerLogo));
             }
+        }
+
+        private string _counterValue;
+        public string CounterValue
+        {
+            get => _counterValue;
+            set => SetValue(ref _counterValue, value);
         }
 
         public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
@@ -97,9 +105,20 @@ namespace AntRunner.Main.ViewModels
             StopGame();
         }
 
-        public void StartGame()
+        public async void StartGame()
         {
             GameStopped = false;
+
+            CounterValue = "3";
+            await Task.Delay(1000);
+            CounterValue = "2";
+            await Task.Delay(1000);
+            CounterValue = "1";
+            await Task.Delay(1000);
+            CounterValue = "Go!";
+            await Task.Delay(1000);
+            CounterValue = null;
+
             _gameManager.Start();
         }
 

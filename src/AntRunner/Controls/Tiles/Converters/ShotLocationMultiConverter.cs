@@ -7,6 +7,8 @@ namespace AntRunner.Controls.Tiles.Converters
 {
     public class ShotLocationMultiConverter : IMultiValueConverter
     {
+        public static readonly ShotLocationMultiConverter Default = new ShotLocationMultiConverter();
+
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values == null || values.Length != 3 || !(values[0] is int x) || !(values[1] is int distance) || !(values[2] is Direction d) || !(parameter is bool isTop)) return 0d;

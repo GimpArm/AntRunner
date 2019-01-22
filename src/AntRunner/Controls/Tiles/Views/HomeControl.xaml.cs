@@ -21,8 +21,8 @@ namespace AntRunner.Controls.Tiles.Views
         {
             InitializeComponent();
             DataContext = tile;
-            SetBinding(Canvas.TopProperty, new Binding("Y") { Converter = new PositionToCanvasScaleConverter() });
-            SetBinding(Canvas.LeftProperty, new Binding("X") { Converter = new PositionToCanvasScaleConverter() });
+            SetBinding(Canvas.TopProperty, new Binding("Y") { Converter = PositionToCanvasScaleConverter.Default });
+            SetBinding(Canvas.LeftProperty, new Binding("X") { Converter = PositionToCanvasScaleConverter.Default });
         }
 
         public HomeControl(ItemColor color, MapTile tile) : this(tile)

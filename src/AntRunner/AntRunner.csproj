@@ -82,10 +82,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Tiles\Views\BrickWallControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Tiles\Views\FlagControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,10 +102,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Tiles\Views\SteelWallControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Main\Views\LoadAntControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,8 +114,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\Map\Models\WallRender.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
-    <Compile Include="Controls\Ant\Converters\InverseHealthToVisibilityConverter.cs" />
     <Compile Include="Controls\Ant\Converters\HealthToVisibilityConverter.cs" />
     <Compile Include="Controls\Ant\Converters\LevelToBarWidthConverter.cs" />
     <Compile Include="Controls\Tiles\Converters\ShotRotatationConverter.cs" />
@@ -145,9 +137,6 @@
     <Compile Include="Controls\Tiles\Views\BombKitControl.xaml.cs">
       <DependentUpon>BombKitControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tiles\Views\BrickWallControl.xaml.cs">
-      <DependentUpon>BrickWallControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Tiles\Views\FlagControl.xaml.cs">
       <DependentUpon>FlagControl.xaml</DependentUpon>
     </Compile>
@@ -163,15 +152,12 @@
     <Compile Include="Controls\Tiles\Views\ShootControl.xaml.cs">
       <DependentUpon>ShootControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tiles\Views\SteelWallControl.xaml.cs">
-      <DependentUpon>SteelWallControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\DirectionToRotationConverter.cs" />
-    <Compile Include="Converters\InverseNullToVisibilityConverter.cs" />
     <Compile Include="Converters\PositionToCanvasScaleConverter.cs" />
     <Compile Include="Events\GameOverEventArgs.cs" />
     <Compile Include="Events\ShootEventHandler.cs" />
     <Compile Include="Main\Converters\ColorComparerMultiConverter.cs" />
+    <Compile Include="Main\Converters\CountDownValueToColorConverter.cs" />
     <Compile Include="Main\Converters\NullToParameterTextConverter.cs" />
     <Compile Include="Main\Converters\PlayerLookupConverter.cs" />
     <Compile Include="Main\ViewModels\MainViewModel.cs" />

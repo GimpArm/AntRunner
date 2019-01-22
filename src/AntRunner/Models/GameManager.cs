@@ -347,6 +347,7 @@ namespace AntRunner.Models
             {
                 tile.Item = Item.PowerUpShield;
             }
+            tile.Redraw();
         }
 
         private IEnumerator<AntWrapper> NextPlayer()

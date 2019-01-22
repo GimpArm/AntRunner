@@ -1,4 +1,6 @@
-﻿using AntRunner.Interface;
+﻿using System.Windows;
+using AntRunner.Controls.Map.Models;
+using AntRunner.Interface;
 
 namespace AntRunner.Models
 {
@@ -9,6 +11,18 @@ namespace AntRunner.Models
         {
             get => _item;
             set => SetValue(ref _item, value);
+        }
+
+        public WallRender Processed { get; set; }
+
+        public void Redraw()
+        {
+            if (Processed == null) return;
+
+             Application.Current.Dispatcher.Invoke(() =>
+             {
+                 Processed.Redraw(this);
+             });
         }
 
         public AntWrapper OccupiedBy { get; set; }

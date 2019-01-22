@@ -11,9 +11,9 @@
              x:Name="ThisControl">
     <UserControl.Resources>
         <ResourceDictionary>
-            <converters1:ColorToBrushConverter x:Key="ColorToBrushConverter" />
-            <converters:InverseHealthToVisibilityConverter x:Key="InverseHealthToVisibilityConverter" />
             <converters:LevelToBarWidthConverter x:Key="LevelToBarWidthConverter" />
+            <converters:HealthToVisibilityConverter x:Key="HealthToVisibilityConverter" />
+            <converters1:ColorToBrushConverter x:Key="ColorToBrushConverter" />
             <converters2:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -35,7 +35,7 @@
                         <Image Source="{Binding Ant.Icon, ElementName=ThisControl}" Stretch="Uniform" />
                         <Path Data="M65.2,226.2l-9.1-11.3h9.3l4.3,6.3l4.3-6.3h9.3l-9.1,11.3l10.2,12.2h-9.7l-5-7.1l-5,7.1H55L65.2,226.2z" 
                               Stretch="Uniform" Fill="Black" Stroke="White" StrokeThickness="1" Width="34" Height="34"
-                              Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource InverseHealthToVisibilityConverter}}" />
+                              Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource HealthToVisibilityConverter}, ConverterParameter=invert}" />
                     </Grid>
                 </Border>
             </Grid>
@@ -73,6 +73,8 @@
                     <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Shields, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
                 </Grid>
             </Border>
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="Black" Opacity="0.3"
+                  Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource HealthToVisibilityConverter}, ConverterParameter=invert}"/>
         </Grid>
     </Border>
 </UserControl>
