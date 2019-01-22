@@ -298,7 +298,7 @@ Red rgb(255,0,0)
 There should always be some included because the only way to obtain power-ups is by shooting BrickWalls.
 
 ### AntHome 
-Blue rgb(255,0,0)
+Blue rgb(0,0,255)
 If there aren't enough home locations on the map for the ants loaded then homes will be randomly placed. Colors are randomly assigned to each home location. There can be more possible home locations than 8 but there will only be homes allocated for as many ants loaded.
 
 ### Flag
