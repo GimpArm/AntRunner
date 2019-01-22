@@ -65,6 +65,7 @@ public override void Tick(GameState state)
 ## Game Enums 
 ### AntAction
 *AntRunner.Interface.AntAction*
+
 Actions that the ant can perform on its turn. Should be set to the `Action` field on each `Tick()`.
 
 #### Wait
@@ -118,6 +119,7 @@ Ant shoot its laser in a straight line **Above**.
 
 ### Item
 *AntRunner.Interface.Item*
+
 Items that are on the map which will be returned as part of an `EchoReponse`.
 
 #### Empty
@@ -153,10 +155,12 @@ The flag, pick this up and bring it to the correct color home. Don't pick it up 
 
 ### ItemColor
 *AntRunner.Interface.ItemColor*
+
 The 8 available colors for ants and their homes and a `None` value so signify no color.
 
 ### GameEvent
 *AntRunner.Interface.GameEvent*
+
 Enum flags of possible events that can occur as a result of all ants' GameAction. Multiple events may occur at once so it is best to use the HasFlag() method to check.
 
 #### Nothing
@@ -213,6 +217,8 @@ The game is over, either an ant successfully retrieved the flag or all ants have
 
 ## Game Objects
 ### EchoResponse
+*AntRunner.Interface.EchoResponse*
+
 Response object when an Echo GameAction was made the previous tick.
 
 #### Distance
@@ -249,6 +255,7 @@ GameEvent property of the combined events which affected your ant. Multiple even
 ## Game Constants
 ### DamageValues
 *AntRunner.Interface.DamageValues*
+
 Amount of damage which is applied to the ant's health and shield when they incur damange. If the sheild is on then the amount is subtracted from that first then all remaining is subtracted from the health. If the shields are not on then all damage is subtracted from the health.
 
 #### Collission
@@ -266,6 +273,7 @@ Damage applied when an ant steps on a bomb. **30**
 
 ### ItemBonusValues
 *AntRunner.Interface.ItemBonusValues*
+
 Values of how much is given when a power-up is picked up.
 
 ### Health
