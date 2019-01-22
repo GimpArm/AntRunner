@@ -114,7 +114,7 @@ Ant shoot its laser in a straight line **below**.
 Ant shoot its laser in a straight line to the **left**.
 
 #### ShootUp
-Ant shoot its laser in a straight line **Above**.
+Ant shoot its laser in a straight line **above**.
 
 
 ### Item
