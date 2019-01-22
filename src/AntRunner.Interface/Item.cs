@@ -21,13 +21,13 @@
         BrickWall = 0x000002,
 
         /// <summary>
-        /// Bomb that will damage the ant if stepped on. Can do shot with the laser to remove.
+        /// Bomb that will damage the ant if stepped on. Can be shot with the laser to destroy
         /// See <see cref="DamageValues.Bomb"/>
         /// </summary>
         Bomb = 0x000004,
 
         /// <summary>
-        /// Bomb Power-up, adds bomb to the ant's inventory.
+        /// Bomb Power-up, adds bombs to the ant's inventory.
         /// See <see cref="ItemBonusValues.Bomb"/>
         /// </summary>
         PowerUpBomb = 0x000008,

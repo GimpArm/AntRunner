@@ -14,7 +14,7 @@ namespace AntRunner.Interface
         Nothing = 0x00000,
 
         /// <summary>
-        /// Ant ran into an object when it attempted to move and incurred damage. The move was unsuccessful.
+        /// Ant ran into an object when it attempted to move and incurred damage.  The move was unsuccessful and the ant remains at its current location.
         /// See <see cref="DamageValues.Collision"/>
         /// </summary>
         CollisionDamage = 0x00001,

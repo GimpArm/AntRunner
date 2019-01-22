@@ -55,13 +55,13 @@
         EchoUp = 8,
 
         /// <summary>
-        /// Ant turns on it's shield if it has any.
+        /// Ant turns on its shield if it has any.
         /// For every 4 ticks the shield is on, it will lose 1 point.
         /// </summary>
         ShieldOn = 9,
 
         /// <summary>
-        /// Ant turns off it's shield.
+        /// Ant turns off its shield.
         /// </summary>
         ShieldOff = 10,
 
