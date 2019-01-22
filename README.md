@@ -1,10 +1,10 @@
 # Ant Runner
-A .Net programming exercise game. Create an AI for your cyborg ant to battle up to 8 cyborg ants in a game of capture the flag. Ants are ranomly placed on the map knowing only the map size, their starting position, and their own color. They must use echo location to find their way around the map being careful not to run into walls, other ants, or step on bombs. Your ant isn't defense less, it's armed with a high powered laser cannon, a defensive energy shield, and can pick up bombs to deploy traps for other ants. Each ant gets 250ms of processing time to decide what to do next or else they miss their turn.
+A .Net programming exercise game. Create an AI for your cyborg ant to battle up to 8 cyborg ants in a game of capture the flag. Ants are randomly placed on the map knowing only the map size, their starting position, and their own color. They must use echo location to find their way around the map being careful not to run into walls, other ants, or step on bombs. Your ant isn't defense less, it's armed with a high powered laser cannon, a defensive energy shield, and can pick up bombs to deploy traps for other ants. Each ant gets 250ms of processing time to decide what to do next or else they miss their turn.
 
 ![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
 
 ## Getting Started
-Download the [latest releast](bin/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt).
+Download the [latest release](bin/AntRunner-Latest.zip?raw=true) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt).
 
 ### Building
 Create a .Net assembly (Standard 2.0 preferred), include AntRunner.Interface.dll as a reference and create a class which inherts from AntRunner.Interface.Ant. Build your project and load the resulting DLL into AntRunner.exe.
@@ -304,3 +304,10 @@ If there aren't enough home locations on the map for the ants loaded then homes 
 ### Flag
 Green rgb(0,255,0)
 If there is no flag location set then the flag will randomly be placed. There can be multiple possible flag locations and a location will be chosen at random.
+
+## Debugging
+Execute the AntRunner.exe with the argument `debug` then attach to the process with the Visual Studio debugger. The debug argument waits for each ant to finish before continuing so you have time to debug.
+```
+AntRunner.exe debug
+```
+
