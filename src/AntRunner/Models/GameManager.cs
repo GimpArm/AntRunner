@@ -28,6 +28,7 @@ namespace AntRunner.Models
         
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
+        public EventHandler<ExplosionEventArgs> OnExplosion;
 
         public GameManager(Bitmap mapDefinition, IEnumerable<AntWrapper> players, bool isDebug)
         {
@@ -228,6 +229,7 @@ namespace AntRunner.Models
                     if (events.HasFlag(GameEvent.BombDamage))
                     {
                         current.Damage(DamageValues.Bomb);
+                        OnExplosion?.Invoke(this, new ExplosionEventArgs(current.CurrentTile));
                     }
 
                     if (events.HasFlag(GameEvent.ShotDamageDown) || events.HasFlag(GameEvent.ShotDamageLeft) || events.HasFlag(GameEvent.ShotDamageRight) || events.HasFlag(GameEvent.ShotDamageUp))
@@ -321,6 +323,7 @@ namespace AntRunner.Models
                     }
                 }
                 ant.Shoot(tile);
+                OnExplosion?.Invoke(this, new ExplosionEventArgs(tile));
             }
             else
             {

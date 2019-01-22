@@ -76,6 +76,10 @@ namespace AntRunner.Main.ViewModels
             _control.MapArea.MapArea.Children.Clear();
             _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, _isDebug);
             _gameManager.OnGameOver += OnGameOver;
+            if (_mapViewModel != null)
+            {
+                _mapViewModel.Dispose();
+            }
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
             ScreenLockManager.DisableSleep();

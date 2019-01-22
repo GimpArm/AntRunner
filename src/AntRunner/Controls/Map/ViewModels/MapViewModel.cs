@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using AntRunner.Controls.Ant.Views;
@@ -11,7 +12,7 @@ using WallRender = AntRunner.Controls.Map.Models.WallRender;
 
 namespace AntRunner.Controls.Map.ViewModels
 {
-    public class MapViewModel : NotifyBaseModel
+    public class MapViewModel : NotifyBaseModel, IDisposable
     {
         private readonly GameManager _gameManager;
         private readonly MapControl _mapControl;
@@ -29,6 +30,15 @@ namespace AntRunner.Controls.Map.ViewModels
             _mapControl = mapControl;
             _mapControl.DataContext = this;
             DrawMap();
+            _gameManager.OnExplosion += OnExplosion;
+        }
+
+        private void OnExplosion(object sender, ExplosionEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _mapControl.MapArea.Children.Add(new ExplosionControl(e.Tile));
+            });
         }
 
         public void AddPlayer(AntWrapper ant)
@@ -179,6 +189,15 @@ namespace AntRunner.Controls.Map.ViewModels
                     }
                     _tileLookup[y][x] = value;
                 }
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_gameManager?.OnExplosion != null)
+            {
+                // ReSharper disable once DelegateSubtraction
+                _gameManager.OnExplosion -= OnExplosion;
             }
         }
     }

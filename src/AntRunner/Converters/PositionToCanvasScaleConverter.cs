@@ -10,6 +10,7 @@ namespace AntRunner.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value is double dValue) return dValue * 10 - 5;
             return (int?) value * 10 - 5 ?? 0;
         }
 

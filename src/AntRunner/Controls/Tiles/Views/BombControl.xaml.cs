@@ -14,10 +14,5 @@ namespace AntRunner.Controls.Tiles.Views
             SetBinding(Canvas.TopProperty, new Binding("Y") { Converter = PositionToCanvasScaleConverter.Default });
             SetBinding(Canvas.LeftProperty, new Binding("X") { Converter = PositionToCanvasScaleConverter.Default });
         }
-
-        public BombControl()
-        {
-            InitializeComponent();
-        }
     }
 }

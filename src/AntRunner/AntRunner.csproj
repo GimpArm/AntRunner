@@ -82,6 +82,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Tiles\Views\ExplosionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Tiles\Views\FlagControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +119,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\Map\Models\WallRender.cs" />
+    <Compile Include="Controls\Tiles\Views\ExplosionControl.xaml.cs">
+      <DependentUpon>ExplosionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Controls\Ant\Converters\HealthToVisibilityConverter.cs" />
     <Compile Include="Controls\Ant\Converters\LevelToBarWidthConverter.cs" />
@@ -154,6 +161,7 @@
     </Compile>
     <Compile Include="Converters\DirectionToRotationConverter.cs" />
     <Compile Include="Converters\PositionToCanvasScaleConverter.cs" />
+    <Compile Include="Events\ExplosionEventArgs.cs" />
     <Compile Include="Events\GameOverEventArgs.cs" />
     <Compile Include="Events\ShootEventHandler.cs" />
     <Compile Include="Main\Converters\ColorComparerMultiConverter.cs" />
