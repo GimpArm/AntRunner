@@ -9,7 +9,7 @@
         xmlns:converters1="http://waf.codeplex.com/schemas"
         xmlns:converters2="clr-namespace:AntRunner.Main.Converters"
         mc:Ignorable="d"
-        Title="Ant Runner" Width="1024" Height="768"
+        Title="{Binding WindowTitle}" Width="1024" Height="768"
         WindowStartupLocation="CenterOwner" Background="WhiteSmoke"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>

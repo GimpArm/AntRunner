@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using AntRunner.Main.ViewModels;
 using AntRunner.Models;
 
@@ -15,6 +16,17 @@ namespace AntRunner.Main.Views
             DataContext = new MainViewModel(this, map, players, isDebug);
             ContentRendered += OnContentRendered;
             Closing += OnClosing;
+            KeyUp += OnKeyUp;
+        }
+
+        //Window.InputBindings is not working! Use an event instead
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.F5) return;
+            if (((MainViewModel)DataContext).ToggleDebugCommand.CanExecute(null))
+            {
+                ((MainViewModel)DataContext).ToggleDebugCommand.Execute(null);
+            }
         }
 
         private void OnClosing(object sender, CancelEventArgs e)

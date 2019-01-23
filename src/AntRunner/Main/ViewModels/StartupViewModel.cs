@@ -15,7 +15,7 @@ namespace AntRunner.Main.ViewModels
 {
     public class StartupViewModel : NotifyBaseModel
     {
-        private ICommand _startGameCommand, _loadMapCommand;
+        private ICommand _startGameCommand, _loadMapCommand, _toggleDebugCommand;
 
         private readonly StartupWindow _control;
         private MapTileControl _selectedMap;
@@ -91,6 +91,7 @@ namespace AntRunner.Main.ViewModels
 
         public ICommand StartGameCommand => _startGameCommand ?? (_startGameCommand = new DelegateCommand(StartGame));
         public ICommand LoadMapCommand => _loadMapCommand ?? (_loadMapCommand = new DelegateCommand(LoadMap));
+        public ICommand ToggleDebugCommand => _toggleDebugCommand ?? (_toggleDebugCommand = new DelegateCommand(ToggleDebug));
 
         private void StartGame()
         {
@@ -110,6 +111,11 @@ namespace AntRunner.Main.ViewModels
             map.Selected = true;
             _selectedMap = map;
             RaisePropertyChanged(nameof(CanStart));
+        }
+
+        private void ToggleDebug()
+        {
+            IsDebug = !IsDebug;
         }
     }
 }

@@ -16,10 +16,9 @@ namespace AntRunner.Main.ViewModels
 {
     public class MainViewModel : NotifyBaseModel
     {
-        private ICommand _runAgainCommand, _exitCommand;
+        private ICommand _runAgainCommand, _exitCommand, _toggleDebugCommand;
 
         private readonly MapTileControl _selectedMap;
-        private readonly bool _isDebug;
         private readonly IList<AntWrapper> _players;
         private readonly MainWindow _control;
 
@@ -31,6 +30,17 @@ namespace AntRunner.Main.ViewModels
         {
             get => _gameStopped;
             set => SetValue(ref _gameStopped, value);
+        }
+
+        private bool _isDebug;
+        public bool IsDebug
+        {
+            get => _isDebug;
+            set
+            {
+                SetValue(ref _isDebug, value); 
+                RaisePropertyChanged(nameof(WindowTitle));
+            }
         }
 
         private ItemColor _winnerColor;
@@ -51,6 +61,7 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _counterValue, value);
         }
 
+        public string WindowTitle => "Ant Runner" + (IsDebug ? " - Debug" : string.Empty);
         public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
 
         private string _winnerName;
@@ -64,7 +75,7 @@ namespace AntRunner.Main.ViewModels
         {
             _control = control;
             _selectedMap = map;
-            _isDebug = isDebug;
+            IsDebug = isDebug;
             _players = players;
             _players.Shuffle();
 
@@ -74,12 +85,9 @@ namespace AntRunner.Main.ViewModels
         private void Initialize()
         {
             _control.MapArea.MapArea.Children.Clear();
-            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, _isDebug);
+            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, IsDebug);
             _gameManager.OnGameOver += OnGameOver;
-            if (_mapViewModel != null)
-            {
-                _mapViewModel.Dispose();
-            }
+            _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
             ScreenLockManager.DisableSleep();
@@ -87,6 +95,7 @@ namespace AntRunner.Main.ViewModels
 
         public ICommand RunAgainCommand => _runAgainCommand ?? (_runAgainCommand = new DelegateCommand(RunAgain));
         public ICommand ExitCommand => _exitCommand ?? (_exitCommand = new DelegateCommand(_control.Close));
+        public ICommand ToggleDebugCommand => _toggleDebugCommand ?? (_toggleDebugCommand = new DelegateCommand(ToggleDebug));
 
         private void LoadPlayers(IEnumerable<AntWrapper> players)
         {
@@ -141,6 +150,12 @@ namespace AntRunner.Main.ViewModels
         {
             Initialize();
             StartGame();
+        }
+
+        private void ToggleDebug()
+        {
+            IsDebug = !IsDebug;
+            _gameManager.IsDebug = IsDebug;
         }
     }
 }

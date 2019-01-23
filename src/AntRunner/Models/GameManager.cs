@@ -15,10 +15,10 @@ namespace AntRunner.Models
         private readonly Timer _gameTicker = new Timer(250);
         private readonly Dictionary<ItemColor, GameEvent> _eventStack = new Dictionary<ItemColor, GameEvent>();
         private readonly Dictionary<ItemColor, MapTile> _echoStack = new Dictionary<ItemColor, MapTile>();
-        private readonly bool _isDebug;
         private long _currentTick;
         private int _startPlayer;
         public Map Map { get; }
+        public bool IsDebug { get; set; }
 
         private bool _hasFlag;
         private MapTile _flagCarrierDiedTile;
@@ -32,7 +32,7 @@ namespace AntRunner.Models
 
         public GameManager(Bitmap mapDefinition, IEnumerable<AntWrapper> players, bool isDebug)
         {
-            _isDebug = isDebug;
+            IsDebug = isDebug;
             MapHeight = mapDefinition.Height;
             MapWidth = mapDefinition.Width;
             Players = players.ToDictionary(k => k.Color, v => v);
@@ -272,7 +272,7 @@ namespace AntRunner.Models
                 if (current.Health == 0) continue;
 
                 var events = _eventStack.ContainsKey(current.Color) ? _eventStack[current.Color] : GameEvent.Nothing;
-                playerEnumerator.Current.Tick(new GameState(state, events, GetEcho(current)), _isDebug);
+                playerEnumerator.Current.Tick(new GameState(state, events, GetEcho(current)), IsDebug);
             }
         }
 
