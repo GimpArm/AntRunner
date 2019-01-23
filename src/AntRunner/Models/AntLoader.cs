@@ -17,7 +17,7 @@ namespace AntRunner.Models
                 // ReSharper disable once AssignNullToNotNullAttribute
                 var antProxy = (AntProxy)d.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, typeof(AntProxy).FullName);
                 antProxy.LoadAssembly(filename);
-
+                
                 domain = d;
                 return antProxy;
             }

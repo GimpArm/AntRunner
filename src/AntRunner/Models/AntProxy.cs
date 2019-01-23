@@ -13,11 +13,16 @@ namespace AntRunner.Models
 
         public string Name => _ant.Name;
         public Stream Flag => _ant.Flag;
-
+        
         public AntAction Action
         {
             get => _ant.Action;
             set => _ant.Action = value;
+        }
+
+        public override object InitializeLifetimeService()
+        {
+            return null;
         }
 
         public void Initialize(int mapWidth, int mapHeight, ItemColor antColor, int startX, int startY)
