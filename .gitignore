@@ -12,3 +12,4 @@
 *.user
 /bin/AntRunner-1.0.0.0/ExampleAnt/.vs/ExampleAnt/v15
 /bin/AntRunner-1.0.0.0/ExampleAnt/obj
+/.vs

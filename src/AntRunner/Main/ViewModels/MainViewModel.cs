@@ -85,7 +85,7 @@ namespace AntRunner.Main.ViewModels
         private void Initialize()
         {
             _control.MapArea.MapArea.Children.Clear();
-            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.AbsolutePath), _players, IsDebug);
+            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.LocalPath), _players, IsDebug);
             _gameManager.OnGameOver += OnGameOver;
             _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
