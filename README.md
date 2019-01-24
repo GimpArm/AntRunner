@@ -306,7 +306,7 @@ Green rgb(0,255,0)
 If there is no flag location set then the flag will randomly be placed. There can be multiple possible flag locations and a location will be chosen at random.
 
 ## Debugging
-Execute the AntRunner.exe with the argument `debug` then attach to the process with the Visual Studio debugger. The debug argument waits for each ant to finish before continuing so you have time to debug.
+Execute the AntRunner.exe with the argument `debug` then attach to the process with the Visual Studio debugger. The debug argument waits for each ant to finish before continuing so you have time to debug. You can also press **F5** while AntRunner.exe is running to toggle debug mode on and off.
 ```
 AntRunner.exe debug
 ```
