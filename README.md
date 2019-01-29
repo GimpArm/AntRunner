@@ -4,7 +4,7 @@ A .Net programming exercise game. Create an AI for your cyborg ant to battle up 
 ![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
 
 ## Getting Started
-Download the [latest release](releases/download/1.0.0.0/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt).
+Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.0.0.0/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt).
 
 ### Building
 Create a .Net assembly (Standard 2.0 preferred), include AntRunner.Interface.dll as a reference and create a class which inherts from AntRunner.Interface.Ant. Build your project and load the resulting DLL into AntRunner.exe.
