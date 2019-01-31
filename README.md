@@ -4,13 +4,5 @@ A .Net programming exercise game. Create an AI for your cyborg ant to battle up 
 ![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
 
 ## Getting Started
-Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.0.0.0/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). Read the [wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about the AntRunner.Interface library.
+Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.0.0.0/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
 
-### Building
-Create a .Net assembly (Standard 2.0 preferred), include AntRunner.Interface.dll as a reference and create a class which inherts from AntRunner.Interface.Ant. Build your project and load the resulting DLL into AntRunner.exe.
-
-## Debugging
-Execute the AntRunner.exe with the argument `debug` then attach to the process with the Visual Studio debugger. The debug argument waits for each ant to finish before continuing so you have time to debug. You can also press **F5** while AntRunner.exe is running to toggle debug mode on and off.
-```
-AntRunner.exe debug
-```
