@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <DocumentationFile>AntRunner.Interface.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
