@@ -8,125 +8,125 @@
         /// <summary>
         /// Nothing at all, aka empty.
         /// </summary>
-        Empty = 0x000000,
+        Empty = 0,
 
         /// <summary>
         /// Unbreakable steel wall.
         /// </summary>
-        SteelWall = 0x000001,
+        SteelWall = 1,
 
         /// <summary>
         /// Brick wall which may be destroyed with a laser shot.
         /// </summary>
-        BrickWall = 0x000002,
+        BrickWall = 2,
 
         /// <summary>
         /// Bomb that will damage the ant if stepped on. Can be shot with the laser to destroy
         /// See <see cref="DamageValues.Bomb"/>
         /// </summary>
-        Bomb = 0x000004,
+        Bomb = 3,
 
         /// <summary>
         /// Bomb Power-up, adds bombs to the ant's inventory.
         /// See <see cref="ItemBonusValues.Bomb"/>
         /// </summary>
-        PowerUpBomb = 0x000008,
+        PowerUpBomb = 4,
 
         /// <summary>
         /// Health Power-up, adds more health level to the ant, maximum 100.
         /// See <see cref="ItemBonusValues.Health"/>
         /// </summary>
-        PowerUpHealth = 0x000010,
+        PowerUpHealth = 5,
 
         /// <summary>
         /// Shield Power-up, adds more shield level to the ant, maximum 100.
         /// See <see cref="ItemBonusValues.Shield"/>
         /// </summary>
-        PowerUpShield = 0x000020,
+        PowerUpShield = 6,
 
         /// <summary>
         /// The red ant.
         /// </summary>
-        RedAnt = 0x000040,
+        RedAnt = 7,
 
         /// <summary>
         /// The blue ant.
         /// </summary>
-        BlueAnt = 0x000080,
+        BlueAnt = 8,
 
         /// <summary>
         /// The green ant.
         /// </summary>
-        GreenAnt = 0x000100,
+        GreenAnt = 9,
 
         /// <summary>
         /// The orange ant.
         /// </summary>
-        OrangeAnt = 0x000200,
+        OrangeAnt = 10,
 
         /// <summary>
         /// The pink ant.
         /// </summary>
-        PinkAnt = 0x000400,
+        PinkAnt = 11,
 
         /// <summary>
         /// The yellow ant.
         /// </summary>
-        YellowAnt = 0x000800,
+        YellowAnt = 12,
 
         /// <summary>
         /// The gray ant.
         /// </summary>
-        GrayAnt = 0x001000,
+        GrayAnt = 13,
 
         /// <summary>
         /// The white ant.
         /// </summary>
-        WhiteAnt = 0x002000,
+        WhiteAnt = 14,
 
         /// <summary>
         /// The home for the red ant.
         /// </summary>
-        RedHome = 0x004000,
+        RedHome = 15,
 
         /// <summary>
         /// The home for the blue ant.
         /// </summary>
-        BlueHome = 0x008000,
+        BlueHome = 16,
 
         /// <summary>
         /// The home for the green ant.
         /// </summary>
-        GreenHome = 0x010000,
+        GreenHome = 17,
 
         /// <summary>
         /// The home for the orange ant.
         /// </summary>
-        OrangeHome = 0x020000,
+        OrangeHome = 18,
 
         /// <summary>
         /// The home for the pink ant.
         /// </summary>
-        PinkHome = 0x040000,
+        PinkHome = 19,
 
         /// <summary>
         /// The home for the yellow ant.
         /// </summary>
-        YellowHome = 0x080000,
+        YellowHome = 20,
 
         /// <summary>
         /// The home for the gray ant.
         /// </summary>
-        GrayHome = 0x100000,
+        GrayHome = 21,
 
         /// <summary>
         /// The home for the white ant.
         /// </summary>
-        WhiteHome = 0x200000,
+        WhiteHome = 22,
 
         /// <summary>
         /// The flag, pick this up and bring it to the correct color home.
         /// </summary>
-        Flag = 0x400000
+        Flag = 23
     }
 }

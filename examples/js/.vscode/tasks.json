@@ -1,0 +1,38 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "AntRunner",
+            "type": "shell",
+            "command": "${config:antrunner.root}\\debug.bat",
+            "args": [
+                "${workspaceFolder}\\Ant.js"
+            ],
+            "options": {"cwd": "${config:antrunner.root}"},
+            "isBackground": false,
+            "group": "test",
+            "presentation": {
+                "reveal": "never"
+            }
+        },
+        {
+            "label": "KillAntRunner",
+            "type" : "process",
+            "command" : "Taskkill",
+            "args": [
+                "/IM",
+                "AntRunner.exe",
+                "/IM",
+                "node.exe",
+                "/F"
+            ],
+            "isBackground": false,
+            "group" : "test",
+            "presentation": {
+                "reveal": "never"
+            }
+        }
+    ]
+}

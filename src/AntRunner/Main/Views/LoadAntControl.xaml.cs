@@ -42,7 +42,7 @@ namespace AntRunner.Main.Views
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "Assembly files (*.dll)|*.dll",
+                Filter = AntLoader.DialogFilter,
                 RestoreDirectory = true
             };
             if (dialog.ShowDialog() == false) return;
