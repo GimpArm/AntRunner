@@ -7,6 +7,7 @@ A programming exercise game. Create an AI for your cyborg ant to battle up to 8 
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.1.0.0/AntRunner-1.1.0.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
 
 =======
@@ -49,5 +50,8 @@ If there is no flag location set then the flag will randomly be placed. There ca
 >>>>>>> 537b2c9... Update README.md
 =======
 Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.0.0.0/AntRunner-Latest.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
+=======
+Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.1.0.0/AntRunner-1.1.0.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
+>>>>>>> 3801230... Update README.md
 
 >>>>>>> 573aee1... Update README.md
