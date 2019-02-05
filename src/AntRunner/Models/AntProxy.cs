@@ -1,14 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using AntRunner.Interface;
 
 namespace AntRunner.Models
 {
-    public class AntProxy : MarshalByRefObject
+    public class AntProxy : MarshalByRefObject, IDisposable
     {
-        private Assembly _assembly;
         private Ant _ant;
 
         public string Name => _ant.Name;
@@ -34,29 +32,24 @@ namespace AntRunner.Models
         {
             _ant.Tick(state);
         }
-
-        public void LoadAssembly(string assemblyPath)
+        
+        public void LoadAssembly(IWrapperLoader loader, string filePath)
         {
             try
             {
-                _assembly = Assembly.Load(AssemblyName.GetAssemblyName(assemblyPath));
-
-                var antType = _assembly.GetTypes().FirstOrDefault(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Ant)));
-                if (antType == null)
-                {
-                    throw new Exception("Could not find class derived from AntRunner.Interface.Ant");
-                }
-
-                if (!(Activator.CreateInstance(antType) is Ant ant))
-                {
-                    throw new Exception($"Could not initialize Ant class {antType.Name}");
-                }
-
-                _ant = ant;
+                _ant = loader.LoadAnt(filePath);
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException(ex.Message);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_ant is IDisposable disposable)
+            {
+                disposable.Dispose();
             }
         }
     }

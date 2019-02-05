@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using AntRunner.Interface;
 using AntRunner.Main.Views;
 using AntRunner.Models;
 
@@ -17,6 +16,7 @@ namespace AntRunner
             var main = new StartupWindow(map, ants, isDebug);
             main.Show();
         }
+
 
         private static bool ParseArgs(IEnumerable<string> args, out FileSystemInfo map, out IDictionary<AntProxy, AppDomain> ants, bool checkSubFolder = true)
         {
@@ -47,7 +47,7 @@ namespace AntRunner
                 }
 
                 var info = new FileInfo(a);
-                if (info.Extension.Equals(".dll", StringComparison.InvariantCultureIgnoreCase))
+                if (AntLoader.ValidExtension(info.Extension))
                 {
                     var ant = AntLoader.Load(info.FullName, out var domain);
                     if (ant == null) continue;

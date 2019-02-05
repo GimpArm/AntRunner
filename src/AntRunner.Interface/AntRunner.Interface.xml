@@ -567,5 +567,17 @@
             See <see cref="F:AntRunner.Interface.Item.WhiteAnt"/>
             <seealso cref="F:AntRunner.Interface.Item.WhiteHome"/>
         </member>
+        <member name="P:AntRunner.Interface.IWrapperLoader.Extension">
+            <summary>
+            The extension this file type can open.
+            </summary>
+        </member>
+        <member name="M:AntRunner.Interface.IWrapperLoader.LoadAnt(System.String)">
+            <summary>
+            Loads the file and returns an ant object
+            </summary>
+            <param name="filename">Full path to the and file</param>
+            <returns>Ant object for the AppDomain</returns>
+        </member>
     </members>
 </doc>

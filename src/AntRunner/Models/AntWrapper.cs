@@ -242,6 +242,15 @@ namespace AntRunner.Models
         public void Dispose()
         {
             _antWorkerThread?.Dispose();
+            try
+            {
+                Ant?.Dispose();
+            }
+            catch
+            {
+                //Do Nothing
+            }
+
             AppDomain.Unload(_domain);
             GC.Collect();
             GC.WaitForPendingFinalizers();
