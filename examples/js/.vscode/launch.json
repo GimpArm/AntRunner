@@ -8,7 +8,6 @@
             "name": "Attach Node",
             "type": "node",
             "request": "attach",
-            "name": "Attach",
             "port": 9229,
             "preLaunchTask": "AntRunner",
             "postDebugTask": "KillAntRunner"
