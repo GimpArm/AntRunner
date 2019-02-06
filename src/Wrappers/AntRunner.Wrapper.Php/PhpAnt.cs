@@ -23,7 +23,7 @@ namespace AntRunner.Wrapper.Php
         {
             var info = new FileInfo(antPath);
             _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(new Uri(Assembly.GetExecutingAssembly().CodeBase).AbsolutePath);
+            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
             var runningFolder = assemblyInfo.DirectoryName;
             if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
             

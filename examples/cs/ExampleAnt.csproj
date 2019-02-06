@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,7 +27,8 @@
 
   <ItemGroup>
     <Reference Include="AntRunner.Interface">
-      <HintPath>AntRunner.Interface.dll</HintPath>
+      <HintPath>..\..\bin\1.1.1.0\AntRunner.Interface.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

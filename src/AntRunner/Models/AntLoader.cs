@@ -35,15 +35,18 @@ namespace AntRunner.Models
             try
             {
                 var d = AppDomain.CreateDomain($"LoadingDomain-{DateTime.Now.Ticks}", AppDomain.CurrentDomain.Evidence, new AppDomainSetup { ApplicationBase = Environment.CurrentDirectory });
+                
                 d.Load(AssemblyName.GetAssemblyName(typeof(Ant).Assembly.Location));
-                // ReSharper disable once AssignNullToNotNullAttribute
-                var antProxy = (AntProxy)d.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, typeof(AntProxy).FullName);
-
+                d.Load(AssemblyName.GetAssemblyName(typeof(Newtonsoft.Json.JsonConverter).Assembly.Location));
                 var loader = GetLoader(filename);
                 if (loader == null) throw new Exception("Invalid file type");
 
-                antProxy.LoadAssembly(loader, filename);
+                var data = loader.MakeLoaderData(filename);
 
+                // ReSharper disable once AssignNullToNotNullAttribute
+                var antProxy = (AntProxy)d.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, typeof(AntProxy).FullName);
+                antProxy.LoadAssembly(data);
+                
                 domain = d;
                 return antProxy;
             }
@@ -54,7 +57,6 @@ namespace AntRunner.Models
                 return null;
             }
         }
-
 
         private static IList<IWrapperLoader> GetWrappers()
         {
@@ -74,9 +76,9 @@ namespace AntRunner.Models
                     if (loader == null) continue;
                     result.Add(loader);
                 }
-                catch
+                catch (Exception e)
                 {
-                    MessageBox.Show($"Invalid Wrapper {wrapper.Type}", "Invalid Wrapper", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Invalid Wrapper {wrapper.Type}\r\n{e.Message}", "Invalid Wrapper", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 

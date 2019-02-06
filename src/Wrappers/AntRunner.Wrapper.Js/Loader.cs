@@ -1,14 +1,21 @@
-﻿using AntRunner.Interface;
+﻿using System;
+using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Js
 {
+    [Serializable]
     public class Loader : IWrapperLoader
     {
         public string Extension => "js";
 
-        public Ant LoadAnt(string filename)
+        public AssemblyLoaderData MakeLoaderData(string filename)
         {
-            return new JsAnt(filename);
+            return new AssemblyLoaderData
+            {
+                AssemblyName = typeof(Loader).Assembly.GetName(),
+                TypeString = typeof(JsAnt).FullName,
+                ConstructorParameters = new object[] { filename }
+            };
         }
     }
 }

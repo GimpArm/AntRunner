@@ -2,16 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="node\node_modules\**" />
+    <EmbeddedResource Remove="node\node_modules\**" />
+    <None Remove="node\node_modules\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AntRunner.Interface\AntRunner.Interface.csproj">
+    <Reference Include="AntRunner.Interface">
+      <HintPath>..\..\..\bin\$(Version)\AntRunner.Interface.dll</HintPath>
       <Private>false</Private>
-    </ProjectReference>
+      <SpecificVersion>false</SpecificVersion>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,10 +36,6 @@
     <None Update="node\node.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="node\node_modules\" />
   </ItemGroup>
 
 </Project>

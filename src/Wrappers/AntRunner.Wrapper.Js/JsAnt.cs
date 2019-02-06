@@ -28,7 +28,7 @@ namespace AntRunner.Wrapper.Js
         {
             var info = new FileInfo(antPath);
             _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(new Uri(Assembly.GetExecutingAssembly().CodeBase).AbsolutePath);
+            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
             var runningFolder = assemblyInfo.DirectoryName;
             if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
 
@@ -56,7 +56,7 @@ namespace AntRunner.Wrapper.Js
                     FileName = Path.Combine(runningFolder, @"node\node.exe"),
                     Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.js")}"" {settings.Port} {antPath}",
                     WorkingDirectory = _workingDirectory,
-                    EnvironmentVariables = {{ "NODE_PATH", Path.Combine(runningFolder, "lib")}}
+                    EnvironmentVariables = {{ "NODE_PATH", $"{Path.Combine(runningFolder, "lib")};{Path.Combine(_workingDirectory, "node_modules")}"}}
                 }
             };
             _nodeProcess.Start();

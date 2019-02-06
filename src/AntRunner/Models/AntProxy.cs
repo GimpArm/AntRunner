@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using AntRunner.Interface;
 
@@ -32,12 +33,27 @@ namespace AntRunner.Models
         {
             _ant.Tick(state);
         }
-        
-        public void LoadAssembly(IWrapperLoader loader, string filePath)
+
+        public void LoadAssembly(AssemblyLoaderData data)
         {
             try
             {
-                _ant = loader.LoadAnt(filePath);
+                var assembly = Assembly.Load(data.AssemblyName);
+                var antType = string.IsNullOrEmpty(data.TypeString) ? 
+                    assembly.GetExportedTypes().FirstOrDefault(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Ant))) : 
+                    assembly.GetType(data.TypeString);
+
+                if (antType == null)
+                {
+                    throw new Exception("Could not find class derived from AntRunner.Interface.Ant");
+                }
+
+                if (!(Activator.CreateInstance(antType, data.ConstructorParameters) is Ant ant))
+                {
+                    throw new Exception($"Could not initialize Ant class {antType.Name}");
+                }
+
+                _ant = ant;
             }
             catch (Exception ex)
             {

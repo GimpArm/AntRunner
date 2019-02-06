@@ -2,6 +2,9 @@
 
 namespace AntRunner.Interface
 {
+    /// <summary>
+    /// Ant specific information about the current state of the game and what occurred in the previous tick.
+    /// </summary>
     [Serializable]
     public readonly struct GameState
     {

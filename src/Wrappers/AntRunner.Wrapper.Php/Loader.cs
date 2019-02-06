@@ -6,9 +6,14 @@ namespace AntRunner.Wrapper.Php
     {
         public string Extension => "php";
 
-        public Ant LoadAnt(string filename)
+        public AssemblyLoaderData MakeLoaderData(string filename)
         {
-            return new PhpAnt(filename);
+            return new AssemblyLoaderData
+            {
+                AssemblyName = typeof(Loader).Assembly.GetName(),
+                TypeString = typeof(PhpAnt).FullName,
+                ConstructorParameters = new object[] {filename}
+            };
         }
     }
 }
