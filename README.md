@@ -4,5 +4,5 @@ A programming exercise game. Create an AI for your cyborg ant to battle up to 8 
 ![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
 
 ## Getting Started
-Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.1.0.0/AntRunner-1.1.0.zip) and you will find everything you need to start with an [ExampleAnt project](bin/AntRunner-1.0.0.0/ExampleAnt). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
+Download the [latest release](https://github.com/GimpArm/AntRunner/releases/download/1.1.1.0/AntRunner-1.1.0.zip) and you will find everything you need to start with an [ExampleAnt project](examples). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
 
