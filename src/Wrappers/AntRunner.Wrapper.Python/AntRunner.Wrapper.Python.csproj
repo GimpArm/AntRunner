@@ -1,0 +1,822 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\AntRunner\bin\Debug\Wrappers\python\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\AntRunner\bin\Release\Wrappers\python\</OutputPath>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicLanguageRuntime" Version="1.2.2" />
+    <PackageReference Include="IronPython" Version="2.7.9" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AntRunner.Interface">
+      <HintPath>..\..\..\bin\$(Version)\AntRunner.Interface.dll</HintPath>
+      <Private>false</Private>
+      <SpecificVersion>false</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="IKVM.Reflection.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ipy.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ipy32.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ipyc.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ipyw.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ipyw32.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\AntRunner.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\AntWrapper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\attach_server.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\compat.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\daemon.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\debugger.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\exit_handlers.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\futures.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\ipcjson.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\messaging.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\multiproc.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\options.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\pathutils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\pydevd_hooks.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\repl\ipython.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\repl\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\reraise.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\reraise2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\reraise3.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\runner.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\run_code.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\safe_repr.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\session.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\socket.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\ThirdPartyNotices.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\untangle.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\version.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\wrapper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_attach.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_local.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_remote.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\force_pydevd.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevconsole.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\add_code_to_python_process.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_amd64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_pydevd.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_script.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_x86.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_x86.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\attach_x86_64.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\attach.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\attach.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\compile_dll.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\python.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\stdafx.cpp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\stdafx.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\dll\targetver.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\attach_linux.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\compile_mac.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\compile_so.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\gdb_threads_settrace.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\lldb_prepare.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\lldb_threads_settrace.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\Makefile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\linux\python.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\breakpoint.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\compat.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\crash.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\debug.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\disasm.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\event.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\interactive.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\module.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\do_example.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\do_exchain.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\do_exploitable.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\do_symfix.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\README">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\plugins\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\process.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\registry.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\search.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\sql.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\system.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\textio.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\thread.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\advapi32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\context_amd64.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\context_i386.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\dbghelp.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\defines.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\gdi32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\kernel32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\ntdll.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\peb_teb.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\psapi.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\shell32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\shlwapi.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\user32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\version.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\wtsapi32.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\win32\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\window.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\winappdbg\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\_always_live_program.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\_check.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\_test_attach_to_process.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_attach_to_process\_test_attach_to_process_linux.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_concurrency_analyser\pydevd_concurrency_logger.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_concurrency_analyser\pydevd_thread_wrappers.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_concurrency_analyser\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_file_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\django_debug.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\types\pydevd_helpers.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\types\pydevd_plugins_django_form_str.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\types\pydevd_plugin_numpy_types.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\types\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\extensions\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\jinja2_debug.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_plugins\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydevd_tracing.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_app_engine_debug_startup.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_coverage.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhook.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookglut.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookgtk.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookgtk3.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookpyglet.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookqt4.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookqt5.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhooktk.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\inputhookwx.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\matplotlibtools.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\qt.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\qt_for_kernel.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\qt_loaders.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\README">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\version.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_ipython\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_pysrc.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_run_in_console.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_sitecustomize\sitecustomize.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\pydev_sitecustomize\__not_in_default_pythonpath.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\setup_cython.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevconsole_code_for_ironpython.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_additional_thread_info.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_additional_thread_info_regular.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_api.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_breakpoints.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_collect_try_except_info.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_comm.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_command_line_handling.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_comm_constants.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_console.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_constants.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_custom_frames.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_cython.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_cython.pxd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_cython.pyx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_cython_wrapper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_dont_trace.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_dont_trace_files.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_exec.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_exec2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_extension_api.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_extension_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_frame.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_frame_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_import_class.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_io.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_json_debug_options.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_kill_all_pydevd_threads.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_net_command.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_net_command_factory_json.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_net_command_factory_xml.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_plugin_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_process_net_command.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_process_net_command_json.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_referrers.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_reload.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_resolver.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_save_locals.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_signature.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_stackless.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_suspended_frames.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_traceproperty.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_trace_api.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_trace_dispatch.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_trace_dispatch_regular.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_vars.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_vm_type.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\pydevd_xml.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\debugProtocol.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\pydevd_base_schema.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\pydevd_schema.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\pydevd_schema_log.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\_debug_adapter\__main__pydevd_gen_debug_adapter_protocol.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_bundle\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\.gitignore">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_evaluator.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_evaluator.pxd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_evaluator.pyx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_eval_cython_wrapper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_eval_main.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_frame_tracing.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\pydevd_modify_bytecode.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\release_mem.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydevd_frame_eval\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\fix_getpass.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_console_utils.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_imports.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_import_hook.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_ipython_console.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_ipython_console_011.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_is_thread_alive.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_localhost.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_log.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_monkey.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_monkey_qt.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_override.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_umd.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\pydev_versioncheck.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_calltip_util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_completer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_filesystem_encoding.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_getopt.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_imports_tipper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_jy_imports_tipper.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_log.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\_pydev_tipper_common.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_bundle\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_BaseHTTPServer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_execfile.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_inspect.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_pkgutil_old.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_saved_modules.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_SimpleXMLRPCServer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_SocketServer.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_sys_patch.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_uuid_old.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\_pydev_xmlrpclib.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_imps\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_coverage.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_nose.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_parallel.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_parallel_client.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_pytest2.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_unittest.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\pydev_runfiles_xml_rpc.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\pydevd\_pydev_runfiles\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\_pydevd_packaging.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\_util.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_vendored\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\_version.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\ptvsd\__main__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\__init__.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

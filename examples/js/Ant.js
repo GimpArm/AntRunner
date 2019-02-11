@@ -33,7 +33,7 @@ AntRunner.Create({
     {
         this.MapWidth = mapWidth;
         this.MapHeight = mapHeight;
-        this.Color = color;
+        this.MyColor = color;
         this.CurrentX = startX;
         this.CurrentY = startY;
 
@@ -291,21 +291,21 @@ AntRunner.Create({
 			case Item.Bomb:
 				return true;
 			case Item.RedHome:
-				return this._myColor != ItemColor.Red;
+				return this.MyColor != ItemColor.Red;
 			case Item.BlueHome:
-				return this._myColor != ItemColor.Blue;
+				return this.MyColor != ItemColor.Blue;
 			case Item.GreenHome:
-				return this._myColor != ItemColor.Green;
+				return this.MyColor != ItemColor.Green;
 			case Item.OrangeHome:
-				return this._myColor != ItemColor.Orange;
+				return this.MyColor != ItemColor.Orange;
 			case Item.PinkHome:
-				return this._myColor != ItemColor.Pink;
+				return this.MyColor != ItemColor.Pink;
 			case Item.YellowHome:
-				return this._myColor != ItemColor.Yellow;
+				return this.MyColor != ItemColor.Yellow;
 			case Item.GrayHome:
-				return this._myColor != ItemColor.Gray;
+				return this.MyColor != ItemColor.Gray;
 			case Item.WhiteHome:
-				return this._myColor != ItemColor.White;
+				return this.MyColor != ItemColor.White;
 			default:
 				return false;
 		}

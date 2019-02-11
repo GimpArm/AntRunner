@@ -1,9 +1,7 @@
-﻿using System;
-using AntRunner.Interface;
+﻿using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Js
 {
-    [Serializable]
     public class Loader : IWrapperLoader
     {
         public string Extension => "js";

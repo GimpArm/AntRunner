@@ -15,3 +15,5 @@
 /src/Wrappers/AntRunner.Wrapper.Js/obj
 /src/Wrappers/AntRunner.Wrapper.Php/bin
 /src/Wrappers/AntRunner.Wrapper.Php/obj
+/src/Wrappers/AntRunner.Wrapper.Python/bin
+/src/Wrappers/AntRunner.Wrapper.Python/obj
