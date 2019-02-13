@@ -26,48 +26,59 @@ namespace AntRunner.Wrapper.Js
 
         public JsAnt(string antPath)
         {
-            var info = new FileInfo(antPath);
-            _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            var runningFolder = assemblyInfo.DirectoryName;
-            if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
-
-            var settings = ReadSettings(_workingDirectory);
-            var debug = string.Empty;
-            if (settings.Debug)
+            try
             {
-                debug = "--inspect ";
-            }
+                var info = new FileInfo(antPath);
+                _workingDirectory = info.DirectoryName;
+                var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
+                var runningFolder = assemblyInfo.DirectoryName;
+                if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
 
-            if (settings.Port == 0)
-            {
-                settings.Port = new Random().Next(1000, 65536);
-            }
-
-            _nodeProcess = new Process
-            {
-                StartInfo = new ProcessStartInfo
+                var settings = ReadSettings(_workingDirectory);
+                var debug = string.Empty;
+                if (settings.Debug)
                 {
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    FileName = Path.Combine(runningFolder, @"node\node.exe"),
-                    Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.js")}"" {settings.Port} {antPath}",
-                    WorkingDirectory = _workingDirectory,
-                    EnvironmentVariables = {{ "NODE_PATH", $"{Path.Combine(runningFolder, "lib")};{Path.Combine(_workingDirectory, "node_modules")}"}}
+                    debug = "--inspect ";
+                    if (settings.Port == 0)
+                    {
+                        settings.Port = new Random().Next(1000, 65536);
+                    }
                 }
-            };
-            _nodeProcess.Start();
+                else
+                {
+                    settings.Port = new Random().Next(1000, 65536);
+                }
 
-            _client = new TcpClient();
-            Connect(_client, settings.Port);
-            _serverStream = _client.GetStream();
+                _nodeProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        FileName = Path.Combine(runningFolder, @"node\node.exe"),
+                        Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.js")}"" {settings.Port} ""{antPath}""",
+                        WorkingDirectory = _workingDirectory,
+                        EnvironmentVariables = {{"NODE_PATH", $"{Path.Combine(runningFolder, "lib")};{Path.Combine(_workingDirectory, "node_modules")}"}}
+                    }
+                };
+                _nodeProcess.Start();
 
-            Task.Factory.StartNew(Reader);
+                _client = new TcpClient();
+                Connect(_client, settings.Port);
+                _serverStream = _client.GetStream();
 
-            Read("P");
+                Task.Factory.StartNew(Reader);
+
+                Read("P");
+            }
+            catch
+            {
+                Dispose();
+                throw;
+            }
         }
 
         public override void Initialize(int mapWidth, int mapHeight, ItemColor antColor, int startX, int startY)
@@ -163,10 +174,22 @@ namespace AntRunner.Wrapper.Js
 
         public void Dispose()
         {
+            if (_serverStream != null)
+            {
+                try
+                {
+                    _serverStream.WriteAsync(Encoder.GetBytes("X"), 0, 1);
+                    _serverStream.Flush();
+                }
+                catch
+                {
+                    //Do Nothing
+                }
+                _serverStream.Dispose();
+            }
+            _client?.Dispose();
             _nodeProcess?.StandardInput.Close();
             _nodeProcess?.Dispose();
-            _client?.Dispose();
-            _serverStream?.Dispose();
         }
     }
 }

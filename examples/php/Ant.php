@@ -1,16 +1,16 @@
 <?php
 require('MapPosition.php');
 
-use AntRunner\AntAction as AntAction;
-use AntRunner\EchoResponse as EchoResponse;
-use AntRunner\GameEvent as GameEvent;
-use AntRunner\Item as Item;
-use AntRunner\GameState as GameState;
-use AntRunner\ItemColor as ItemColor;
-use AntRunner\DamageValues as DamageValues;
-use AntRunner\ItemBonusValues as ItemBonusValues;
+use \AntRunner_Interface\AntAction as AntAction;
+use \AntRunner_Interface\EchoResponse as EchoResponse;
+use \AntRunner_Interface\GameEvent as GameEvent;
+use \AntRunner_Interface\Item as Item;
+use \AntRunner_Interface\GameState as GameState;
+use \AntRunner_Interface\ItemColor as ItemColor;
+use \AntRunner_Interface\DamageValues as DamageValues;
+use \AntRunner_Interface\ItemBonusValues as ItemBonusValues;
 
-class MyAnt extends AntRunner\Ant
+class MyAnt extends \AntRunner_Interface\Ant
 {
 	public $Name = "PHP Ant";
 	

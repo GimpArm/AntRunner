@@ -22,49 +22,59 @@ namespace AntRunner.Wrapper.Ruby
 
         public RubyAnt(string antPath)
         {
-            var info = new FileInfo(antPath);
-            _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            var runningFolder = assemblyInfo.DirectoryName;
-            if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
-
-            if (!Directory.Exists(Path.Combine(runningFolder, "ruby")))
+            try
             {
-                Unzip(runningFolder);
-            }
+                var info = new FileInfo(antPath);
+                _workingDirectory = info.DirectoryName;
+                var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
+                var runningFolder = assemblyInfo.DirectoryName;
+                if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
 
-            var settings = ReadSettings(_workingDirectory);
-            var debug = string.Empty;
-            if (settings.Debug)
-            {
-                if (settings.Port == 0)
+                if (!Directory.Exists(Path.Combine(runningFolder, "ruby")))
                 {
-                    settings.Port = new Random().Next(1000, 65536);
+                    Unzip(runningFolder);
                 }
-                debug = $@"""{Path.Combine(runningFolder, @"lib\rdebug-ide")}"" --host 0.0.0.0 --port {settings.Port} ";
-            }
-            _rubyProcess = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    FileName = Path.Combine(runningFolder, @"ruby\bin\ruby.exe"),
-                    Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.rb")}"" ""{antPath}""",
-                    WorkingDirectory = _workingDirectory
-                }
-            };
 
-            _rubyProcess.OutputDataReceived += RubyProcessOnOutputDataReceived;
-            _rubyProcess.ErrorDataReceived += RubyProcessOnErrorDataReceived;
-            _rubyProcess.Start();
-            _rubyProcess.BeginOutputReadLine();
-            
-            //Ping the ant so we can wait for Ruby to start running
-            if (string.IsNullOrEmpty(Read("P", 2000))) throw new Exception("Ruby Ant is not responding");
+                var settings = ReadSettings(_workingDirectory);
+                var debug = string.Empty;
+                if (settings.Debug)
+                {
+                    if (settings.Port == 0)
+                    {
+                        settings.Port = new Random().Next(1000, 65536);
+                    }
+
+                    debug = $@"""{Path.Combine(runningFolder, @"lib\rdebug-ide")}"" --host 0.0.0.0 --port {settings.Port} ";
+                }
+
+                _rubyProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        FileName = Path.Combine(runningFolder, @"ruby\bin\ruby.exe"),
+                        Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.rb")}"" ""{antPath}""",
+                        WorkingDirectory = _workingDirectory
+                    }
+                };
+
+                _rubyProcess.OutputDataReceived += RubyProcessOnOutputDataReceived;
+                _rubyProcess.ErrorDataReceived += RubyProcessOnErrorDataReceived;
+                _rubyProcess.Start();
+                _rubyProcess.BeginOutputReadLine();
+
+                //Ping the ant so we can wait for Ruby to start running
+                if (string.IsNullOrEmpty(Read("P", 2000))) throw new Exception("Ruby Ant is not responding");
+            }
+            catch
+            {
+                Dispose();
+                throw;
+            }
         }
 
         private void RubyProcessOnErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -97,8 +107,18 @@ namespace AntRunner.Wrapper.Ruby
 
         public void Dispose()
         {
-            _rubyProcess?.Kill();
-            _rubyProcess?.Dispose();
+            if (_rubyProcess == null) return;
+
+            try
+            {
+                _rubyProcess.StandardInput.WriteLineAsync("X");
+            }
+            catch
+            {
+                //Do  Nothing
+            }
+            _rubyProcess.Kill();
+            _rubyProcess.Dispose();
         }
 
         private string Read(string input, int delay = int.MaxValue)

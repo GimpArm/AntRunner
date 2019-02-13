@@ -1,5 +1,5 @@
 <?php
-use AntRunner\Item as Item;
+use \AntRunner_Interface\Item as Item;
 
 class MapPosition
 {

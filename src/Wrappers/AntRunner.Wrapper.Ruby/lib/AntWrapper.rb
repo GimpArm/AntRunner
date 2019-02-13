@@ -2,14 +2,15 @@
 	raise("Ant file '#{ARGV[0]}' does not exist!")
 end
 require("json")
-require_relative("Ant.rb")
+require_relative("AntRunner.rb")
 require(ARGV[0])
 
 STDOUT.sync = true
 
 __CurrentAnt__ = AntRunner::Interface::Ant.Descendants().first.new()
+__Running__ = true
 
-while STDIN.gets
+while __Running__ && STDIN.gets
 	begin
 		line = $_.strip!
 		if line.nil? || line.length == 0
@@ -29,6 +30,8 @@ while STDIN.gets
 			STDOUT.write("#{__CurrentAnt__.Name}\n")
 		when "P"
 			STDOUT.write("Ping\n")
+		when "X"
+			__Running__ = false
 		else
 			STDOUT.write("Invalid command\n")
 		end

@@ -29,19 +29,26 @@ Ant = MakeAnt(LoadingAnt)
 
 
 for line in sys.stdin:
-	cmd = line[:1]
-	if cmd == "T":
-		s = DecodeGameState(line[1:])
-		Ant.Tick(s)
-		a = Ant.Action
-		sys.stdout.write(f"{a}\n")
-		Ant.Action = 0
-	elif cmd == "I":
-		i = json.loads(line[1:])
-		Ant.Initialize(i[0],i[1],i[2],i[3],i[4])
-	elif cmd == "N":
-		sys.stdout.write(f"{Ant.Name}\n")
-	elif cmd == "P":
-		sys.stdout.write("Ping\n")
+	try:
+		cmd = line[:1]
+		if cmd == "T":
+			s = DecodeGameState(line[1:])
+			Ant.Tick(s)
+			a = Ant.Action
+			sys.stdout.write(f"{a}\n")
+			Ant.Action = 0
+		elif cmd == "I":
+			i = json.loads(line[1:])
+			Ant.Initialize(i[0],i[1],i[2],i[3],i[4])
+		elif cmd == "N":
+			sys.stdout.write(f"{Ant.Name}\n")
+		elif cmd == "P":
+			sys.stdout.write("Ping\n")
+		elif cmd == "X":
+			break
+		else:
+			sys.stdout.write("Invalid command\n")
 
-	sys.stdout.flush()
+		sys.stdout.flush()
+	except:
+		pass

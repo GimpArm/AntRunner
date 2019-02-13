@@ -1,6 +1,4 @@
 ﻿(function () {
-    //require.cache["AntRunner.Interface"] = module;
-    //module.id = "AntRunner.Interface";
     var key = Symbol.for("AntRunner.Interface.Ant");
     
     var Ant = function() {

@@ -21,45 +21,55 @@ namespace AntRunner.Wrapper.Php
         
         public PhpAnt(string antPath)
         {
-            var info = new FileInfo(antPath);
-            _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            var runningFolder = assemblyInfo.DirectoryName;
-            if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
-            
-            var settings = ReadSettings(_workingDirectory);
-            var debug = string.Empty;
-            if (settings.Debug)
+            try
             {
-                var temp = Path.GetTempPath();
-                if (temp.Last() == '\\')
+                var info = new FileInfo(antPath);
+                _workingDirectory = info.DirectoryName;
+                var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
+                var runningFolder = assemblyInfo.DirectoryName;
+                if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
+
+                var settings = ReadSettings(_workingDirectory);
+                var debug = string.Empty;
+                if (settings.Debug)
                 {
-                    temp = temp.Substring(0, temp.Length - 1);
+                    var temp = Path.GetTempPath();
+                    if (temp.Last() == '\\')
+                    {
+                        temp = temp.Substring(0, temp.Length - 1);
+                    }
+
+                    debug = $"-d xdebug.profiler_enable=On -d xdebug.profiler_output_dir=\"{temp}\" -d xdebug.idekey={settings.IdeKey} ";
                 }
-                debug = $"-d xdebug.profiler_enable=On -d xdebug.profiler_output_dir=\"{temp}\" -d xdebug.idekey={settings.IdeKey} ";
+
+                _phpProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        FileName = Path.Combine(runningFolder, @"php\php.exe"),
+                        Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.php")}"" ""{info.Name}""",
+                        WorkingDirectory = _workingDirectory
+                    }
+                };
+
+                _phpProcess.OutputDataReceived += PhpProcessOnOutputDataReceived;
+                _phpProcess.ErrorDataReceived += PhpProcessOnErrorDataReceived;
+                _phpProcess.Start();
+                _phpProcess.BeginOutputReadLine();
+
+                //Ping the ant so we can wait for PHP to start running
+                Read("P");
             }
-            _phpProcess = new Process
+            catch
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    FileName = Path.Combine(runningFolder, @"php\php.exe"),
-                    Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.php")}"" ""{info.Name}""",
-                    WorkingDirectory = _workingDirectory
-                }
-            };
-
-            _phpProcess.OutputDataReceived += PhpProcessOnOutputDataReceived;
-            _phpProcess.ErrorDataReceived += PhpProcessOnErrorDataReceived;
-            _phpProcess.Start();
-            _phpProcess.BeginOutputReadLine();
-
-            //Ping the ant so we can wait for PHP to start running
-            Read("P");
+                Dispose();
+                throw;
+            }
         }
 
         private void PhpProcessOnErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -86,14 +96,24 @@ namespace AntRunner.Wrapper.Php
 
         private string SerializeState(GameState state)
         {
-            var response = state.Response == null ? "N;" : $"O:22:\"AntRunner\\EchoResponse\":2;{{s:8:\"Distance\";i:{state.Response.Distance};s:4:\"Item\";i:{(int)state.Response.Item};}}";
-            return $"O:19:\"AntRunner\\GameState\":7:{{s:10:\"TickNumber\";i:{state.TickNumber};s:7:\"HasFlag\";b:{(state.HasFlag ? 1 : 0)};s:5:\"FlagX\";i:{state.FlagX};s:5:\"FlagY\";i:{state.FlagY};s:11:\"AntWithFlag\";i:{(int)state.AntWithFlag};s:8:\"Response\";{response}s:5:\"Event\";i:{(int)state.Event};}}";
+            var response = state.Response == null ? "N;" : $"O:32:\"AntRunner_Interface\\EchoResponse\":2;{{s:8:\"Distance\";i:{state.Response.Distance};s:4:\"Item\";i:{(int)state.Response.Item};}}";
+            return $"O:29:\"AntRunner_Interface\\GameState\":7:{{s:10:\"TickNumber\";i:{state.TickNumber};s:7:\"HasFlag\";b:{(state.HasFlag ? 1 : 0)};s:5:\"FlagX\";i:{state.FlagX};s:5:\"FlagY\";i:{state.FlagY};s:11:\"AntWithFlag\";i:{(int)state.AntWithFlag};s:8:\"Response\";{response}s:5:\"Event\";i:{(int)state.Event};}}";
         }
 
         public void Dispose()
         {
-            _phpProcess?.Kill();
-            _phpProcess?.Dispose();
+            if (_phpProcess == null) return;
+
+            try
+            {
+                _phpProcess.StandardInput.WriteLineAsync("X");
+            }
+            catch
+            {
+                //Do  Nothing
+            }
+            _phpProcess.Kill();
+            _phpProcess.Dispose();
         }
 
         private string Read(string input, bool timeout = false)

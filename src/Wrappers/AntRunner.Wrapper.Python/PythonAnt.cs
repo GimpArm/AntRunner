@@ -21,50 +21,60 @@ namespace AntRunner.Wrapper.Python
 
         public PythonAnt(string antPath)
         {
-            var info = new FileInfo(antPath);
-            _workingDirectory = info.DirectoryName;
-            var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            var runningFolder = assemblyInfo.DirectoryName;
-            if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
-
-            if (!Directory.Exists(Path.Combine(runningFolder, "python")))
+            try
             {
-                Unzip(runningFolder);
-            }
+                var info = new FileInfo(antPath);
+                _workingDirectory = info.DirectoryName;
+                var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
+                var runningFolder = assemblyInfo.DirectoryName;
+                if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
 
-            var settings = ReadSettings(_workingDirectory);
-            var debug = string.Empty;
-            if (settings.Debug)
-            {
-                if (settings.Port == 0)
+                if (!Directory.Exists(Path.Combine(runningFolder, "python")))
                 {
-                    settings.Port = new Random().Next(1000, 65536);
+                    Unzip(runningFolder);
                 }
-                debug = $@" debug:{settings.Port}";
-            }
-            _pythonProcess = new Process
-            {
-                StartInfo = new ProcessStartInfo
+
+                var settings = ReadSettings(_workingDirectory);
+                var debug = string.Empty;
+                if (settings.Debug)
                 {
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    FileName = Path.Combine(runningFolder, @"python\python.exe"),
-                    Arguments = $@"-B -u ""{Path.Combine(runningFolder, @"lib\AntWrapper.py")}"" {Path.GetFileNameWithoutExtension(info.Name)}{debug}",
-                    WorkingDirectory = _workingDirectory,
-                    EnvironmentVariables = { {"PYTHONPATH", $"{Path.Combine(runningFolder, @"python\Lib")};{Path.Combine(runningFolder, @"lib")};{_workingDirectory}"}}
+                    if (settings.Port == 0)
+                    {
+                        settings.Port = new Random().Next(1000, 65536);
+                    }
+
+                    debug = $@" debug:{settings.Port}";
                 }
-            };
 
-            _pythonProcess.OutputDataReceived += PythonProcessOnOutputDataReceived;
-            _pythonProcess.ErrorDataReceived += PythonProcessOnErrorDataReceived;
-            _pythonProcess.Start();
-            _pythonProcess.BeginOutputReadLine();
+                _pythonProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true,
+                        FileName = Path.Combine(runningFolder, @"python\python.exe"),
+                        Arguments = $@"-B -u ""{Path.Combine(runningFolder, @"lib\AntWrapper.py")}"" {Path.GetFileNameWithoutExtension(info.Name)}{debug}",
+                        WorkingDirectory = _workingDirectory,
+                        EnvironmentVariables = {{"PYTHONPATH", $"{Path.Combine(runningFolder, @"python\Lib")};{Path.Combine(runningFolder, @"lib")};{_workingDirectory}"}}
+                    }
+                };
 
-            //Ping the ant so we can wait for Python to start running
-            if (string.IsNullOrEmpty(Read("P", 2000))) throw new Exception("Python Ant is not responding");
+                _pythonProcess.OutputDataReceived += PythonProcessOnOutputDataReceived;
+                _pythonProcess.ErrorDataReceived += PythonProcessOnErrorDataReceived;
+                _pythonProcess.Start();
+                _pythonProcess.BeginOutputReadLine();
+
+                //Ping the ant so we can wait for Python to start running
+                if (string.IsNullOrEmpty(Read("P", 2000))) throw new Exception("Python Ant is not responding");
+            }
+            catch
+            {
+                Dispose();
+                throw;
+            }
         }
 
         private void PythonProcessOnErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -97,8 +107,18 @@ namespace AntRunner.Wrapper.Python
 
         public void Dispose()
         {
-            _pythonProcess?.Kill();
-            _pythonProcess?.Dispose();
+            if (_pythonProcess == null) return;
+
+            try
+            {
+                _pythonProcess.StandardInput.WriteLineAsync("X");
+            }
+            catch
+            {
+                //Do  Nothing
+            }
+            _pythonProcess.Kill();
+            _pythonProcess.Dispose();
         }
 
         private string Read(string input, int delay = int.MaxValue)
@@ -125,7 +145,6 @@ namespace AntRunner.Wrapper.Python
                 {
                     return JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFile));
                 }
-
             }
             catch
             {

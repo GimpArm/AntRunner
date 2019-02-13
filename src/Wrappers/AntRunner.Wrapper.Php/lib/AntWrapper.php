@@ -1,17 +1,7 @@
 <?php
 if (!file_exists($argv[1])) throw new Exception('Ant file "' . $argv[1] . '" does not exist!');
 
-require(__DIR__ . '/AntAction.php');
-require(__DIR__ . '/DamageValues.php');
-require(__DIR__ . '/GameEvent.php');
-require(__DIR__ . '/Item.php');
-require(__DIR__ . '/ItemBonusValues.php');
-require(__DIR__ . '/ItemColor.php');
-
-require(__DIR__ . '/EchoResponse.php');
-require(__DIR__ . '/GameState.php');
-
-require(__DIR__ . '/Ant.php');
+require(__DIR__ . '/AntRunner.php');
 
 Run($argv[1]);
 
@@ -45,6 +35,8 @@ function Run($filename)
 				case 'P':
 					fwrite(STDOUT, 'Ping' . PHP_EOL);
 					break;
+				case 'X':
+					break 2;
 				default:
 					fwrite(STDOUT, 'Invalid command' . PHP_EOL);
 					break;
@@ -52,6 +44,7 @@ function Run($filename)
 		} catch (Exception $e) {
 			
 		}
+		fflush(STDOUT);
 	}
 
 	fclose($stdin);
@@ -67,7 +60,7 @@ function LoadClass($filename)
 	foreach ($diff as $className)
 	{
 		$obj = new ReflectionClass($className);
-		if ($obj->isSubclassOf('AntRunner\Ant'))
+		if ($obj->isSubclassOf('\AntRunner_Interface\Ant'))
 		{
 			return new $className();
 		}
