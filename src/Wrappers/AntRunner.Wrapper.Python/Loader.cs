@@ -1,4 +1,5 @@
-﻿using AntRunner.Interface;
+﻿using System.Reflection;
+using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Python
 {
@@ -10,8 +11,8 @@ namespace AntRunner.Wrapper.Python
         {
             return new AssemblyLoaderData
             {
-                AssemblyName = typeof(Loader).Assembly.GetName(),
-                TypeString = typeof(PythonAnt).FullName,
+                AssemblyName = Assembly.GetExecutingAssembly().GetName(),
+                TypeString = "AntRunner.Wrapper.Python.PythonAnt",
                 ConstructorParameters = new object[] { filename }
         };
         }

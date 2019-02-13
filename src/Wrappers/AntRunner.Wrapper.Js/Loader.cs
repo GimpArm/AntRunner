@@ -1,4 +1,5 @@
-﻿using AntRunner.Interface;
+﻿using System.Reflection;
+using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Js
 {
@@ -10,8 +11,8 @@ namespace AntRunner.Wrapper.Js
         {
             return new AssemblyLoaderData
             {
-                AssemblyName = typeof(Loader).Assembly.GetName(),
-                TypeString = typeof(JsAnt).FullName,
+                AssemblyName = Assembly.GetExecutingAssembly().GetName(),
+                TypeString = "AntRunner.Wrapper.Js.JsAnt",
                 ConstructorParameters = new object[] { filename }
             };
         }

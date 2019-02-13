@@ -1,8 +1,13 @@
-import clr
-clr.AddReference("AntRunner.Interface")
-import AntRunner.Interface.Ant
+import AntRunner.Interface
+from AntRunner.Interface import AntAction
+from AntRunner.Interface import Item
+from AntRunner.Interface import GameEvent
+from AntRunner.Interface import ItemColor
+from AntRunner.Interface import ItemBonusValues
+from AntRunner.Interface import DamageValues
+from AntRunner.Interface import EchoResponse
+from AntRunner.Interface import GameState
 
-from AntRunner.Interface import *
 
 from MapPosition import MapPosition
 
@@ -15,7 +20,7 @@ class MyAnt(AntRunner.Interface.Ant):
 	CurrentX = 0
 	CurrentY = 0
 
-	MyColor = ItemColor.None
+	MyColor = ItemColor.None_
 
 	Map = []
 
@@ -34,10 +39,10 @@ class MyAnt(AntRunner.Interface.Ant):
 		self.CurrentMode = 0
 		self.LastAction = AntAction.Wait
 
-		self.Map = [[0 for x in xrange(mapWidth)] for y in xrange(mapHeight)] 
-		for y in xrange(0, mapHeight):
+		self.Map = [[0 for x in range(mapWidth)] for y in range(mapHeight)] 
+		for y in range(0, mapHeight):
 			self.Map.append(y)
-			for x in xrange(0, mapWidth):
+			for x in range(0, mapWidth):
 				self.Map[y][x] = MapPosition()
 		
 		self.Map[startY][startX].Known = True		
@@ -60,28 +65,28 @@ class MyAnt(AntRunner.Interface.Ant):
 			return
 		
 		if self.LastAction == AntAction.EchoRight:
-			for i in xrange(1, response.Distance):
+			for i in range(1, response.Distance):
 				self.Map[self.CurrentY][self.CurrentX + i].Known = True
 
 			if self.CurrentX + response.Distance < self.MapWidth:
 				self.Map[self.CurrentY][self.CurrentX + response.Distance].Known = True
 				self.Map[self.CurrentY][self.CurrentX + response.Distance].Item = response.Item
 		elif self.LastAction == AntAction.EchoDown:
-			for i in xrange(1, response.Distance):
+			for i in range(1, response.Distance):
 				self.Map[self.CurrentY + i][self.CurrentX ].Known = True
 
 			if self.CurrentY + response.Distance < self.MapWidth:
 				self.Map[self.CurrentY + response.Distance][self.CurrentX].Known = True
 				self.Map[self.CurrentY + response.Distance][self.CurrentX].Item = response.Item
 		elif self.LastAction == AntAction.EchoLeft:
-			for i in xrange(1, response.Distance):
+			for i in range(1, response.Distance):
 				self.Map[self.CurrentY][self.CurrentX - i].Known = True
 
 			if self.CurrentX - response.Distance >= 0:
 				self.Map[self.CurrentY][self.CurrentX - response.Distance].Known = True
 				self.Map[self.CurrentY][self.CurrentX - response.Distance].Item = response.Item
 		elif self.LastAction == AntAction.EchoUp:
-			for i in xrange(1, response.Distance):
+			for i in range(1, response.Distance):
 				self.Map[self.CurrentY - i][self.CurrentX ].Known = True
 
 			if self.CurrentY - response.Distance >= 0:
@@ -91,7 +96,7 @@ class MyAnt(AntRunner.Interface.Ant):
 			pass #Should never come here
 
 	def CheckFlag(self, e, check):
-		return e & check == check
+		return e & int(check) == int(check)
 
 	def ProcessGameEvent(self, e):
 		if self.CheckFlag(e, GameEvent.CollisionDamage):

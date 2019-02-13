@@ -15,7 +15,7 @@
                 }
             ],
             "windows": {
-                "pythonPath": "${config:antrunner.root}\\Wrappers\\python\\ipy.exe"
+                "pythonPath": "${config:antrunner.root}\\Wrappers\\python\\python\\python.exe"
             },
             "port": 25494,
             "host": "127.0.0.1",

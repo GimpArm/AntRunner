@@ -1,5 +1,5 @@
 <?php
-if (!file_exists($argv[1])) throw new Exception('Ant file "' . $argv[0] . '" does not exist!');
+if (!file_exists($argv[1])) throw new Exception('Ant file "' . $argv[1] . '" does not exist!');
 
 require(__DIR__ . '/AntAction.php');
 require(__DIR__ . '/DamageValues.php');

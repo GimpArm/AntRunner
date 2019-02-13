@@ -1,0 +1,3441 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\AntRunner\bin\Debug\Wrappers\ruby\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\AntRunner\bin\Release\Wrappers\ruby\</OutputPath>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AntRunner.Interface">
+      <HintPath>..\..\..\bin\$(Version)\AntRunner.Interface.dll</HintPath>
+      <Private>false</Private>
+      <SpecificVersion>false</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="lib\Ant.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\AntWrapper.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="lib\rdebug-ide">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\ruby_builtin_dlls\ruby_builtin_dlls.manifest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\context.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\rbx.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\rbx\breakpoint.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\rbx\context.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\rbx\frame.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\rbx\monkey.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\ruby_core_source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debase_internals.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\debugger_loader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\gdb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\lldb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\native_debugger.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\process_thread.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\attach\util.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\breakpoints.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\catchpoint.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\condition.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\control.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\enable.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\eval.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\expression_info.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\file_filtering.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\frame.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\inspect.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\jump.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\load.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\pause.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\set_type.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\stepping.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\threads.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\commands\variables.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\event_processor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\greeter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\helper.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\ide_processor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\interface.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\multiprocess.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\multiprocess\monkey.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\multiprocess\pre_child.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\multiprocess\starter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\multiprocess\unmonkey.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ruby-debug-ide\xml_printer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\msvcrt-ruby260.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\ruby.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\ruby_builtin_dlls\libgcc_s_dw2-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\ruby_builtin_dlls\libgmp-10.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\bin\ruby_builtin_dlls\libwinpthread-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\abbrev.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\base64.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\benchmark.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cmath.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\coverage.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\date.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\debug.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\delegate.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\digest.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\e2mmap.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\English.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\erb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fileutils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\find.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\forwardable.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\getoptlong.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ipaddr.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\kconv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\logger.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\matrix.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\mkmf.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\monitor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\mutex_m.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\observer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\open-uri.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\open3.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optionparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ostruct.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\pathname.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\pp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\prettyprint.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\prime.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\profile.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\profiler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\pstore.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\resolv-replace.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\resolv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ripper.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\scanf.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\securerandom.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shellwords.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\singleton.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\socket.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\sync.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\tempfile.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\thwait.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\time.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\timeout.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\tmpdir.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\tracer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\tsort.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\un.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\weakref.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\Win32API.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32ole.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\yaml.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal\jacobian.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal\ludcmp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal\math.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal\newton.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bigdecimal\util.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\build_metadata.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\capistrano.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\compact_index_client.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\compatibility_guard.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\constants.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\current_ruby.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\definition.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\dependency.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\deployment.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\deprecate.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\dep_proxy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\dsl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\endpoint_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\env.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\environment_preserver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\errors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\feature_flag.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\friendly_errors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gemdeps.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gem_helper.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gem_helpers.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gem_remote_fetcher.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gem_tasks.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\gem_version_promoter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\graph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\index.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\injector.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\inline.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\lazy_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\lockfile_generator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\lockfile_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\match_platform.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\mirror.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\process_lock.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\psyched_yaml.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\remote_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\resolver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\retry.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\rubygems_ext.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\rubygems_gem_installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\rubygems_integration.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ruby_dsl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ruby_version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\runtime.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\settings.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\setup.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\shared_helpers.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\similarity_detector.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source_list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\spec_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\stub_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ui.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\uri_credentials_filter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendored_fileutils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendored_molinillo.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendored_persistent.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendored_thor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\version_ranges.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vlad.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\worker.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\yaml_serializer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\add.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\binstubs.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\cache.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\check.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\clean.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\common.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\config.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\console.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\doctor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\exec.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\gem.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\info.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\init.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\inject.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\install.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\issue.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\lock.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\open.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\outdated.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\package.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\platform.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\plugin.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\pristine.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\remove.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\show.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\update.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\cli\viz.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\compact_index_client\cache.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\compact_index_client\updater.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher\base.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher\compact_index.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher\dependency.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher\downloader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\fetcher\index.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\installer\gem_installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\installer\parallel_installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\installer\standalone.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\api.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\dsl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\events.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\index.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\source_list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\api\source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\installer\git.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\plugin\installer\rubygems.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\resolver\spec_group.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\settings\validator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\gemspec.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\git.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\metadata.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\path.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\rubygems.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\git\git_proxy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\path\installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\source\rubygems\remote.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ssl_certs\certificate_manager.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ssl_certs\index.rubygems.org\GlobalSignRootCA.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ssl_certs\rubygems.global.ssl.fastly.net\DigiCertHighAssuranceEVRootCA.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ssl_certs\rubygems.org\AddTrustExternalCARoot.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\Executable">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\Executable.bundler">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\Executable.standalone">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\Gemfile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\gems.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\CODE_OF_CONDUCT.md.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\Gemfile.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\gitignore.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\LICENSE.txt.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\newgem.gemspec.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\Rakefile.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\README.md.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\rspec.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\travis.yml.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\bin\console.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\bin\setup.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\exe\newgem.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\ext\newgem\extconf.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\ext\newgem\newgem.c.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\ext\newgem\newgem.h.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\lib\newgem.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\lib\newgem\version.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\spec\newgem_spec.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\spec\spec_helper.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\test\newgem_test.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\templates\newgem\test\test_helper.rb.tt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ui\rg_proxy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ui\shell.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\ui\silent.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\fileutils\lib\fileutils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\compatibility.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\errors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\gem_metadata.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\resolution.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\resolver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\state.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\delegates\resolution_state.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\delegates\specification_provider.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\action.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\add_edge_no_circular.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\add_vertex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\delete_edge.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\detach_vertex_named.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\log.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\set_payload.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\tag.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\dependency_graph\vertex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\modules\specification_provider.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\molinillo\lib\molinillo\modules\ui.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\net-http-persistent\lib\net\http\faster.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\net-http-persistent\lib\net\http\persistent.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\net-http-persistent\lib\net\http\persistent\ssl_reuse.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\base.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\group.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\invocation.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\line_editor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\rake_compat.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\runner.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\shell.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\util.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\create_file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\create_link.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\directory.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\empty_directory.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\file_manipulation.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\actions\inject_into_file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\core_ext\hash_with_indifferent_access.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\core_ext\io_binary_read.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\core_ext\ordered_hash.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\line_editor\basic.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\line_editor\readline.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\parser\argument.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\parser\arguments.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\parser\option.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\parser\options.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\shell\basic.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\shell\color.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\bundler\vendor\thor\lib\thor\shell\html.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\cookie.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\core.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\html.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\session.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\util.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\cgi\session\pstore.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\fields_converter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\match_p.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\row.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\table.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\writer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\core_ext\array.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\csv\core_ext\string.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\digest\sha2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\acl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\drb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\eq.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\extserv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\extservm.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\gw.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\invokemethod.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\observer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\ssl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\timeridconv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\drb\unix.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\e2mmap\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\closure.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\cparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\function.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\import.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\pack.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\struct.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\types.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fiddle\value.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\fileutils\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\forwardable\impl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\bigdecimal.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\continuation.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\coverage.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\date_core.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\dbm.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\etc.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\fcntl.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\fiber.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\fiddle.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\gdbm.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\nkf.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\objspace.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\openssl.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\pathname.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\psych.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\rbconfig.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\readline.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\ripper.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\sdbm.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\socket.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\stringio.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\strscan.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\win32ole.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\zlib.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\bigdecimal\util.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\cgi\escape.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest\bubblebabble.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest\md5.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest\rmd160.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest\sha1.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\digest\sha2.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\big5.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\cp949.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\emacs_mule.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\encdb.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\euc_jp.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\euc_kr.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\euc_tw.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\gb18030.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\gb2312.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\gbk.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_1.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_10.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_11.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_13.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_14.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_15.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_16.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_2.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_3.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_4.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_5.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_6.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_7.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_8.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\iso_8859_9.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\koi8_r.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\koi8_u.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\shift_jis.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\utf_16be.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\utf_16le.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\utf_32be.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\utf_32le.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1250.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1251.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1252.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1253.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1254.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_1257.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\windows_31j.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\big5.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\chinese.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\ebcdic.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\emoji.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\emoji_iso2022_kddi.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\emoji_sjis_docomo.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\emoji_sjis_kddi.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\emoji_sjis_softbank.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\escape.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\gb18030.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\gbk.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\iso2022.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\japanese.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\japanese_euc.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\japanese_sjis.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\korean.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\single_byte.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\transdb.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\utf8_mac.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\enc\trans\utf_16_32.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\io\console.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\io\nonblock.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\io\wait.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\json\ext\generator.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\json\ext\parser.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\racc\cparse.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\rbconfig\sizeof.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\i386-mingw32\win32\resolv.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\io\console\size.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\completion.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\context.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\extend-command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\frame.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\help.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\init.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\input-method.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\inspector.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\locale.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\magic-file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\notifier.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\output-method.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ruby-lex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ruby-token.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\slex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\src_encoding.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\workspace.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ws-for-case-2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\xmp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\chws.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\fork.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\help.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\load.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\nop.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\pushws.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\cmd\subirb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\change-ws.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\history.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\loader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\multi-irb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\save-history.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\tracer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\use-loader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\ext\workspaces.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\lc\error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\lc\help-message">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\lc\ja\encoding_aliases.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\lc\ja\error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\irb\lc\ja\help-message">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\common.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\ext.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\generic_object.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\bigdecimal.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\complex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\core.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\date.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\date_time.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\exception.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\ostruct.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\range.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\rational.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\regexp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\struct.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\symbol.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\json\add\time.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\matrix\eigenvalue_decomposition.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\matrix\lup_decomposition.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\ftp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\https.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\imap.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\pop.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\protocol.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\smtp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\backward.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\exceptions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\generic_request.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\header.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\proxy_delta.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\request.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\requests.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\response.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\responses.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\net\http\status.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\bn.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\buffering.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\cipher.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\config.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\digest.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\pkcs5.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\pkey.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\ssl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\openssl\x509.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\ac.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\date.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\kwargs.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\shellwords.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\time.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\uri.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\optparse\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\class_loader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\coder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\core_ext.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\exception.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\handler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\omap.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\scalar_scanner.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\stream.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\streaming.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\syntax_error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\tree_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\versions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\y.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\handlers\document_stream.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\handlers\recorder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\json\ruby_events.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\json\stream.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\json\tree_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\json\yaml_events.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\alias.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\document.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\mapping.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\node.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\scalar.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\sequence.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\nodes\stream.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\depth_first.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\emitter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\json_tree.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\to_ruby.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\visitor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\psych\visitors\yaml_tree.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\racc\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\alias.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\anon_class.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\any_method.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\attr.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\class_module.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\code_object.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\code_objects.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\comment.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\constant.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\context.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\cross_reference.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\encoding.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\erbio.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\erb_partial.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\extend.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ghost_method.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\i18n.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\include.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\known_classes.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markdown.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\meta_method.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\method_attr.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\mixin.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\normal_class.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\normal_module.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\options.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rd.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rdoc.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\require.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rubygems_hook.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\servlet.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\single_class.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\stats.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\store.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\task.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\text.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\token_stream.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\tom_doc.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\top_level.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\context\section.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\darkfish.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\json_index.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\markup.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\pot.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\ri.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\pot\message_extractor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\pot\po.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\pot\po_entry.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\class.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\index.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\page.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\servlet_not_found.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\servlet_root.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\table_of_contents.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_footer.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_head.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_classes.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_extends.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_includes.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_installed.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_in_files.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_methods.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_navigation.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_pages.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_parent.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_search.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_sections.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_table_of_contents.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\_sidebar_VCS_info.rhtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\css\fonts.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\css\rdoc.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\Lato-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\Lato-LightItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\Lato-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\Lato-RegularItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\SourceCodePro-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\fonts\SourceCodePro-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\arrow_up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\brick.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\brick_link.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\bug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\bullet_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\bullet_toggle_minus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\bullet_toggle_plus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\date.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\loadingAnimation.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\macFFBgHack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\package.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\page_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\page_white_text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\page_white_width.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\plugin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\ruby.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\tag_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\tag_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\transparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\wrench_orange.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\images\zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\js\darkfish.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\js\jquery.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\darkfish\js\search.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\json_index\js\navigation.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\generator\template\json_index\js\searcher.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\i18n\locale.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\i18n\text.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markdown\entities.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markdown\literals.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\attributes.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\attribute_manager.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\attr_changer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\attr_span.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\blank_line.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\block_quote.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\document.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\formatter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\formatter_test_case.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\hard_break.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\heading.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\include.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\indented_paragraph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\list_item.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\paragraph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\pre_process.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\raw.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\regexp_handling.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\rule.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\text_formatter_test_case.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_ansi.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_bs.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_html.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_html_crossref.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_html_snippet.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_joined_paragraph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_label.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_markdown.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_rdoc.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_table_of_contents.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_test.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\to_tt_only.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\markup\verbatim.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\c.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\changelog.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\markdown.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\rd.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\ripper_state_lex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\ruby.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\ruby_tools.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\simple.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\parser\text.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rd\block_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rd\inline.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\rd\inline_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri\driver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri\formatter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri\paths.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri\store.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\ri\task.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\stats\normal.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\stats\quiet.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rdoc\stats\verbose.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\attlistdecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\attribute.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\cdata.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\child.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\comment.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\doctype.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\document.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\element.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\encoding.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\entity.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\functions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\instruction.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\namespace.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\node.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\output.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parent.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parseexception.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\quickpath.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\rexml.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\sax2listener.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\security.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\streamlistener.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\syncenumerator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\text.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\undefinednamespaceexception.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\xmldecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\xmltokens.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\xpath.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\xpath_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\dtd\attlistdecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\dtd\dtd.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\dtd\elementdecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\dtd\entitydecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\dtd\notationdecl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\formatters\default.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\formatters\pretty.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\formatters\transitive.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\light\node.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\baseparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\lightparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\pullparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\sax2parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\streamparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\treeparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\ultralightparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\parsers\xpathparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\validation\relaxng.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\validation\validation.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rexml\validation\validationexception.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rinda\rinda.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rinda\ring.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rinda\tuplespace.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ripper\core.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ripper\filter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ripper\lexer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\ripper\sexp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\0.9.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\1.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\2.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\atom.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\content.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\converter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\dublincore.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\image.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\itunes.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\rexmlparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\rss.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\slash.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\syndication.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\taxonomy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\trackback.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\utils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\xml-stylesheet.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\xml.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\xmlparser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\xmlscanner.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\content\1.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\content\2.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\dublincore\1.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\dublincore\2.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\dublincore\atom.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\0.9.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\1.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\2.0.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\atom.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\base.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\content.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\dublincore.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\entry.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\feed.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\image.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\itunes.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\slash.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\syndication.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\taxonomy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rss\maker\trackback.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\available_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\basic_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\bundler_version_finder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\command_manager.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\compatibility.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\config_file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\defaults.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\dependency.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\dependency_installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\dependency_list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\deprecate.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\doctor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\errors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\exceptions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\gemcutter_utilities.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\gem_runner.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\indexer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\installer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\installer_test_case.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\install_default_message.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\install_message.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\install_update_options.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\local_remote_options.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\mock_gem_ui.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\name_tuple.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package_task.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\path_support.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\platform.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\psych_additions.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\psych_tree.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\rdoc.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\remote_fetcher.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\requirement.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\safe_yaml.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security_option.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\server.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source_list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source_local.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source_specific_file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\specification_policy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\spec_fetcher.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\stub_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\syck_hack.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\test_case.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\test_utilities.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\text.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\uninstaller.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\uri_formatter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\user_interaction.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\util.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\validator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\version_option.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\build_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\cert_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\check_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\cleanup_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\contents_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\dependency_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\environment_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\fetch_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\generate_index_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\help_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\info_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\install_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\list_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\lock_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\mirror_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\open_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\outdated_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\owner_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\pristine_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\push_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\query_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\rdoc_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\search_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\server_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\setup_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\signin_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\signout_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\sources_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\specification_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\stale_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\uninstall_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\unpack_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\update_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\which_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\commands\yank_command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\core_ext\kernel_gem.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\core_ext\kernel_require.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\core_ext\kernel_warn.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\defaults\operating_system.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\build_error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\cmake_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\configure_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\ext_conf_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ext\rake_builder.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\digest_io.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\file_source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\io_source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\old.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\source.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\tar_header.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\tar_reader.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\tar_test_case.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\tar_writer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\package\tar_reader\entry.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request\connection_pools.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request\https_pool.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request\http_pool.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request_set\gem_dependency_api.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request_set\lockfile.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request_set\lockfile\parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\request_set\lockfile\tokenizer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\activation_request.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\api_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\api_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\best_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\composed_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\conflict.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\current_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\dependency_request.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\git_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\git_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\index_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\index_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\installed_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\installer_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\local_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\lock_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\lock_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\requirement_list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\source_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\spec_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\stats.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\vendor_set.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\vendor_specification.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\errors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\gem_metadata.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\resolution.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\resolver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\state.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\delegates\resolution_state.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\delegates\specification_provider.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\action.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\add_edge_no_circular.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\add_vertex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\delete_edge.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\detach_vertex_named.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\log.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\set_payload.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\tag.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\dependency_graph\vertex.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\modules\specification_provider.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\resolver\molinillo\lib\molinillo\modules\ui.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security\policies.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security\policy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security\signer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\security\trust_dir.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\git.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\installed.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\local.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\lock.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\specific_file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\source\vendor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ssl_certs\index.rubygems.org\GlobalSignRootCA.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ssl_certs\rubygems.global.ssl.fastly.net\DigiCertHighAssuranceEVRootCA.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\ssl_certs\rubygems.org\AddTrustExternalCARoot.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\util\licenses.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\rubygems\util\list.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\builtin-command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\command-processor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\error.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\filter.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\process-controller.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\system-command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\shell\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\thwait\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\tracer\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\unicode_normalize\normalize.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\unicode_normalize\tables.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\common.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\file.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\ftp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\generic.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\http.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\https.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\ldap.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\ldaps.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\mailto.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\rfc2396_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\uri\rfc3986_parser.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\accesslog.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\cgi.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\compat.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\config.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\cookie.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\htmlutils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpproxy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httprequest.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpresponse.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\https.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpserver.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpstatus.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httputils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpversion.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\log.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\server.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\ssl.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\utils.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\version.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\authenticator.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\basicauth.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\digestauth.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\htdigest.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\htgroup.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\htpasswd.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpauth\userdb.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\abstract.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\cgihandler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\cgi_runner.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\erbhandler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\filehandler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\webrick\httpservlet\prochandler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32\importer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32\registry.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32\resolv.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32\resolv9x.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32\sspi.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\win32ole\property.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\yaml\dbm.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ruby\lib\ruby\2.6.0\yaml\store.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

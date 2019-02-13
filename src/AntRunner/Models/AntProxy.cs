@@ -48,6 +48,8 @@ namespace AntRunner.Models
                     throw new Exception("Could not find class derived from AntRunner.Interface.Ant");
                 }
 
+                AppDomain.CurrentDomain.AssemblyResolve += CreateHandler(new FileInfo(assembly.Location).DirectoryName);
+
                 if (!(Activator.CreateInstance(antType, data.ConstructorParameters) is Ant ant))
                 {
                     throw new Exception($"Could not initialize Ant class {antType.Name}");
@@ -57,8 +59,31 @@ namespace AntRunner.Models
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException(ex.Message);
+                throw new InvalidOperationException(ex.InnerException?.Message ?? ex.Message);
             }
+        }
+
+        private static ResolveEventHandler CreateHandler(string directoryName)
+        {
+            var dllLookup = Directory.GetFiles(directoryName, "*.dll").ToDictionary(Path.GetFileNameWithoutExtension, y => y);
+            //if (!dllLookup.ContainsKey("AntRunner.Interface"))
+            //{
+            //    dllLookup.Add("AntRunner.Interface", typeof(Ant).Assembly.Location);
+            //}
+
+            //if (!dllLookup.ContainsKey("Newtonsoft.Json"))
+            //{
+            //    dllLookup.Add("Newtonsoft.Json", typeof(Newtonsoft.Json.JsonConverter).Assembly.Location);
+            //}
+            return (sender, args) =>
+            {
+                var name = args.Name.Split(',')[0];
+                if (dllLookup.ContainsKey(name))
+                {
+                    return Assembly.Load(AssemblyName.GetAssemblyName(dllLookup[name]));
+                }
+                return Assembly.Load(args.Name);
+            };
         }
 
         public void Dispose()

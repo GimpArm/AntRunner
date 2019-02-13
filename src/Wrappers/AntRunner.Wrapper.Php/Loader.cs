@@ -1,4 +1,5 @@
-﻿using AntRunner.Interface;
+﻿using System.Reflection;
+using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Php
 {
@@ -10,8 +11,8 @@ namespace AntRunner.Wrapper.Php
         {
             return new AssemblyLoaderData
             {
-                AssemblyName = typeof(Loader).Assembly.GetName(),
-                TypeString = typeof(PhpAnt).FullName,
+                AssemblyName = Assembly.GetExecutingAssembly().GetName(),
+                TypeString = "AntRunner.Wrapper.Php.PhpAnt",
                 ConstructorParameters = new object[] {filename}
             };
         }
