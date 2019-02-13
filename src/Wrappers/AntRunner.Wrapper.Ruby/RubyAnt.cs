@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Threading.Tasks;
 using AntRunner.Interface;
@@ -26,6 +27,11 @@ namespace AntRunner.Wrapper.Ruby
             var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
             var runningFolder = assemblyInfo.DirectoryName;
             if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
+
+            if (!Directory.Exists(Path.Combine(runningFolder, "ruby")))
+            {
+                Unzip(runningFolder);
+            }
 
             var settings = ReadSettings(_workingDirectory);
             var debug = string.Empty;
@@ -126,6 +132,13 @@ namespace AntRunner.Wrapper.Ruby
                 //Do nothing
             }
             return new Settings { Debug = false };
+        }
+
+        private static void Unzip(string folder)
+        {
+            var zipFile = Path.Combine(folder, "ruby.zip");
+            if (!File.Exists(zipFile)) throw new Exception("Cannot file ruby.zip in wrapper folder");
+            ZipFile.ExtractToDirectory(zipFile, folder);
         }
     }
 }
