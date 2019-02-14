@@ -16,7 +16,8 @@ namespace AntRunner.Wrapper.Ruby
         private readonly string _workingDirectory;
         private string _lastOutput;
 
-        public override string Name => Read("N", 9) ?? "No name";
+        private string _name;
+        public override string Name => _name ?? (_name = Read("N", 9) ?? "No name");
 
         public override Stream Flag => File.Exists(Path.Combine(_workingDirectory, "Flag.png")) ? new MemoryStream(File.ReadAllBytes(Path.Combine(_workingDirectory, "Flag.png"))) : base.Flag;
 
