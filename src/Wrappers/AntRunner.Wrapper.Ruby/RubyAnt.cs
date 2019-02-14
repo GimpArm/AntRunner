@@ -18,7 +18,7 @@ namespace AntRunner.Wrapper.Ruby
 
         public override string Name => Read("N", 9) ?? "No name";
 
-        public override Stream Flag => File.Exists(Path.Combine(_workingDirectory, "Flag.png")) ? new FileStream(Path.Combine(_workingDirectory, "Flag.png"), FileMode.Open) : base.Flag;
+        public override Stream Flag => File.Exists(Path.Combine(_workingDirectory, "Flag.png")) ? new MemoryStream(File.ReadAllBytes(Path.Combine(_workingDirectory, "Flag.png"))) : base.Flag;
 
         public RubyAnt(string antPath)
         {
