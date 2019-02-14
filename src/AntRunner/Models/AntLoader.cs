@@ -67,10 +67,9 @@ namespace AntRunner.Models
             {
                 try
                 {
-                    var parts = wrapper.Type.Split(',');
-                    var path = Path.Combine(baseFolder.DirectoryName, "Wrappers", wrapper.Path, parts[1].Trim() + ".dll");
+                    var path = Path.Combine(baseFolder.DirectoryName, "Wrappers", wrapper.Path);
                     var assembly = Assembly.Load(AssemblyName.GetAssemblyName(path));
-                    var loader = Activator.CreateInstance(assembly.GetType(parts[0])) as IWrapperLoader;
+                    var loader = Activator.CreateInstance(assembly.GetType(wrapper.Type)) as IWrapperLoader;
                     if (loader == null) continue;
                     result.Add(loader);
                 }
