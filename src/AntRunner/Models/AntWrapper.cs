@@ -16,7 +16,9 @@ namespace AntRunner.Models
         public event EventHandler<ShootEventHandler> ShootEventHandler;
         private readonly BackgroundWorker _antWorkerThread = new BackgroundWorker();
         private readonly AppDomain _domain;
-        public string Name => Ant.Name;
+
+        private string _name;
+        public string Name => _name ?? (_name = Ant.Name);
 
         public AntProxy Ant { get; }
         public Item AntItem { get; private set; }
