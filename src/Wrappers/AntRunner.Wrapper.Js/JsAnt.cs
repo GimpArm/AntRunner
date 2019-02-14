@@ -90,9 +90,15 @@ namespace AntRunner.Wrapper.Js
 
         public override void Tick(GameState state)
         {
-            var result = Read("T" + JsonConvert.SerializeObject(state));
+            var result = Read("T" + SerializeState(state));
             if (!int.TryParse(result, out var actInt) || actInt > 15) return;
             Action = (AntAction)Enum.ToObject(typeof(AntAction), actInt);
+        }
+
+        private static string SerializeState(GameState state)
+        {
+            var response = state.Response == null ? "null" : $"{{\"Distance\":{state.Response.Distance},\"Item\":{(int)state.Response.Item}}}";
+            return $"{{\"TickNumber\":{state.TickNumber},\"Response\":{response},\"Event\":{(int)state.Event},\"HasFlag\":{(state.HasFlag?"true":"false")},\"FlagX\":{state.FlagX},\"FlagY\":{state.FlagY},\"AntWithFlag\":{(int)state.AntWithFlag}}}";
         }
 
         private void Reader()
