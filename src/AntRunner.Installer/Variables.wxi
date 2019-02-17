@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductId = "{043FA247-B325-4933-BC2F-6819D21CBCD4}" ?>
+  <?define ProductUpgradeCode = "{39366705-8EB9-4BB5-8375-19E65A980F84}" ?>
+  <?define ManufacturerName = "Figz International UG" ?>
+
+  <?define ProductName = "Ant Runner" ?>
+  <?define ProductVersion = "$(var.ProductVersion)" ?>
+  <?define ProductIdentifier = "AntRunner" ?>
+  <?define ProductMinimumVersion = "0.0.0.0" ?>
+  <?define ProgramFileFolderName = "AntRunner" ?>
+  <?define VERSION_NUMBER = "$(var.ProductVersion)" ?>
+
+  <?define NetFx47MinRelease = 460798 ?>
+  
+</Include>

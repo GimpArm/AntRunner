@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <?include $(var.ProjectDir)\Variables.wxi ?>
+
+  <Product Id="*"
+           Name="$(var.ProductName)"
+           Language="!(loc.LANG)"
+           Codepage="1252"
+           Version="$(var.ProductVersion)"
+           Manufacturer="$(var.ManufacturerName)"
+           UpgradeCode="$(var.ProductUpgradeCode)">
+
+    <Package InstallerVersion="301"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Description="!(loc.ProductDescription)"
+             Keywords="Installer,MSI,Ant Runner"
+             SummaryCodepage="1252"
+             Languages="!(loc.LANG)"
+             Manufacturer="$(var.ManufacturerName)"
+             Comments="Ant Runner installer v$(var.ProductVersion)"/>
+
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Upgrade Id="9E6FD24D-0A46-40C0-B143-AAA2C8190744">
+      <UpgradeVersion
+        Property="PREVIOUSVERSIONSINSTALLED"
+        IncludeMinimum="yes"
+        IncludeMaximum="yes"
+        Minimum="$(var.ProductMinimumVersion)"
+        Maximum="$(var.ProductVersion)" />
+    </Upgrade>
+
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <Property Id="NETFRAMEWORK45">
+      <RegistrySearch
+        Id="NETFRAMEWORK45"
+        Root="HKLM"
+        Key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full"
+        Name="Release"
+        Type="raw" />
+    </Property>
+
+    <WixVariable Id="NetFx47RedistDetectCondition" Value="NETFRAMEWORK45 &gt;= $(var.NetFx47MinRelease)" Overridable="yes" />
+
+    <!--<PropertyRef Id="WIX_IS_NETFRAMEWORK_471_OR_LATER_INSTALLED"/>-->
+    <Property Id="WIX_IS_NETFRAMEWORK_47_OR_LATER_INSTALLED" Value="0" />
+    <Condition Message="!(loc.Net471Error)">
+      <![CDATA[Installed OR NetFx47RedistDetectCondition OR WIX_IS_NETFRAMEWORK_47_OR_LATER_INSTALLED]]>
+    </Condition>
+
+
+    <Icon Id="InstallerIconId" SourceFile="..\AntRunner\Icon.ico" />
+    <WixVariable Id="WixUIExclamationIco" Value="..\AntRunner\Icon.ico" />
+    <!--<WixVariable Id="WixUIDialogBmp" Value="DlgBanner.png" />
+    <WixVariable Id="WixUIBannerBmp" Value="TopBanner.png" />-->
+    <WixVariable Id="WixUIInfoIco" Value="..\AntRunner\Icon.ico" />
+    <WixVariable Id="WixUINewIco" Value="..\AntRunner\Icon.ico" />
+    <WixVariable Id="WixUIUpIco" Value="..\AntRunner\Icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="InstallerIconId" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="!(loc.LaunchApplication)" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1"/>
+
+    <Property Id="WixShellExecTarget" Value="[INSTALLLOCATION]AntRunner.exe" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <UI>
+      <UIRef Id="WixUI_MinimalLocalize" />
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+
+    <Feature Id="F_FullApplication" Title="$(var.ProductName)" Level="1" Description="!(loc.AllServices)" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentGroupRef Id="AntRunnerComponent" />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+          <Directory Id="INSTALLLOCATION" Name="$(var.ProgramFileFolderName)" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id='ProgramMenuFolder' Name='Programs'>
+        <Component Id="ApplicationShortcut" Guid="{F5A7C88C-8408-460A-A023-EF355277476E}">
+          <Shortcut Id="ApplicationStartMenuShortcut"
+                    Name="$(var.ProductName)"
+                    Description="!(loc.ProductDescription)"
+                    Target="[INSTALLLOCATION]AntRunner.exe"
+                    WorkingDirectory="INSTALLLOCATION"
+                    Advertise="no"
+                    Icon="InstallerIconId" />
+          <RemoveFolder Id="CleanUpShortCut" Directory="INSTALLLOCATION" On="uninstall"/>
+          <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+          <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+  </Product>
+</Wix>

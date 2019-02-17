@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion Condition=" '$(ProductVersion)' == '' ">1.2.0.0</ProductVersion>
+    <ProjectGuid>2ca1eed0-c807-4661-9074-6cdc4c676c82</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>AntRunner-$(ProductVersion)</OutputName>
+    <OutputType>Package</OutputType>
+    <EnableProjectHarvesting>True</EnableProjectHarvesting>
+    <SuppressPdbOutput>true</SuppressPdbOutput>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>
+      $(Configuration);
+      ProductVersion=$(ProductVersion);
+      ProgramSource=..\AntRunner\bin\$(Configuration);
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <SuppressIces>ICE80;ICE36;ICE69;ICE67</SuppressIces>
+    <DefineConstants>$(Configuration);ProductVersion=$(ProductVersion);ProgramSource=..\AntRunner\bin\$(Configuration);</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <SuppressIces>ICE80;ICE36</SuppressIces>
+    <DefineConstants>$(Configuration);ProductVersion=$(ProductVersion);ProgramSource=..\AntRunner\bin\$(Configuration);</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Dialogs\WixUI_MinimalLocalize.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Transform.xslt" />
+    <Content Include="Variables.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Language" />
+    <Folder Include="Language\en-US" />
+    <Folder Include="Dialogs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Language\en-US\Strings.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AntRunner\AntRunner.csproj">
+      <Name>AntRunner</Name>
+      <Project>{6647bc59-bbe1-48da-b07e-ed8b4ad13c05}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <HarvestDirectory Include="..\AntRunner\bin\$(Configuration)">
+      <DirectoryRefId>INSTALLLOCATION</DirectoryRefId>
+      <SuppressRootDirectory>True</SuppressRootDirectory>
+      <SuppressCom>True</SuppressCom>
+      <SuppressRegistry>True</SuppressRegistry>
+      <ComponentGroupName>AntRunnerComponent</ComponentGroupName>
+      <PreProcessorVariable>var.ProgramSource</PreProcessorVariable>
+      <Link>$(Configuration)</Link>
+      <InProject>false</InProject>
+      <Transforms>$(ProjectDir)\Transform.xslt</Transforms>
+    </HarvestDirectory>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+</Project>

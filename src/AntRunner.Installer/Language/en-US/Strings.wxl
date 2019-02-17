@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="LANG" Overridable="yes">1033</String>
+  <String Id="ProductDescription" Overridable="yes">Ant Runner</String>
+  <String Id="DowngradeError" Overridable="yes">A newer version of the NAnt Runner is already installed.</String>
+  <String Id="Net471Error" Overridable="yes">Ant Runner requires .NET Framework 4.7.1 or higher.</String>
+  <String Id="AllServices" Overridable="yes">All Services</String>
+  <String Id="LaunchApplication" Overridable="yes">Launch Ant Runner</String>
+</WixLocalization>

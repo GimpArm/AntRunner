@@ -11,6 +11,7 @@ namespace AntRunner.Wrapper.Python
 {
     public class PythonAnt : Ant, IDisposable
     {
+        private const string PythonVersion = "Python3.7.2";
         private readonly Process _pythonProcess;
         private readonly string _workingDirectory;
         private string _lastOutput;
@@ -28,10 +29,11 @@ namespace AntRunner.Wrapper.Python
                 var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
                 var runningFolder = assemblyInfo.DirectoryName;
                 if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
+                var pythonFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AntRunner", PythonVersion);
 
-                if (!Directory.Exists(Path.Combine(runningFolder, "python")))
+                if (!Directory.Exists(pythonFolder))
                 {
-                    Unzip(runningFolder);
+                    Unzip(runningFolder, pythonFolder);
                 }
 
                 var settings = ReadSettings(_workingDirectory);
@@ -55,10 +57,10 @@ namespace AntRunner.Wrapper.Python
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,
-                        FileName = Path.Combine(runningFolder, @"python\python.exe"),
+                        FileName = Path.Combine(pythonFolder, @"python.exe"),
                         Arguments = $@"-B -u ""{Path.Combine(runningFolder, @"lib\AntWrapper.py")}"" {Path.GetFileNameWithoutExtension(info.Name)}{debug}",
                         WorkingDirectory = _workingDirectory,
-                        EnvironmentVariables = {{"PYTHONPATH", $"{Path.Combine(runningFolder, @"python\Lib")};{Path.Combine(runningFolder, @"lib")};{_workingDirectory}"}}
+                        EnvironmentVariables = {{"PYTHONPATH", $"{Path.Combine(pythonFolder, @"Lib")};{Path.Combine(runningFolder, @"lib")};{_workingDirectory}"}}
                     }
                 };
 
@@ -153,11 +155,11 @@ namespace AntRunner.Wrapper.Python
             return new Settings { Debug = false };
         }
 
-        private static void Unzip(string folder)
+        private static void Unzip(string source, string target)
         {
-            var zipFile = Path.Combine(folder, "python.zip");
+            var zipFile = Path.Combine(source, PythonVersion + ".zip");
             if (!File.Exists(zipFile)) throw new Exception("Cannot file python.zip in wrapper folder");
-            ZipFile.ExtractToDirectory(zipFile, folder);
+            ZipFile.ExtractToDirectory(zipFile, target);
         }
     }
 }

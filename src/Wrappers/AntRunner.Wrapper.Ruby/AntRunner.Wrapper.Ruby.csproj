@@ -37,7 +37,7 @@
     <None Update="lib\rdebug-ide">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ruby.zip">
+    <None Update="Ruby2.6.1.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

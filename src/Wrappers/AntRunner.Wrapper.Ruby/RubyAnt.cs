@@ -12,6 +12,7 @@ namespace AntRunner.Wrapper.Ruby
 {
     public class RubyAnt : Ant, IDisposable
     {
+        private const string RubyVersion = "Ruby2.6.1";
         private readonly Process _rubyProcess;
         private readonly string _workingDirectory;
         private string _lastOutput;
@@ -29,10 +30,11 @@ namespace AntRunner.Wrapper.Ruby
                 var assemblyInfo = new FileInfo(Assembly.GetExecutingAssembly().Location);
                 var runningFolder = assemblyInfo.DirectoryName;
                 if (runningFolder == null || _workingDirectory == null) throw new NullReferenceException();
+                var rubyFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AntRunner", RubyVersion);
 
-                if (!Directory.Exists(Path.Combine(runningFolder, "ruby")))
+                if (!Directory.Exists(rubyFolder))
                 {
-                    Unzip(runningFolder);
+                    Unzip(runningFolder, rubyFolder);
                 }
 
                 var settings = ReadSettings(_workingDirectory);
@@ -56,7 +58,7 @@ namespace AntRunner.Wrapper.Ruby
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         CreateNoWindow = true,
-                        FileName = Path.Combine(runningFolder, @"ruby\bin\ruby.exe"),
+                        FileName = Path.Combine(rubyFolder, @"bin\ruby.exe"),
                         Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.rb")}"" ""{antPath}""",
                         WorkingDirectory = _workingDirectory
                     }
@@ -154,11 +156,11 @@ namespace AntRunner.Wrapper.Ruby
             return new Settings { Debug = false };
         }
 
-        private static void Unzip(string folder)
+        private static void Unzip(string source, string target)
         {
-            var zipFile = Path.Combine(folder, "ruby.zip");
+            var zipFile = Path.Combine(source, RubyVersion + ".zip");
             if (!File.Exists(zipFile)) throw new Exception("Cannot file ruby.zip in wrapper folder");
-            ZipFile.ExtractToDirectory(zipFile, folder);
+            ZipFile.ExtractToDirectory(zipFile, target);
         }
     }
 }

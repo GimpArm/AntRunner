@@ -18,3 +18,5 @@
 /src/Wrappers/AntRunner.Wrapper.Python/bin
 /src/Wrappers/AntRunner.Wrapper.Python/obj
 /src/Wrappers/AntRunner.Wrapper.Ruby/obj
+/src/AntRunner.Installer/bin
+/src/AntRunner.Installer/obj
