@@ -3,8 +3,7 @@ A programming exercise game. Create an AI for your cyborg ant to battle up to 8 
 
 Currently supporting all .Net languages, JavaScript, PHP, Python, and Ruby.
 
-![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
-
 ## Getting Started
-Download the [latest release](https://github.com/GimpArm/AntRunner/releases/tag/1.1.1.3) and you will find everything you need to start with an [ExampleAnt project](examples). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
+Download the [latest release](https://github.com/GimpArm/AntRunner/releases/latest) and you will find everything you need to start with an [ExampleAnt project](examples). [Read the wiki](https://github.com/GimpArm/AntRunner/wiki) for more information about creating and debugging an ant and an explanation of all objects in the AntRunner.Interface library.
 
+![Preview](https://github.com/GimpArm/AntRunner/raw/master/AntRunner-Preview.gif)
