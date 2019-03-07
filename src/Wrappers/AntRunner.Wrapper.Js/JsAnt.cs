@@ -20,7 +20,7 @@ namespace AntRunner.Wrapper.Js
         private readonly string _workingDirectory;
         private string _lastOutput;
 
-        public override string Name => Read("N", true) ?? "No name";
+        public override string Name => Read("N", 9) ?? "No name";
 
         public override Stream Flag => File.Exists(Path.Combine(_workingDirectory, "Flag.png")) ? new MemoryStream(File.ReadAllBytes(Path.Combine(_workingDirectory, "Flag.png"))) : base.Flag;
 
@@ -38,7 +38,7 @@ namespace AntRunner.Wrapper.Js
                 var debug = string.Empty;
                 if (settings.Debug)
                 {
-                    debug = "--inspect ";
+                    debug = $"--inspect={settings.DebugPort} ";
                     if (settings.Port == 0)
                     {
                         settings.Port = new Random().Next(1000, 65536);
@@ -61,7 +61,7 @@ namespace AntRunner.Wrapper.Js
                         FileName = Path.Combine(runningFolder, @"node\node.exe"),
                         Arguments = $@"{debug}""{Path.Combine(runningFolder, @"lib\AntWrapper.js")}"" {settings.Port} ""{antPath}""",
                         WorkingDirectory = _workingDirectory,
-                        EnvironmentVariables = {{"NODE_PATH", $"{Path.Combine(runningFolder, "lib")};{Path.Combine(_workingDirectory, "node_modules")}"}}
+                        EnvironmentVariables = {{"NODE_PATH", $"{Path.Combine(runningFolder, "lib")};{Path.Combine(runningFolder, @"node\node_modules")};{Path.Combine(_workingDirectory, "node_modules")}"}}
                     }
                 };
                 _nodeProcess.Start();
@@ -72,7 +72,7 @@ namespace AntRunner.Wrapper.Js
 
                 Task.Factory.StartNew(Reader);
 
-                Read("P");
+                if (string.IsNullOrEmpty(Read("P", 2000))) throw new Exception("JavaScript Ant is not responding");
             }
             catch
             {
@@ -80,10 +80,10 @@ namespace AntRunner.Wrapper.Js
                 throw;
             }
         }
-
+        
         public override void Initialize(int mapWidth, int mapHeight, ItemColor antColor, int startX, int startY)
         {
-            var input = $"I[{mapWidth},{mapHeight},{(int)antColor},{startX},{startY}]";
+            var input = $"I[{mapWidth},{mapHeight},{(int)antColor},{startX},{startY}]{Environment.NewLine}";
             _serverStream.Write(Encoder.GetBytes(input), 0, input.Length);
             _serverStream.Flush();
         }
@@ -121,12 +121,11 @@ namespace AntRunner.Wrapper.Js
             }
         }
 
-        private string Read(string input, bool timeout = false)
+        private string Read(string input, int delay = int.MaxValue)
         {
-
+            input += Environment.NewLine;
             _serverStream.Write(Encoder.GetBytes(input), 0, input.Length);
             _serverStream.Flush();
-            var delay = timeout ? 9 : int.MaxValue;
             var cnt = 0;
             while (_lastOutput == null && cnt < delay)
             {
@@ -194,7 +193,6 @@ namespace AntRunner.Wrapper.Js
                 _serverStream.Dispose();
             }
             _client?.Dispose();
-            _nodeProcess?.StandardInput.Close();
             _nodeProcess?.Dispose();
         }
     }

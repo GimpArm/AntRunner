@@ -7,6 +7,9 @@ namespace AntRunner.Wrapper.Js
         [JsonProperty("debug")]
         public bool Debug { get; set; }
 
+        [JsonProperty("debug.port")]
+        public int DebugPort { get; set; } = 9229;
+
         [JsonProperty("nodejs.port")]
         public int Port { get; set; }
     }

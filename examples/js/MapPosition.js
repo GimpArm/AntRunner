@@ -1,9 +1,9 @@
 var AntRunner = require("AntRunner");
 
-(function() {
-    var mapPosition = function() {
+module.exports = (function() {
+    var MapPosition = function() {
         this.Known = false;
         this.Item = AntRunner.Item.Empty;
     };
-    module.exports.Create = function() { return new mapPosition(); };
+    return MapPosition;
 }());

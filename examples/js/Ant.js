@@ -1,132 +1,118 @@
-var AntRunner = require("AntRunner");
+var AntRunner = require("antrunner");
 var MapPosition = require("./MapPosition.js");
 
 var AntAction = AntRunner.AntAction;
-var EchoResponse = AntRunner.EchoResponse;
 var GameEvent = AntRunner.GameEvent;
 var Item = AntRunner.Item;
+var EchoResponse = AntRunner.EchoResponse;
 var GameState = AntRunner.GameState;
 var ItemColor = AntRunner.ItemColor;
 var DamageValues = AntRunner.DamageValues
 var ItemBonusValues = AntRunner.ItemBonusValues
 
-AntRunner.Create({
-    "Name": "NodeJs Ant",
+module.exports.default = (function () {
+	function ExampleAnt() {
+		this.Name =  "NodeJs Ant";
+		this.Action=  AntAction.Wait;
 
-    "MapWidth": 0,
-    "MapHeight": 0,
+		this.MapWidth =  0;
+		this.MapHeight = 0;
 
-    "CurrentX": 0,
-    "CurrentY": 0,
+		this.CurrentX = 0;
+		this.CurrentY = 0;
 
-    "MyColor": ItemColor.None,
+		this.MyColor = ItemColor.None;
 
-    "Map": [],
+		this.Map = [];
 
-	"CurrentMode": 0,
-	"LastAction": AntAction.Wait,
-	"SearchPrimary": 0,
-	"SearchSecondary": 0,
+		this.CurrentMode = 0;
+		this.LastAction = AntAction.Wait;
+		this.SearchPrimary = 0;
+		this.SearchSecondary = 0;
+	}
 
+	ExampleAnt.prototype.Initialize =	function(mapWidth, mapHeight, color, startX, startY) {
+		this.MapWidth = mapWidth;
+		this.MapHeight = mapHeight;
+		this.MyColor = color;
+		this.CurrentX = startX;
+		this.CurrentY = startY;
 
-    "Initialize": function(mapWidth, mapHeight, color, startX, startY)
-    {
-        this.MapWidth = mapWidth;
-        this.MapHeight = mapHeight;
-        this.MyColor = color;
-        this.CurrentX = startX;
-        this.CurrentY = startY;
-
-        this.CurrentMode = 0;
+		this.CurrentMode = 0;
 		this.LastAction = AntAction.Wait;
 
-        //Initialize Map
-        this.Map = [];
-        for (var y = 0; y<mapHeight; ++y)
-        {
-            this.Map[y] = [];
-            for (var x = 0; x<mapWidth; ++x)
-            {
-                this.Map[y][x] = MapPosition.Create();
-            }
-        }
+		//Initialize Map
+		this.Map = [];
+		for (var y = 0; y<mapHeight; ++y) {
+			this.Map[y] = [];
+			for (var x = 0; x<mapWidth; ++x) {
+				this.Map[y][x] = new MapPosition();
+			}
+		}
 
-        this.Map[this.CurrentY][this.CurrentX].Known = true;
+		this.Map[this.CurrentY][this.CurrentX].Known = true;
 		this.SetSearchDirection();
-    },
-    
-    "Tick": function(state)
-    {
-        this.ProcessEcho(state.Response);
+	};
+		
+	ExampleAnt.prototype.Tick = function(state) {
+		this.ProcessEcho(state.Response);
 		this.ProcessGameEvent(state.Event);
 
-		switch (this.CurrentMode)
-		{
+		switch (this.CurrentMode) {
 			//Map mode
 			case 0:
 				this.MapMode();
 				break;
 		}    
-    },
+	};
 
-    "SetAction": function(a)
-	{
+	ExampleAnt.prototype.SetAction = function(a) {
 		//Set the action for the current turn.
 		this.Action = a;
 		//Set the last action so we know the direction on the next turn for successful moving and echo response.
 		this.LastAction = a;
-	},
+	};
 
-	"ProcessEcho": function(response)
-	{
+	ExampleAnt.prototype.ProcessEcho = function(response) {
 		//There was no Echo last turn
 		if (response == null) return;
 
 		//Set map tiles
-		switch (this.LastAction)
-		{
+		switch (this.LastAction) {
 			case AntAction.EchoRight:
-				for (var i = 1; i < response.Distance; ++i)
-				{
+				for (var i = 1; i < response.Distance; ++i) {
 					this.Map[this.CurrentY][this.CurrentX + i].Known = true;
 				}
 
-				if (this.CurrentX + response.Distance < this.MapWidth)
-				{
+				if (this.CurrentX + response.Distance < this.MapWidth) {
 					this.Map[this.CurrentY][this.CurrentX + response.Distance].Known = true;
 					this.Map[this.CurrentY][this.CurrentX + response.Distance].Item = response.Item;
 				}
 				break;
 			case AntAction.EchoDown:
-				for (var i = 1; i < response.Distance; ++i)
-				{
+				for (var i = 1; i < response.Distance; ++i) {
 					this.Map[this.CurrentY + i][this.CurrentX].Known = true;
 				}
 
-				if (this.CurrentY + response.Distance < this.MapHeight)
-				{
+				if (this.CurrentY + response.Distance < this.MapHeight) {
 					this.Map[this.CurrentY + response.Distance][this.CurrentX].Known = true;
 					this.Map[this.CurrentY + response.Distance][this.CurrentX].Item = response.Item;
 				}
 				break;
 			case AntAction.EchoLeft:
-				for (var i = 1; i < response.Distance; ++i)
-				{
+				for (var i = 1; i < response.Distance; ++i) {
 					this.Map[this.CurrentY][this.CurrentX - i].Known = true;
 				}
-				if (this.CurrentX - response.Distance >= 0)
-				{
+				if (this.CurrentX - response.Distance >= 0) {
 					this.Map[this.CurrentY][this.CurrentX - response.Distance].Known = true;
 					this.Map[this.CurrentY][this.CurrentX - response.Distance].Item = response.Item;
 				}
 				break;
 			case AntAction.EchoUp:
-				for (var i = 1; i < response.Distance; ++i)
-				{
+				for (var i = 1; i < response.Distance; ++i) {
 					this.Map[this.CurrentY - i][this.CurrentX].Known = true;
 				}
-				if (this.CurrentY - response.Distance >= 0)
-				{
+				if (this.CurrentY - response.Distance >= 0) {
 					this.Map[this.CurrentY - response.Distance][this.CurrentX].Known = true;
 					this.Map[this.CurrentY - response.Distance][this.CurrentX].Item = response.Item;
 				}
@@ -135,24 +121,17 @@ AntRunner.Create({
 				//Should never come here
 				return;
 		}
-	},
+	};
+	
 
-	"CheckFlag": function(e, check)
-	{
-		return e & check == check;
-	},
-
-	"ProcessGameEvent": function(e)
-	{
-		if (this.CheckFlag(e, GameEvent.CollisionDamage))
-		{
+	ExampleAnt.prototype.ProcessGameEvent = function(e) {
+		if (e & GameEvent.CollisionDamage) {
 			//we ran into something
 			return;
 		}
 
 		//Move was successful, update map position
-		switch (this.LastAction)
-		{
+		switch (this.LastAction) {
 			case AntAction.MoveRight:
 				this.CurrentX += 1;
 				break;
@@ -166,61 +145,52 @@ AntRunner.Create({
 				this.CurrentY -= 1;
 				break;
 		}
-	},
+	};
 
-	"MapMode": function()
-	{
+	ExampleAnt.prototype.MapMode = function() {
 		//Check left
-		if (this.CurrentX > 0 && !this.Map[this.CurrentY][this.CurrentX - 1].Known)
-		{
+		if (this.CurrentX > 0 && !this.Map[this.CurrentY][this.CurrentX - 1].Known) {
 			this.SetAction(AntAction.EchoLeft);
 			return;
 		}
 
 		//Check Right
-		if (this.CurrentX < this.MapWidth - 1 && !this.Map[this.CurrentY][this.CurrentX + 1].Known)
-		{
+		if (this.CurrentX < this.MapWidth - 1 && !this.Map[this.CurrentY][this.CurrentX + 1].Known) {
 			this.SetAction(AntAction.EchoRight);
 			return;
 		}
 
 		//Check Up
-		if (this.CurrentY > 0 && !this.Map[this.CurrentY - 1][this.CurrentX].Known)
-		{
+		if (this.CurrentY > 0 && !this.Map[this.CurrentY - 1][this.CurrentX].Known) {
 			this.SetAction(AntAction.EchoUp);
 			return;
 		}
 
 		//Check Down
-		if (this.CurrentY < this.MapHeight - 1 && !this.Map[this.CurrentY + 1][this.CurrentX].Known)
-		{
+		if (this.CurrentY < this.MapHeight - 1 && !this.Map[this.CurrentY + 1][this.CurrentX].Known) {
 			this.SetAction(AntAction.EchoDown);
 			return;
 		}
 
 		//All tiles next to us are known, move a direction.
-		if (this.CanMove(this.SearchPrimary))
-		{
+		if (this.CanMove(this.SearchPrimary)) {
 			this.SetAction(this.SearchPrimary);
 			return;
 		}
 
-		if (this.CanMove(this.SearchSecondary))
-		{
+		if (this.CanMove(this.SearchSecondary)) {
 			this.SetAction(this.SearchSecondary);
 			return;
 		}
 
 		//Can't move in that direction any more, try a different direction.
-		if (this.LastAction != this.SearchPrimary && this.CanMove(this.OppositeDirection(this.SearchPrimary)))
-		{
+		if (this.LastAction != this.SearchPrimary && this.CanMove(this.OppositeDirection(this.SearchPrimary))) {
 			this.SearchPrimary = this.OppositeDirection(this.SearchPrimary);
 			this.SetAction(this.SearchPrimary);
 			return;
 		}
 
-		if (this.CanMove(this.OppositeDirection(this.SearchSecondary)))
-		{
+		if (this.CanMove(this.OppositeDirection(this.SearchSecondary))) {
 			this.SearchSecondary = this.OppositeDirection(this.SearchSecondary);
 			this.SetAction(this.SearchSecondary);
 			return;
@@ -228,35 +198,27 @@ AntRunner.Create({
 
 		//Can't find a direction, reset current search directions
 		this.SetSearchDirection();
-	},
+	};
 
-	"SetSearchDirection": function()
-	{
-		if (this.CurrentX == 0 || this.MapWidth / this.CurrentX < 0.9)
-		{
+	ExampleAnt.prototype.SetSearchDirection = function() {
+		if (this.CurrentX == 0 || this.MapWidth / this.CurrentX < 0.9) {
 			//search right
 			this.SearchPrimary = AntAction.MoveRight;
-		}
-		else
-		{
+		} else {
 			//search left
 			this.SearchPrimary = AntAction.MoveLeft;
 		}
 
-		if (this.CurrentY == 0 || this.MapHeight / this.CurrentY < 0.9)
-		{
+		if (this.CurrentY == 0 || this.MapHeight / this.CurrentY < 0.9) {
 			//search down
 			this.SearchSecondary = AntAction.MoveDown;
-		}
-		else
-		{
+		} else {
 			//search up
 			this.SearchSecondary = AntAction.MoveUp;
 		}
-	},
+	};
 
-	"CanMove": function(a)
-	{
+	ExampleAnt.prototype.CanMove = function(a) {
 		switch (a)
 		{
 			case AntAction.MoveRight:
@@ -280,9 +242,9 @@ AntRunner.Create({
 		}
 
 		return nextSpace.Known && !this.Blocked(nextSpace.Item);
-	},
+	};
 
-	"Blocked": function(i)
+	ExampleAnt.prototype.Blocked = function(i)
 	{
 		switch (i)
 		{
@@ -309,9 +271,9 @@ AntRunner.Create({
 			default:
 				return false;
 		}
-	},
+	};
 
-	"OppositeDirection": function(a)
+	ExampleAnt.prototype.OppositeDirection = function(a)
 	{
 		switch (a)
 		{
@@ -342,6 +304,7 @@ AntRunner.Create({
 			default:
 				return AntAction.Wait;
 		}
-	}
+	};
 
-});
+	return ExampleAnt;
+}());

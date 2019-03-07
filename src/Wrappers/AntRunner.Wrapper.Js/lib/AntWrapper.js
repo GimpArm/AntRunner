@@ -1,25 +1,38 @@
 var net = require("net");
-var AntRunner_Interface = require("AntRunner");
+var eol = require('os').EOL;
+var loaded = require(process.argv[3]);
+var currentAnt = new loaded.default();
 
 var s = net.Server(function (socket) {
-    socket.on("data", function (buffer) {
+    socket.setEncoding("utf8");
+    var buffer = "";
+    socket.on("data", function (b) {
         try {
-            var cmd = buffer.toString();
+            var message = b.toString();
+            if (message === "") return;
+            var pos = message.indexOf(eol);
+            if (pos === -1) {
+                buffer += message;
+                return;
+            }
+            buffer += message.substring(0, pos);
+            var cmd = buffer;
+            buffer = message.substring(pos + eol.length);
 
             switch (cmd.charAt(0)) {
                 case "T":
                     var state = JSON.parse(cmd.substring(1));
-                    AntRunner_Interface.Ant.Tick(state);
-                    var a = AntRunner_Interface.Ant.Action.toString();
+                    currentAnt.Tick(state);
+                    var a = currentAnt.Action.toString();
                     socket.write(a);
-                    AntRunner_Interface.Ant.Action = 0;
+                    currentAnt.Action = 0;
                     break;
                 case "I":
                     var init = JSON.parse(cmd.substring(1));
-                    AntRunner_Interface.Ant.Initialize(init[0], init[1], init[2], init[3], init[4], init[5]);
+                    currentAnt.Initialize(init[0], init[1], init[2], init[3], init[4], init[5]);
                     break;
                 case "N":
-                    socket.write(AntRunner_Interface.Ant.Name);
+                    socket.write(currentAnt.Name);
                     break;
                 case "P":
                     socket.write("Ping");
@@ -41,6 +54,5 @@ var s = net.Server(function (socket) {
         console.log("Disconnected");
     });
 });
-
-require(process.argv[3]);
+console.log(process.argv[2]);
 s.listen(process.argv[2]);

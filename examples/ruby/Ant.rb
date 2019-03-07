@@ -70,7 +70,7 @@ class MyAnt < AntRunner::Interface::Ant
 				i += 1
 			end
 
-			if @CurrentY + response.Distance < @MapWidth
+			if @CurrentY + response.Distance < @MapHeight
 				@Map[@CurrentY + response.Distance][@CurrentX].Known = true
 				@Map[@CurrentY + response.Distance][@CurrentX].Item = response.Item
 			end
