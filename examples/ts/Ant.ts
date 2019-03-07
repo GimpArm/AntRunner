@@ -20,8 +20,7 @@ export default class ExampleAnt extends Ant {
     private searchPrimary: AntAction;
     private searchSecondary: AntAction;
     
-    public Initialize(mapWidth, mapHeight, color: ItemColor, startX, startY) {
-        
+    public Initialize(mapWidth: number, mapHeight: number, color: ItemColor, startX: number, startY: number) {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.myColor = color;
