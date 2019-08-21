@@ -209,6 +209,7 @@
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\GameManager.cs" />
     <Compile Include="Models\Map.cs" />
+    <Compile Include="Models\MapGenerator.cs" />
     <Compile Include="Models\MapTile.cs" />
     <Compile Include="Models\MouseCommands.cs" />
     <Compile Include="Models\NotifyBaseModel.cs" />
@@ -266,30 +267,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RandomMap.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
-    <MakeDir
-      Directories="$(OutputPath)\Examples"
-      Condition="!Exists('$(OutputPath)\Examples')" />
-    <ZipDirectory
-      Overwrite="true"
-      SourceDirectory="$(ProjectDir)\..\..\Examples\csharp"
-      DestinationFile="$(OutputPath)\Examples\csharp.zip" />
-    <ZipDirectory
-      Overwrite="true"
-      SourceDirectory="$(ProjectDir)\..\..\Examples\php"
-      DestinationFile="$(OutputPath)\Examples\php.zip" />
-    <ZipDirectory
-      Overwrite="true"
-      SourceDirectory="$(ProjectDir)\..\..\Examples\python"
-      DestinationFile="$(OutputPath)\Examples\python.zip" />
-    <ZipDirectory
-      Overwrite="true"
-      SourceDirectory="$(ProjectDir)\..\..\Examples\ruby"
-      DestinationFile="$(OutputPath)\Examples\ruby.zip" />
-    <ZipDirectory
-      Overwrite="true"
-      SourceDirectory="$(ProjectDir)\..\..\Examples\ts"
-      DestinationFile="$(OutputPath)\Examples\ts.zip" />
+    <MakeDir Directories="$(OutputPath)\Examples" Condition="!Exists('$(OutputPath)\Examples')" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\csharp" DestinationFile="$(OutputPath)\Examples\csharp.zip" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\php" DestinationFile="$(OutputPath)\Examples\php.zip" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\python" DestinationFile="$(OutputPath)\Examples\python.zip" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\ruby" DestinationFile="$(OutputPath)\Examples\ruby.zip" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\ts" DestinationFile="$(OutputPath)\Examples\ts.zip" />
   </Target>
 </Project>

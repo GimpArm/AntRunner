@@ -48,19 +48,18 @@ namespace AntRunner.Main.ViewModels
 
         private void LoadMaps(FileSystemInfo selected)
         {
-            var first = true;
+            var tile = new MapTileControl { Command = LoadMapCommand };
+            tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
+            tile.Selected = true;
+            _selectedMap = tile;
+            _control.MapSelectionArea.Children.Add(tile);
+
             foreach (var map in Directory.GetFiles("Maps\\", "*.bmp"))
             {
                 var info = new FileInfo(map);
-                var tile = new MapTileControl(info) { Command = LoadMapCommand };
+                tile = new MapTileControl(info) { Command = LoadMapCommand };
                 tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
-                if (first)
-                {
-                    tile.Selected = true;
-                    _selectedMap = tile;
-                    first = false;
-                }
-                else if (selected != null && info.FullName.Equals(selected.FullName))
+                if (selected != null && info.FullName.Equals(selected.FullName))
                 {
                     LoadMap(tile);
                     selected = null;
@@ -70,7 +69,7 @@ namespace AntRunner.Main.ViewModels
 
             if (selected != null)
             {
-                var tile = new MapTileControl(selected) { Command = LoadMapCommand };
+                tile = new MapTileControl(selected) { Command = LoadMapCommand };
                 _control.MapSelectionArea.Children.Add(tile);
                 LoadMap(tile);
             }

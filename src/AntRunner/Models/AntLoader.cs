@@ -39,12 +39,12 @@ namespace AntRunner.Models
                 d.Load(AssemblyName.GetAssemblyName(typeof(Newtonsoft.Json.JsonConverter).Assembly.Location));
                 var loader = GetLoader(filename);
                 if (loader == null) throw new Exception("Invalid file type");
-                
+
                 var data = loader.MakeLoaderData(filename);
                 // ReSharper disable once AssignNullToNotNullAttribute
                 var antProxy = (AntProxy)d.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, typeof(AntProxy).FullName);
                 antProxy.LoadAssembly(data);
-                
+
                 domain = d;
                 return antProxy;
             }

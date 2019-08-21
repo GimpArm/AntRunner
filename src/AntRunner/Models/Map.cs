@@ -21,6 +21,18 @@ namespace AntRunner.Models
         public int MaxWidth { get; }
         public int MaxHeight { get; }
 
+        public Map(IList<ItemColor> colorList)
+        {
+            var map = new MapGenerator();
+            _tiles = map.Generate();
+            Width = map.Width;
+            Height = map.Height;
+            MaxWidth = Width - 1;
+            MaxHeight = Height - 1;
+
+            Initialize(colorList);
+        }
+
         public Map(Bitmap mapDefinition, IList<ItemColor> colorList)
         {
             Width = mapDefinition.Width;
@@ -59,7 +71,12 @@ namespace AntRunner.Models
                 }
             }
 
-            if (possibleFlags.Any())
+            Initialize(colorList, possibleFlags, possibleHomes);
+        }
+
+        private void Initialize(IList<ItemColor> colorList, List<MapTile> possibleFlags = null, List<MapTile> possibleHomes = null)
+        {
+            if (possibleFlags != null && possibleFlags.Any())
             {
                 possibleFlags.Shuffle();
                 possibleFlags[Utilities.Random.Next(0, possibleFlags.Count - 1)].Item = Item.Flag;
@@ -70,7 +87,15 @@ namespace AntRunner.Models
             }
 
             colorList.Shuffle();
-            possibleHomes.Shuffle();
+            if (possibleHomes == null)
+            {
+                possibleHomes = new List<MapTile>();
+            }
+            else
+            {
+                possibleHomes.Shuffle();
+            }
+
             while (colorList.Any())
             {
                 var color = colorList[Utilities.Random.Next(0, colorList.Count - 1)];
@@ -152,7 +177,7 @@ namespace AntRunner.Models
                 AntCollision(x, y, ant, tile, sideEvents);
                 return GameEvent.CollisionDamage;
             }
-            
+
             ant.CurrentTile = tile;
             tile.Item = Item.Empty;
             return eventResult;

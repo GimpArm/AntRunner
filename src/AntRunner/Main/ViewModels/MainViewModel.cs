@@ -38,7 +38,7 @@ namespace AntRunner.Main.ViewModels
             get => _isDebug;
             set
             {
-                SetValue(ref _isDebug, value); 
+                SetValue(ref _isDebug, value);
                 RaisePropertyChanged(nameof(WindowTitle));
             }
         }
@@ -49,7 +49,7 @@ namespace AntRunner.Main.ViewModels
             get => _winnerColor;
             set
             {
-                SetValue(ref _winnerColor, value); 
+                SetValue(ref _winnerColor, value);
                 RaisePropertyChanged(nameof(WinnerLogo));
             }
         }
@@ -85,7 +85,14 @@ namespace AntRunner.Main.ViewModels
         private void Initialize()
         {
             _control.MapArea.MapArea.Children.Clear();
-            _gameManager = new GameManager(new Bitmap(_selectedMap.Map.UriSource.LocalPath), _players, IsDebug);
+            if (_selectedMap.Map != null)
+            {
+                _gameManager = new GameManager(_players, IsDebug, new Bitmap(_selectedMap.Map.UriSource.LocalPath));
+            }
+            else
+            {
+                _gameManager = new GameManager(_players, IsDebug);
+            }
             _gameManager.OnGameOver += OnGameOver;
             _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);

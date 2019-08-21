@@ -25,21 +25,28 @@ namespace AntRunner.Models
         private AntWrapper _antWithFlag;
 
         public Dictionary<ItemColor, AntWrapper> Players { get; }
-        
+
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
         public EventHandler<ExplosionEventArgs> OnExplosion;
 
-        public GameManager(Bitmap mapDefinition, IEnumerable<AntWrapper> players, bool isDebug)
+        public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null)
         {
             IsDebug = isDebug;
-            MapHeight = mapDefinition.Height;
-            MapWidth = mapDefinition.Width;
             Players = players.ToDictionary(k => k.Color, v => v);
-            Map = new Map(mapDefinition, Players.Keys.ToList());
+            if (mapDefinition != null)
+            {
+                Map = new Map(mapDefinition, Players.Keys.ToList());
+            }
+            else
+            {
+                Map = new Map(Players.Keys.ToList());
+            }
+            MapHeight = Map.Height;
+            MapWidth = Map.Width;
             _gameTicker.Elapsed += GameTickerOnElapsed;
         }
-        
+
         public void Start()
         {
             foreach (var player in Players.Values)
@@ -104,7 +111,7 @@ namespace AntRunner.Models
                 _flagCarrierDiedTile = null;
             }
             _gameTicker.Start();
-            
+
             _startPlayer++;
             if (_startPlayer > Players.Count)
             {
@@ -284,7 +291,7 @@ namespace AntRunner.Models
 
             return new EchoResponse(Utilities.CalculateDistance(ant, tile), tile.OccupiedBy?.AntItem ?? tile.Item);
         }
-        
+
 
         private void SetEvent(AntWrapper ant, GameEvent @event)
         {
