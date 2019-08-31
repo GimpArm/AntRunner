@@ -279,5 +279,6 @@
     <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\python" DestinationFile="$(OutputPath)\Examples\python.zip" />
     <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\ruby" DestinationFile="$(OutputPath)\Examples\ruby.zip" />
     <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\ts" DestinationFile="$(OutputPath)\Examples\ts.zip" />
+    <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\js" DestinationFile="$(OutputPath)\Examples\js.zip" />
   </Target>
 </Project>

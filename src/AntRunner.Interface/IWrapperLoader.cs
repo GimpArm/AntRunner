@@ -22,7 +22,6 @@ namespace AntRunner.Interface
         /// <summary>
         /// Returns a function which can be internally called to get the AntAction. This is to make it more fair for the wrapped ants by allowing async Action setting.
         /// </summary>
-        /// <param name="ant">Ant object which the returned function will act upon.</param>
         /// <returns>Function that when called returns the next action.</returns>
         Func<Ant, AntAction> GetAction();
     }
