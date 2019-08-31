@@ -23,10 +23,13 @@ var s = net.Server(function (socket) {
                 case "T":
                     var state = JSON.parse(cmd.substring(1));
                     currentAnt.Tick(state);
+					socket.write("ok");
+                    break;
+				case "A":
                     var a = currentAnt.Action.toString();
                     socket.write(a);
                     currentAnt.Action = 0;
-                    break;
+					break;
                 case "I":
                     var init = JSON.parse(cmd.substring(1));
                     currentAnt.Initialize(init[0], init[1], init[2], init[3], init[4], init[5]);

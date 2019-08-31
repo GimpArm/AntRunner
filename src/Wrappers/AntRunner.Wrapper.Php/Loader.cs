@@ -1,11 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Php
 {
     public class Loader : IWrapperLoader
     {
-        public string Extension => "php";
+        public string[] Extensions => new[] { "php" };
 
         public AssemblyLoaderData MakeLoaderData(string filename)
         {
@@ -14,6 +15,14 @@ namespace AntRunner.Wrapper.Php
                 AssemblyName = Assembly.GetExecutingAssembly().GetName(),
                 TypeString = "AntRunner.Wrapper.Php.PhpAnt",
                 ConstructorParameters = new object[] {filename}
+            };
+        }
+
+        public Func<Ant, AntAction> GetAction()
+        {
+            return ant =>
+            {
+                return ((PhpAnt)ant)?.GetAction() ?? AntAction.Wait;
             };
         }
     }

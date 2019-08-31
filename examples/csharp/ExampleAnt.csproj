@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <Reference Include="AntRunner.Interface">
-      <HintPath>..\..\bin\1.1.1.0\AntRunner.Interface.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\AntRunner\AntRunner.Interface.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

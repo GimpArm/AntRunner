@@ -20,6 +20,8 @@ while __Running__ && STDIN.gets
 		case cmd
 		when "T"
 			__CurrentAnt__.Tick(AntRunner::Interface::GameState.from_json(line[1..-1]))
+			STDOUT.write("ok\n")
+		when "A"
 			a = __CurrentAnt__.Action
 			STDOUT.write("#{a}\n")
 			__CurrentAnt__.Action = AntRunner::Interface::AntAction::Wait

@@ -15,10 +15,10 @@ namespace AntRunner.Wrapper.Php
         private readonly string _workingDirectory;
         private string _lastOutput;
 
-        public override string Name => Read("N", true) ?? "No name";
+        public override string Name => Read("N", 9) ?? "No name";
 
         public override Stream Flag => File.Exists(Path.Combine(_workingDirectory, "Flag.png")) ? new MemoryStream(File.ReadAllBytes(Path.Combine(_workingDirectory, "Flag.png"))) : base.Flag;
-        
+
         public PhpAnt(string antPath)
         {
             try
@@ -89,9 +89,15 @@ namespace AntRunner.Wrapper.Php
 
         public override void Tick(GameState state)
         {
-            var result = Read("T" + SerializeState(state));
-            if (!int.TryParse(result, out var actInt) || actInt > 15) return;
+            Read("T" + SerializeState(state));
+        }
+
+        public AntAction GetAction()
+        {
+            var result = Read("A", 5);
+            if (!int.TryParse(result, out var actInt) || actInt > 15) return AntAction.Wait;
             Action = (AntAction)Enum.ToObject(typeof(AntAction), actInt);
+            return Action;
         }
 
         private string SerializeState(GameState state)
@@ -116,12 +122,11 @@ namespace AntRunner.Wrapper.Php
             _phpProcess.Dispose();
         }
 
-        private string Read(string input, bool timeout = false)
+        private string Read(string input, int timeout = int.MaxValue)
         {
             _phpProcess.StandardInput.WriteLine(input);
-            var delay = timeout ? 9 : int.MaxValue;
             var cnt = 0;
-            while (_lastOutput == null && cnt < delay)
+            while (_lastOutput == null && cnt < timeout)
             {
                 Task.Delay(1).Wait();
                 cnt++;
@@ -141,7 +146,7 @@ namespace AntRunner.Wrapper.Php
                 {
                     return JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFile));
                 }
-                
+
             }
             catch
             {

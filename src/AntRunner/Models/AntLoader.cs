@@ -15,19 +15,19 @@ namespace AntRunner.Models
         public static IList<IWrapperLoader> Wrappers => _wrappers ?? (_wrappers = GetWrappers());
 
         private static string _dialogFilter;
-        public static string DialogFilter => _dialogFilter ?? (_dialogFilter = string.Format("Ant files ({0})|{0}|All files (*.*)|*.*", string.Join(";", Wrappers.Select(x => $"*.{x.Extension.ToLower()}"))));
+        public static string DialogFilter => _dialogFilter ?? (_dialogFilter = string.Format("Ant files ({0})|{0}|All files (*.*)|*.*", string.Join(";", Wrappers.SelectMany(x => x.Extensions).Select(x => $"*.{x.ToLower()}"))));
 
         public static IWrapperLoader GetLoader(string filename)
         {
             var info = new FileInfo(filename);
             var extension = info.Extension.TrimStart('.');
-            return Wrappers.FirstOrDefault(x => x.Extension.Equals(extension, StringComparison.InvariantCultureIgnoreCase));
+            return Wrappers.FirstOrDefault(x => x.Extensions.Any(y => y.Equals(extension, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public static bool ValidExtension(string extension)
         {
             extension = extension.TrimStart('.');
-            return Wrappers.Any(x => x.Extension.Equals(extension, StringComparison.InvariantCultureIgnoreCase));
+            return Wrappers.Any(x => x.Extensions.Any(y => y.Equals(extension, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public static AntProxy Load(string filename, out AppDomain domain)
@@ -46,6 +46,7 @@ namespace AntRunner.Models
                 antProxy.LoadAssembly(data);
 
                 domain = d;
+                antProxy.SetGetAction(loader.GetAction());
                 return antProxy;
             }
             catch (Exception e)

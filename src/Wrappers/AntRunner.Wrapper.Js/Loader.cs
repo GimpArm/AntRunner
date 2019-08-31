@@ -1,11 +1,13 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Js
 {
+    [Serializable]
     public class Loader : IWrapperLoader
     {
-        public string Extension => "js";
+        public string[] Extensions => new []{"js"};
 
         public AssemblyLoaderData MakeLoaderData(string filename)
         {
@@ -14,6 +16,14 @@ namespace AntRunner.Wrapper.Js
                 AssemblyName = Assembly.GetExecutingAssembly().GetName(),
                 TypeString = "AntRunner.Wrapper.Js.JsAnt",
                 ConstructorParameters = new object[] { filename }
+            };
+        }
+
+        public Func<Ant, AntAction> GetAction()
+        {
+            return ant =>
+            {
+                return ((JsAnt)ant)?.GetAction() ?? AntAction.Wait;
             };
         }
     }

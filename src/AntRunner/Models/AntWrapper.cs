@@ -128,7 +128,7 @@ namespace AntRunner.Models
                 //Do Nothing
             }
         }
-        
+
         public void SetColor(ItemColor color)
         {
             Color = color;

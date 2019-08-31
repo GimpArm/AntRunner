@@ -26,7 +26,8 @@ class MyAnt extends \AntRunner_Interface\Ant
 	private $_searchPrimary;
 	private $_searchSecondary;
 		
-	public function Initialize($mapWidth, $mapHeight, $antColor, $startX, $startY) {
+	public function Initialize($mapWidth, $mapHeight, $antColor, $startX, $startY)
+	{
 		$this->_mapWidth = $mapWidth;
 		$this->_mapHeight = $mapHeight;
 		$this->_myColor = $antColor;
@@ -41,7 +42,7 @@ class MyAnt extends \AntRunner_Interface\Ant
 		for ($y=0; $y<$mapHeight; ++$y)
 		{
 			$this->_map[$y] = array();
-			for ($x=0; $x<$mapHeight; ++$x)
+			for ($x=0; $x<$mapWidth; ++$x)
 			{
 				$this->_map[$y][$x] = new MapPosition();
 			}

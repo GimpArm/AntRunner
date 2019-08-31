@@ -4,6 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "CompileTypeScript",
+            "type": "shell",
+            "command": "node_modules\\.bin\\tsc.cmd --build ${workspaceFolder}\\tsconfig.json",
+            "options": {"cwd": "${config:antrunner.root}\\Wrappers\\js\\node"},
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "AntRunner",
             "type": "shell",
             "command": "${config:antrunner.root}\\debug.bat",

@@ -597,7 +597,7 @@
             Wrapper to make custom loaders for different programming languages.
             </summary>
         </member>
-        <member name="P:AntRunner.Interface.IWrapperLoader.Extension">
+        <member name="P:AntRunner.Interface.IWrapperLoader.Extensions">
             <summary>
             The extension this file type can open.
             </summary>
@@ -608,6 +608,13 @@
             </summary>
             <param name="filename">Path to the file to load.</param>
             <returns>AssemblyLoaderData with all information for loading an ant.</returns>
+        </member>
+        <member name="M:AntRunner.Interface.IWrapperLoader.GetAction">
+            <summary>
+            Returns a function which can be internally called to get the AntAction. This is to make it more fair for the wrapped ants by allowing async Action setting.
+            </summary>
+            <param name="ant">Ant object which the returned function will act upon.</param>
+            <returns>Function that when called returns the next action.</returns>
         </member>
     </members>
 </doc>

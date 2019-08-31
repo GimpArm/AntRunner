@@ -1,11 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Ruby
 {
     public class Loader : IWrapperLoader
     {
-        public string Extension => "rb";
+        public string[] Extensions => new[] { "rb" };
 
         public AssemblyLoaderData MakeLoaderData(string filename)
         {
@@ -14,7 +15,15 @@ namespace AntRunner.Wrapper.Ruby
                 AssemblyName = Assembly.GetExecutingAssembly().GetName(),
                 TypeString = "AntRunner.Wrapper.Ruby.RubyAnt",
                 ConstructorParameters = new object[] { filename }
-        };
+            };
+        }
+
+        public Func<Ant, AntAction> GetAction()
+        {
+            return ant =>
+            {
+                return ((RubyAnt)ant)?.GetAction() ?? AntAction.Wait;
+            };
         }
     }
 }

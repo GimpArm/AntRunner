@@ -1,11 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using AntRunner.Interface;
 
 namespace AntRunner.Wrapper.Python
 {
     public class Loader : IWrapperLoader
     {
-        public string Extension => "py";
+        public string[] Extensions => new[] { "py" };
 
         public AssemblyLoaderData MakeLoaderData(string filename)
         {
@@ -14,7 +15,15 @@ namespace AntRunner.Wrapper.Python
                 AssemblyName = Assembly.GetExecutingAssembly().GetName(),
                 TypeString = "AntRunner.Wrapper.Python.PythonAnt",
                 ConstructorParameters = new object[] { filename }
-        };
+            };
+        }
+
+        public Func<Ant, AntAction> GetAction()
+        {
+            return ant =>
+            {
+                return ((PythonAnt)ant)?.GetAction() ?? AntAction.Wait;
+            };
         }
     }
 }

@@ -34,6 +34,8 @@ for line in sys.stdin:
 		if cmd == "T":
 			s = DecodeGameState(line[1:])
 			Ant.Tick(s)
+			sys.stdout.write(f"ok\n")
+		elif cmd == "A":
 			a = Ant.Action
 			sys.stdout.write(f"{a}\n")
 			Ant.Action = 0

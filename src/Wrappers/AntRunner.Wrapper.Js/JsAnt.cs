@@ -80,19 +80,24 @@ namespace AntRunner.Wrapper.Js
                 throw;
             }
         }
-        
+
         public override void Initialize(int mapWidth, int mapHeight, ItemColor antColor, int startX, int startY)
         {
-            var input = $"I[{mapWidth},{mapHeight},{(int)antColor},{startX},{startY}]{Environment.NewLine}";
-            _serverStream.Write(Encoder.GetBytes(input), 0, input.Length);
-            _serverStream.Flush();
+            Write($"I[{mapWidth},{mapHeight},{(int)antColor},{startX},{startY}]");
         }
 
         public override void Tick(GameState state)
         {
-            var result = Read("T" + SerializeState(state));
-            if (!int.TryParse(result, out var actInt) || actInt > 15) return;
+            Read("T" + SerializeState(state));
+
+        }
+
+        public AntAction GetAction()
+        {
+            var result = Read("A", 5);
+            if (!int.TryParse(result, out var actInt) || actInt > 15) return AntAction.Wait;
             Action = (AntAction)Enum.ToObject(typeof(AntAction), actInt);
+            return Action;
         }
 
         private static string SerializeState(GameState state)
@@ -123,9 +128,7 @@ namespace AntRunner.Wrapper.Js
 
         private string Read(string input, int delay = int.MaxValue)
         {
-            input += Environment.NewLine;
-            _serverStream.Write(Encoder.GetBytes(input), 0, input.Length);
-            _serverStream.Flush();
+            Write(input);
             var cnt = 0;
             while (_lastOutput == null && cnt < delay)
             {
@@ -136,6 +139,13 @@ namespace AntRunner.Wrapper.Js
             var result = _lastOutput;
             _lastOutput = null;
             return result;
+        }
+
+        private void Write(string input)
+        {
+            input += Environment.NewLine;
+            _serverStream.Write(Encoder.GetBytes(input), 0, input.Length);
+            _serverStream.Flush();
         }
 
         private static Settings ReadSettings(string workingDirectory)

@@ -19,8 +19,10 @@ function Run($filename)
 			switch (substr($line, 0, 1))
 			{
 				case 'T':
-					$state = unserialize(substr($line, 1));
-					$ant->Tick($state);
+					$ant->Tick(unserialize(substr($line, 1)));
+					fwrite(STDOUT, "ok" . PHP_EOL);
+					break;
+				case 'A':
 					$a = (int)$ant->Action;
 					$ant->Action = 0;
 					fwrite(STDOUT, $a . PHP_EOL);

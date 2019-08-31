@@ -96,9 +96,15 @@ namespace AntRunner.Wrapper.Ruby
 
         public override void Tick(GameState state)
         {
-            var result = Read("T" + SerializeState(state));
-            if (!int.TryParse(result, out var actInt) || actInt > 15) return;
+            Read("T" + SerializeState(state));
+        }
+
+        public AntAction GetAction()
+        {
+            var result = Read("A", 5);
+            if (!int.TryParse(result, out var actInt) || actInt > 15) return AntAction.Wait;
             Action = (AntAction)Enum.ToObject(typeof(AntAction), actInt);
+            return Action;
         }
 
         private string SerializeState(GameState state)

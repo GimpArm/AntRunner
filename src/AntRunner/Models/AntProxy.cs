@@ -9,13 +9,14 @@ namespace AntRunner.Models
     public class AntProxy : MarshalByRefObject, IDisposable
     {
         private Ant _ant;
+        private Func<Ant, AntAction> _getAction;
 
         public string Name => _ant.Name;
         public Stream Flag => _ant.Flag;
-        
+
         public AntAction Action
         {
-            get => _ant.Action;
+            get => _getAction?.Invoke(_ant) ?? _ant.Action;
             set => _ant.Action = value;
         }
 
@@ -39,8 +40,8 @@ namespace AntRunner.Models
             try
             {
                 var assembly = Assembly.Load(data.AssemblyName);
-                var antType = string.IsNullOrEmpty(data.TypeString) ? 
-                    assembly.GetExportedTypes().FirstOrDefault(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Ant))) : 
+                var antType = string.IsNullOrEmpty(data.TypeString) ?
+                    assembly.GetExportedTypes().FirstOrDefault(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Ant))) :
                     assembly.GetType(data.TypeString);
 
                 if (antType == null)
@@ -63,18 +64,14 @@ namespace AntRunner.Models
             }
         }
 
+        public void SetGetAction(Func<Ant, AntAction> getAction)
+        {
+            _getAction = getAction;
+        }
+
         private static ResolveEventHandler CreateHandler(string directoryName)
         {
             var dllLookup = Directory.GetFiles(directoryName, "*.dll").ToDictionary(Path.GetFileNameWithoutExtension, y => y);
-            //if (!dllLookup.ContainsKey("AntRunner.Interface"))
-            //{
-            //    dllLookup.Add("AntRunner.Interface", typeof(Ant).Assembly.Location);
-            //}
-
-            //if (!dllLookup.ContainsKey("Newtonsoft.Json"))
-            //{
-            //    dllLookup.Add("Newtonsoft.Json", typeof(Newtonsoft.Json.JsonConverter).Assembly.Location);
-            //}
             return (sender, args) =>
             {
                 var name = args.Name.Split(',')[0];
