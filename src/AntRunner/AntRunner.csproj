@@ -272,6 +272,14 @@
   <ItemGroup>
     <Resource Include="Images\RandomMap.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Maps\A-Small-Arena.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\A-Small-Chaos.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <MakeDir Directories="$(OutputPath)\Examples" Condition="!Exists('$(OutputPath)\Examples')" />
