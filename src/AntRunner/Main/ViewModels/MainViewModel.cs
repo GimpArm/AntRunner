@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,6 +61,48 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _counterValue, value);
         }
 
+        #region Member - IsModePlaying
+        public bool IsModePlaying
+        {
+            get => _gameManager?.CurrentRunningMode == GameRunningModeType.Playing;
+            set
+            {
+                if (value)
+                {
+                    _gameManager.CurrentRunningMode = GameRunningModeType.Playing;
+                }
+            }
+        }
+        #endregion
+
+        #region Member - IsModePause
+        public bool IsModePause
+        {
+            get => _gameManager?.CurrentRunningMode == GameRunningModeType.Pause;
+            set
+            {
+                if (value)
+                {
+                    _gameManager.CurrentRunningMode = GameRunningModeType.Pause;
+                }
+            }
+        }
+        #endregion
+
+        #region Member - IsModeNextStep
+        public bool IsModeNextStep
+        {
+            get => _gameManager?.CurrentRunningMode == GameRunningModeType.NextStep;
+            set
+            {
+                if (value)
+                {
+                    _gameManager.CurrentRunningMode = GameRunningModeType.NextStep;
+                }
+            }
+        }
+        #endregion
+
         public string WindowTitle => "Ant Runner" + (IsDebug ? " - Debug" : string.Empty);
         public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
 
@@ -93,10 +136,22 @@ namespace AntRunner.Main.ViewModels
                 _gameManager = new GameManager(_players, IsDebug);
             }
             _gameManager.OnGameOver += OnGameOver;
+            _gameManager.OnRunningModeChanged += OnRunningModeChanged;
             _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
             ScreenLockManager.DisableSleep();
+        }
+
+        private void OnRunningModeChanged(object sender, EventArgs e)
+        {
+            var runningMode = (sender as GameRunningModeType?);
+            if (runningMode.HasValue)
+            {
+                RaisePropertyChanged("IsModePlaying");
+                RaisePropertyChanged("IsModePause");
+                RaisePropertyChanged("IsModeNextStep");
+            }
         }
 
         public ICommand RunAgainCommand => _runAgainCommand ?? (_runAgainCommand = new DelegateCommand(RunAgain));
@@ -108,7 +163,7 @@ namespace AntRunner.Main.ViewModels
             _control.PlayerArea.Children.Clear();
             foreach (var player in players)
             {
-                _control.PlayerArea.Children.Add(new StatusControl {Color = player.Color, Ant = player});
+                _control.PlayerArea.Children.Add(new StatusControl { Color = player.Color, Ant = player });
                 _mapViewModel.AddPlayer(player);
             }
         }

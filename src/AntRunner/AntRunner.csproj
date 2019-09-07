@@ -210,6 +210,7 @@
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\GameManager.cs" />
+    <Compile Include="Models\GameRunningModeType.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MapGenerator.cs" />
     <Compile Include="Models\MapTile.cs" />
@@ -272,6 +273,12 @@
     <Resource Include="Images\RandomMap.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Maps\A-Small-Arena.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\A-Small-Chaos.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <ProjectReference Include="..\AntRunner.Game.Interface\AntRunner.Game.Interface.csproj">
       <Project>{C23E328C-6003-4C62-866A-0DD0F4C3012C}</Project>
       <Name>AntRunner.Game.Interface</Name>

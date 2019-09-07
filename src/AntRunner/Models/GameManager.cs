@@ -37,6 +37,23 @@ namespace AntRunner.Models
         public EventHandler<GameOverEventArgs> OnGameOver;
         public EventHandler<ExplosionEventArgs> OnExplosion;
 
+        #region Member - CurrentState
+        private GameRunningModeType _currentRunningMode = GameRunningModeType.Playing;
+        public event EventHandler OnRunningModeChanged;
+        public GameRunningModeType CurrentRunningMode
+        {
+            get => _currentRunningMode;
+            set
+            {
+                if (_currentRunningMode != value)
+                {
+                    _currentRunningMode = value;
+                    OnRunningModeChanged?.Invoke(value, null);
+                }
+            }
+        } 
+        #endregion
+
         public List<IGameEventHook> GameHookList { get; set; } = new List<IGameEventHook>();
 
         public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null)
@@ -118,6 +135,11 @@ namespace AntRunner.Models
 
         private void GameTickerOnElapsed(object sender, ElapsedEventArgs e)
         {
+            if (_currentRunningMode == GameRunningModeType.Pause)
+            { 
+                return;
+            }
+
             _gameTicker.Stop();
             _currentTick++;
             var deadCount = GetActions();
@@ -169,6 +191,11 @@ namespace AntRunner.Models
             }
             _eventStack.Clear();
             _echoStack.Clear();
+
+            if (_currentRunningMode == GameRunningModeType.NextStep)
+            {
+                CurrentRunningMode = GameRunningModeType.Pause;
+            }
         }
 
         private int GetActions()
