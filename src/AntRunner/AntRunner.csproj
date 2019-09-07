@@ -281,11 +281,6 @@
       <Name>AntRunner.ExternalComponent.LoggerWithUI</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Maps\ASmall.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <MakeDir Directories="$(OutputPath)\Examples" Condition="!Exists('$(OutputPath)\Examples')" />
