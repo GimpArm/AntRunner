@@ -15,8 +15,8 @@ namespace AntRunner.Game.Interface
 
         public ItemColor Color { get; set; }
 
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
+        public int? PositionX { get; set; }
+        public int? PositionY { get; set; }
 
         public int Health { get; set; }
         public int Shields { get; set; }
