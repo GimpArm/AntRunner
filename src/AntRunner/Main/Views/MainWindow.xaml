@@ -28,9 +28,23 @@
 
         <views:MapControl Grid.Column="0" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <Viewbox Grid.Column="1" Stretch="Uniform" MaxWidth="300" VerticalAlignment="Top">
-            <StackPanel x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
-        </Viewbox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ToggleButton Margin="0,5,5,5" Content="Play" IsChecked="{Binding IsModePlaying}" />
+                <ToggleButton Margin="0,5,5,5" Content="Pause" IsChecked="{Binding IsModePause}" />
+                <ToggleButton Margin="0,5,5,5" Content="NextStep" IsChecked="{Binding IsModeNextStep}" />
+            </StackPanel>
+
+            <Viewbox Grid.Row="1" Stretch="Uniform" MaxWidth="300" VerticalAlignment="Top">
+                <StackPanel x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
+            </Viewbox>
+        </Grid>
+        
 
         <Border Grid.Column="0" Opacity="0.8" Visibility="{Binding CounterValue, Converter={StaticResource NullToVisibilityConverter}}" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Height="300" Width="300"
