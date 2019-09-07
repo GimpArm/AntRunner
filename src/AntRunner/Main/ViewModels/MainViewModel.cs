@@ -8,6 +8,7 @@ using System.Windows.Media;
 using AntRunner.Controls.Ant.Views;
 using AntRunner.Controls.Map.ViewModels;
 using AntRunner.Events;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Main.Views;
 using AntRunner.Models;
 using ItemColor = AntRunner.Interface.ItemColor;
@@ -39,7 +40,6 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _isDebug, value);
-                RaisePropertyChanged(nameof(WindowTitle));
             }
         }
 
@@ -50,7 +50,6 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _winnerColor, value);
-                RaisePropertyChanged(nameof(WinnerLogo));
             }
         }
 

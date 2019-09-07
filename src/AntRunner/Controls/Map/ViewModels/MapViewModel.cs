@@ -6,6 +6,7 @@ using AntRunner.Controls.Ant.Views;
 using AntRunner.Controls.Map.Views;
 using AntRunner.Controls.Tiles.Views;
 using AntRunner.Events;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Interface;
 using AntRunner.Models;
 using WallRender = AntRunner.Controls.Map.Models.WallRender;

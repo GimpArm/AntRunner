@@ -20,3 +20,5 @@
 /src/Wrappers/AntRunner.Wrapper.Ruby/obj
 /src/AntRunner.Installer/bin
 /src/AntRunner.Installer/obj
+**/bin
+**/obj
