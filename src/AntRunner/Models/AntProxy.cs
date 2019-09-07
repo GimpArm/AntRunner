@@ -75,6 +75,9 @@ namespace AntRunner.Models
             return (sender, args) =>
             {
                 var name = args.Name.Split(',')[0];
+                if (name.Contains(".resources"))
+                    return null;
+
                 if (dllLookup.ContainsKey(name))
                 {
                     return Assembly.Load(AssemblyName.GetAssemblyName(dllLookup[name]));
