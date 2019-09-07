@@ -209,6 +209,7 @@
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\GameManager.cs" />
+    <Compile Include="Models\GameRunningModeType.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\MapGenerator.cs" />
     <Compile Include="Models\MapTile.cs" />
