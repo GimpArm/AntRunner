@@ -11,6 +11,7 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Width="1024" Height="768"
         WindowStartupLocation="CenterOwner" Background="WhiteSmoke"
+        xmlns:ViewModels="clr-namespace:AntRunner.Main.ViewModels"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <ResourceDictionary>
@@ -18,17 +19,32 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters1:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters2:CountDownValueToColorConverter x:Key="CountDownValueToColorConverter" />
+
+            <Style TargetType="{x:Type MenuItem}">
+                <Setter Property="Header" Value="{Binding Path=DisplayText}"/>
+                <Setter Property="Command" Value="{Binding Path=MenuCommand}"/>
+            </Style>
+            <HierarchicalDataTemplate 
+                DataType="{x:Type ViewModels:MenuItemViewModel}"
+                ItemsSource="{Binding Path=ChildItems}">
+            </HierarchicalDataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <views:MapControl Grid.Column="0" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MenuItems}" />
+        
+        <views:MapControl Grid.Row="1" Grid.Column="0" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -46,7 +62,7 @@
         </Grid>
         
 
-        <Border Grid.Column="0" Opacity="0.8" Visibility="{Binding CounterValue, Converter={StaticResource NullToVisibilityConverter}}" 
+        <Border Grid.Row="1" Grid.Column="0" Opacity="0.8" Visibility="{Binding CounterValue, Converter={StaticResource NullToVisibilityConverter}}" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" Height="300" Width="300"
                 CornerRadius="150" BorderThickness="1"
                 Background="{Binding CounterValue, Converter={StaticResource CountDownValueToColorConverter}}">

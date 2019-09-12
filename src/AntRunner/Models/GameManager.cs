@@ -30,6 +30,7 @@ namespace AntRunner.Models
 
         private Guid _currentGameID;
         private List<IExternalComponent> _externalComponentList = new List<IExternalComponent>();
+        public List<IExternalComponent> ExternalComponents => _externalComponentList;
 
         public Dictionary<ItemColor, AntWrapper> Players { get; }
 
@@ -54,7 +55,7 @@ namespace AntRunner.Models
         } 
         #endregion
 
-        public List<IGameEventHook> GameHookList { get; set; } = new List<IGameEventHook>();
+        public List<IGameEventHook> GameHookList => ExternalComponents.Where(E => E.IsActiv).Select(H => H.GameEventHook).ToList();
 
         public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null)
         {
@@ -100,11 +101,6 @@ namespace AntRunner.Models
                 if (newInstance != null)
                 {
                     _externalComponentList.Add(newInstance);
-                    newInstance.Init();
-                    if (newInstance.GameEventHook != null)
-                    {
-                        GameHookList.Add(newInstance.GameEventHook);
-                    }
                 }
             });
         }

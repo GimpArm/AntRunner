@@ -53,12 +53,15 @@ namespace AntRunner.ExternalComponent.LoggerWithUI.ViewModels
 
         private void AddMessage(string message)
         {
-            LogMessages.Insert(0, new LogMessageItemViewModel
+            RunOnUIThread(() =>
             {
-                MessageText = message
-            });
+                LogMessages.Insert(0, new LogMessageItemViewModel
+                {
+                    MessageText = message
+                });
 
-            RemoveLastActions();
+                RemoveLastActions();
+            });   
         }
 
         private void RemoveLastActions()

@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AntRunner.ExternalComponent.LoggerWithUI"
         mc:Ignorable="d"
-        Title="Event Logger" Height="500" Width="1100">
+        Title="Event Logger" Height="500" Width="1200">
     <Grid>
         <ListView Margin="10" ItemsSource="{Binding LogMessages}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Time" Width="80" DisplayMemberBinding="{Binding Time, StringFormat=HH:mm:ss}" />
-                    <GridViewColumn Header="Message" Width="950" DisplayMemberBinding="{Binding MessageText}" />
+                    <GridViewColumn Header="Message" Width="1050" DisplayMemberBinding="{Binding MessageText}" />
                 </GridView>
             </ListView.View>
         </ListView>

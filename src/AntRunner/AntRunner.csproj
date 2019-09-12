@@ -179,6 +179,7 @@
     <Compile Include="Main\Converters\NullToParameterTextConverter.cs" />
     <Compile Include="Main\Converters\PlayerLookupConverter.cs" />
     <Compile Include="Main\ViewModels\MainViewModel.cs" />
+    <Compile Include="Main\ViewModels\MenuItemViewModel.cs" />
     <Compile Include="Main\ViewModels\StartupViewModel.cs" />
     <Compile Include="Main\Views\LoadAntControl.xaml.cs">
       <DependentUpon>LoadAntControl.xaml</DependentUpon>

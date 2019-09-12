@@ -6,8 +6,10 @@ namespace AntRunner.Game.Interface
 {
     public interface IExternalComponent
     {
+        string DisplayText { get; }
         IGameEventHook GameEventHook { get; }
-        void Init();
+        bool IsActiv { get; }
+        void Start();
         void Stop();
     }
 }

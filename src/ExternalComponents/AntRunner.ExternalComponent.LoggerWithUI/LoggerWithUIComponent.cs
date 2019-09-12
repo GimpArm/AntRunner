@@ -12,18 +12,25 @@ namespace AntRunner.ExternalComponent.LoggerWithUI
 {
     public class LoggerWithUIComponent : NotifyBaseModel, IExternalComponent
     {
+        public string DisplayText => "Logger";
+
         public IGameEventHook GameEventHook { get; set; } = new LoggerWithUIComponentViewModel();
+
+        private bool _isActive;
+        public bool IsActiv => _isActive;
 
         private LoggerWithUIWindow _window;
 
-        public void Init()
+        public void Start()
         {
             RunOnUIThread(() =>
             {
                 _window = new LoggerWithUIWindow();
                 _window.DataContext = GameEventHook;
                 _window.Show();
+                _isActive = true;
             });
+            
         }
 
         public void Stop()
@@ -32,6 +39,7 @@ namespace AntRunner.ExternalComponent.LoggerWithUI
             {
                 _window?.Close();
                 _window = null;
+                _isActive = false;
             });
         }
     }
