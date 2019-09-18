@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using AntRunner.Events;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Interface;
 using ItemColor = AntRunner.Interface.ItemColor;
 
@@ -13,6 +14,9 @@ namespace AntRunner.Models
 {
     public class AntWrapper : NotifyBaseModel, IDisposable
     {
+        private Guid _id = Guid.NewGuid();
+        public Guid ID => _id;
+
         public event EventHandler<ShootEventHandler> ShootEventHandler;
         private readonly BackgroundWorker _antWorkerThread = new BackgroundWorker();
         private readonly AppDomain _domain;

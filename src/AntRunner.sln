@@ -35,6 +35,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntRunner.Wrapper.Ruby", "W
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "AntRunner.Installer", "AntRunner.Installer\AntRunner.Installer.wixproj", "{2CA1EED0-C807-4661-9074-6CDC4C676C82}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalComponents", "ExternalComponents", "{057119FE-43F6-4EA8-A0C5-0F27E8DE586B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntRunner.ExternalComponent.LoggerWithUI", "ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\AntRunner.ExternalComponent.LoggerWithUI.csproj", "{3C27558B-F38B-4F4F-8C12-586AA186217B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntRunner.Game.Interface", "AntRunner.Game.Interface\AntRunner.Game.Interface.csproj", "{C23E328C-6003-4C62-866A-0DD0F4C3012C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +101,22 @@ Global
 		{2CA1EED0-C807-4661-9074-6CDC4C676C82}.Release|Any CPU.ActiveCfg = Release|x86
 		{2CA1EED0-C807-4661-9074-6CDC4C676C82}.Release|x86.ActiveCfg = Release|x86
 		{2CA1EED0-C807-4661-9074-6CDC4C676C82}.Release|x86.Build.0 = Release|x86
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C27558B-F38B-4F4F-8C12-586AA186217B}.Release|x86.Build.0 = Release|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Debug|x86.Build.0 = Debug|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +129,8 @@ Global
 		{EE735D1E-509A-44A3-8831-608159883984} = {F24C7084-E66C-4ACC-B582-74D25E0EE6EE}
 		{B9A81EB7-88A7-4B29-BBBC-F642E4B46688} = {F24C7084-E66C-4ACC-B582-74D25E0EE6EE}
 		{2CA1EED0-C807-4661-9074-6CDC4C676C82} = {41FF8921-F8A6-4600-B778-B3EE13944F9B}
+		{3C27558B-F38B-4F4F-8C12-586AA186217B} = {057119FE-43F6-4EA8-A0C5-0F27E8DE586B}
+		{C23E328C-6003-4C62-866A-0DD0F4C3012C} = {5B98E6CE-E2AB-4239-BEC3-C126D76CA3B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E692D192-9089-47A6-9657-72DFAEB1F20A}

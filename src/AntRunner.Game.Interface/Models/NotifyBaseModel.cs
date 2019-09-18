@@ -1,14 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using AntRunner.Annotations;
+using System.Text;
+using System.Windows;
 
-namespace AntRunner.Models
+namespace AntRunner.Game.Interface.Models
 {
-    public abstract class NotifyBaseModel : object, INotifyPropertyChanged
+    public abstract class NotifyBaseModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -22,6 +24,11 @@ namespace AntRunner.Models
 
             RaisePropertyChanged(name);
             return true;
+        }
+
+        protected void RunOnUIThread(Action action)
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(action));
         }
     }
 }

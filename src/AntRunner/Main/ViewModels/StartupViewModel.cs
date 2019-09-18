@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Waf.Applications;
 using System.Windows.Input;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Interface;
 using AntRunner.Main.Views;
 using AntRunner.Models;
@@ -96,8 +97,8 @@ namespace AntRunner.Main.ViewModels
         {
             var gameWindow = new MainWindow(_selectedMap, Players, IsDebug) {Owner = _control};
             _control.Hide();
-            gameWindow.ShowDialog();
-            _control.Show();
+            gameWindow.Show();
+            gameWindow.Closed += (object s, EventArgs e) => _control.Show();
         }
 
         private void LoadMap(object input)

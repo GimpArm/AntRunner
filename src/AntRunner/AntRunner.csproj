@@ -173,11 +173,13 @@
     <Compile Include="Events\ExplosionEventArgs.cs" />
     <Compile Include="Events\GameOverEventArgs.cs" />
     <Compile Include="Events\ShootEventHandler.cs" />
+    <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Main\Converters\ColorComparerMultiConverter.cs" />
     <Compile Include="Main\Converters\CountDownValueToColorConverter.cs" />
     <Compile Include="Main\Converters\NullToParameterTextConverter.cs" />
     <Compile Include="Main\Converters\PlayerLookupConverter.cs" />
     <Compile Include="Main\ViewModels\MainViewModel.cs" />
+    <Compile Include="Main\ViewModels\MenuItemViewModel.cs" />
     <Compile Include="Main\ViewModels\StartupViewModel.cs" />
     <Compile Include="Main\Views\LoadAntControl.xaml.cs">
       <DependentUpon>LoadAntControl.xaml</DependentUpon>
@@ -214,7 +216,6 @@
     <Compile Include="Models\MapGenerator.cs" />
     <Compile Include="Models\MapTile.cs" />
     <Compile Include="Models\MouseCommands.cs" />
-    <Compile Include="Models\NotifyBaseModel.cs" />
     <Compile Include="Models\ScreenLockManager.cs" />
     <Compile Include="Models\Utilities.cs" />
     <Compile Include="Models\WrapperLoaderSection.cs" />
@@ -279,6 +280,14 @@
     <None Include="Maps\A-Small-Chaos.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <ProjectReference Include="..\AntRunner.Game.Interface\AntRunner.Game.Interface.csproj">
+      <Project>{C23E328C-6003-4C62-866A-0DD0F4C3012C}</Project>
+      <Name>AntRunner.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\AntRunner.ExternalComponent.LoggerWithUI.csproj">
+      <Project>{3c27558b-f38b-4f4f-8c12-586aa186217b}</Project>
+      <Name>AntRunner.ExternalComponent.LoggerWithUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">

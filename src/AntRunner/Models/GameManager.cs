@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Timers;
+using System.Windows;
 using AntRunner.Events;
+using AntRunner.Extensions;
+using AntRunner.Game.Interface;
 using AntRunner.Interface;
 
 namespace AntRunner.Models
 {
-    public class GameManager: IDisposable
+    public class GameManager : IDisposable
     {
         public readonly int MapHeight;
         public readonly int MapWidth;
@@ -23,6 +27,10 @@ namespace AntRunner.Models
         private bool _hasFlag;
         private MapTile _flagCarrierDiedTile;
         private AntWrapper _antWithFlag;
+
+        private Guid _currentGameID;
+        private List<IExternalComponent> _externalComponentList = new List<IExternalComponent>();
+        public List<IExternalComponent> ExternalComponents => _externalComponentList;
 
         public Dictionary<ItemColor, AntWrapper> Players { get; }
 
@@ -47,9 +55,12 @@ namespace AntRunner.Models
         } 
         #endregion
 
+        public List<IGameEventHook> GameHookList => ExternalComponents.Where(E => E.IsActiv).Select(H => H.GameEventHook).ToList();
 
         public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null)
         {
+            _currentGameID = Guid.NewGuid();
+
             IsDebug = isDebug;
             Players = players.ToDictionary(k => k.Color, v => v);
             if (mapDefinition != null)
@@ -63,6 +74,35 @@ namespace AntRunner.Models
             MapHeight = Map.Height;
             MapWidth = Map.Width;
             _gameTicker.Elapsed += GameTickerOnElapsed;
+
+            FindAndStartExternalComponents();
+
+            GameHookList.ForEach(H =>
+            {
+                H.CreateGame(_currentGameID);
+                H.SetMap(mapDefinition.ToByteArray());
+            });
+        }
+
+        private void FindAndStartExternalComponents()
+        {
+            var externalAssemblys = new Assembly[]
+            {
+                Assembly.Load("AntRunner.ExternalComponent.LoggerWithUI")
+            };
+
+            var allTypes = externalAssemblys
+                .SelectMany(S => S.DefinedTypes)
+                .Where(C => C.ImplementedInterfaces.Contains(typeof(IExternalComponent))).ToList();
+
+            allTypes.ForEach(T =>
+            {
+                var newInstance = (IExternalComponent)Activator.CreateInstance(T);
+                if (newInstance != null)
+                {
+                    _externalComponentList.Add(newInstance);
+                }
+            });
         }
 
         public void Start()
@@ -74,6 +114,8 @@ namespace AntRunner.Models
 
             GameRunning = true;
             _gameTicker.Start();
+
+            GameHookList.ForEach(H => H.StartGame(_currentGameID));
         }
 
         public void Stop()
@@ -82,6 +124,9 @@ namespace AntRunner.Models
             GameRunning = false;
             _eventStack.Clear();
             _echoStack.Clear();
+
+            GameHookList.ForEach(H => H.StopGame(_currentGameID));
+            _externalComponentList.ForEach(C => C.Stop());
         }
 
         private void GameTickerOnElapsed(object sender, ElapsedEventArgs e)
@@ -207,6 +252,20 @@ namespace AntRunner.Models
                             ProcessShot(current, kvp.Value);
                             break;
                     }
+
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        GameHookList.ForEach(H => H.SetPlayerAction(new AntState {
+                            ID = current.ID,
+                            Name = current.Name,
+                            Color = current.Color,
+                            PositionX = current.CurrentTile?.X,
+                            PositionY = current.CurrentTile?.Y,
+                            LastAction = current.LastAction,
+                            Health = current.Health,
+                            Shields = current.Shields,
+                        }));
+                    }));
                 }
                 catch
                 {

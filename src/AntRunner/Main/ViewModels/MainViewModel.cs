@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Windows.Media;
 using AntRunner.Controls.Ant.Views;
 using AntRunner.Controls.Map.ViewModels;
 using AntRunner.Events;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Main.Views;
 using AntRunner.Models;
 using ItemColor = AntRunner.Interface.ItemColor;
@@ -33,6 +35,7 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _gameStopped, value);
         }
 
+        #region Member - IsDebug
         private bool _isDebug;
         public bool IsDebug
         {
@@ -40,10 +43,11 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _isDebug, value);
-                RaisePropertyChanged(nameof(WindowTitle));
             }
         }
+        #endregion
 
+        #region Member - WinnerColor
         private ItemColor _winnerColor;
         public ItemColor WinnerColor
         {
@@ -51,16 +55,18 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _winnerColor, value);
-                RaisePropertyChanged(nameof(WinnerLogo));
             }
         }
+        #endregion
 
+        #region Member - CounterValue
         private string _counterValue;
         public string CounterValue
         {
             get => _counterValue;
             set => SetValue(ref _counterValue, value);
-        }
+        } 
+        #endregion
 
         #region Member - IsModePlaying
         public bool IsModePlaying
@@ -104,6 +110,10 @@ namespace AntRunner.Main.ViewModels
         }
         #endregion
 
+        #region Member - MenuItems
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; set; } = new ObservableCollection<MenuItemViewModel>();
+        #endregion
+
         public string WindowTitle => "Ant Runner" + (IsDebug ? " - Debug" : string.Empty);
         public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
 
@@ -142,6 +152,29 @@ namespace AntRunner.Main.ViewModels
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
             ScreenLockManager.DisableSleep();
+
+            RefreshComponents();
+        }
+
+        private void RefreshComponents()
+        {
+            var externalComponents = new MenuItemViewModel
+            {
+                DisplayText = "External Components"
+            };
+            MenuItems.Add(externalComponents);
+
+            foreach (var currentComponent in _gameManager.ExternalComponents)
+            {
+                externalComponents.ChildItems.Add(new MenuItemViewModel
+                {
+                    DisplayText = currentComponent.DisplayText,
+                    ExecuteAction = () =>
+                    {
+                        currentComponent.Start();
+                    }
+                });
+            }
         }
 
         private void OnRunningModeChanged(object sender, EventArgs e)

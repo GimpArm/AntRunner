@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using AntRunner.Controls.Map.Models;
+using AntRunner.Game.Interface.Models;
 using AntRunner.Interface;
 
 namespace AntRunner.Models
