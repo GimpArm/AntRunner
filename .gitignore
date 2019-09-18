@@ -22,3 +22,4 @@
 /src/AntRunner.Installer/obj
 **/bin
 **/obj
+**/.vs
