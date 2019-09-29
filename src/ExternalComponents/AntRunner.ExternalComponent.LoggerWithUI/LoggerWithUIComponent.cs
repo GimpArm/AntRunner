@@ -18,6 +18,7 @@ namespace AntRunner.ExternalComponent.LoggerWithUI
 
         private bool _isActive;
         public bool IsActiv => _isActive;
+        public bool IsAutoRun => false;
 
         private LoggerWithUIWindow _window;
 
@@ -25,8 +26,10 @@ namespace AntRunner.ExternalComponent.LoggerWithUI
         {
             RunOnUIThread(() =>
             {
-                _window = new LoggerWithUIWindow();
-                _window.DataContext = GameEventHook;
+                _window = new LoggerWithUIWindow
+                {
+                    DataContext = GameEventHook
+                };
                 _window.Show();
                 _isActive = true;
             });

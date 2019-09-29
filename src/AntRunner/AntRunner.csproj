@@ -284,6 +284,10 @@
       <Project>{C23E328C-6003-4C62-866A-0DD0F4C3012C}</Project>
       <Name>AntRunner.Game.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExternalComponents\AntRunner.ExternalComponent.FirestoreSender\AntRunner.ExternalComponent.FirestoreSender.csproj">
+      <Project>{9965645b-b59b-4769-9047-4e88185a82d3}</Project>
+      <Name>AntRunner.ExternalComponent.FirestoreSender</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\AntRunner.ExternalComponent.LoggerWithUI.csproj">
       <Project>{3c27558b-f38b-4f4f-8c12-586aa186217b}</Project>
       <Name>AntRunner.ExternalComponent.LoggerWithUI</Name>

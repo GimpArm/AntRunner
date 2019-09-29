@@ -9,6 +9,7 @@ namespace AntRunner.Game.Interface
         string DisplayText { get; }
         IGameEventHook GameEventHook { get; }
         bool IsActiv { get; }
+        bool IsAutoRun { get; }
         void Start();
         void Stop();
     }

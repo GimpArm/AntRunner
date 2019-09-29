@@ -88,7 +88,8 @@ namespace AntRunner.Models
         {
             var externalAssemblys = new Assembly[]
             {
-                Assembly.Load("AntRunner.ExternalComponent.LoggerWithUI")
+                Assembly.Load("AntRunner.ExternalComponent.LoggerWithUI"),
+                Assembly.Load("AntRunner.ExternalComponent.FirestoreSender")
             };
 
             var allTypes = externalAssemblys
@@ -101,6 +102,10 @@ namespace AntRunner.Models
                 if (newInstance != null)
                 {
                     _externalComponentList.Add(newInstance);
+                    if (newInstance.IsAutoRun)
+                    {
+                        newInstance.Start();
+                    }
                 }
             });
         }
@@ -256,6 +261,7 @@ namespace AntRunner.Models
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         GameHookList.ForEach(H => H.SetPlayerAction(new AntState {
+                            CurrentTick = _currentTick,
                             ID = current.ID,
                             Name = current.Name,
                             Color = current.Color,
