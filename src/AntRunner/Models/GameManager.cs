@@ -98,6 +98,11 @@ namespace AntRunner.Models
             var loadedAssemblys = new List<Assembly>();
             foreach (var fileName in files)
             {
+                if (!fileName.ToLower().Contains("antrunner"))
+                {
+                    continue;
+                }
+
                 loadedAssemblys.Add(Assembly.LoadFrom(fileName));
             }
 
