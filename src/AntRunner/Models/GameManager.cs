@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Timers;
@@ -37,6 +38,8 @@ namespace AntRunner.Models
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
         public EventHandler<ExplosionEventArgs> OnExplosion;
+
+        private readonly string _externalComponentFolderName = "ExternalComponents";
 
         #region Member - CurrentState
         private GameRunningModeType _currentRunningMode = GameRunningModeType.Playing;
@@ -86,13 +89,19 @@ namespace AntRunner.Models
 
         private void FindAndStartExternalComponents()
         {
-            var externalAssemblys = new Assembly[]
+            if (!Directory.Exists(_externalComponentFolderName))
             {
-                Assembly.Load("AntRunner.ExternalComponent.LoggerWithUI"),
-                Assembly.Load("AntRunner.ExternalComponent.FirestoreSender")
-            };
+                return;
+            }
 
-            var allTypes = externalAssemblys
+            string[] files = Directory.GetFiles(_externalComponentFolderName, "*.dll");
+            var loadedAssemblys = new List<Assembly>();
+            foreach (var fileName in files)
+            {
+                loadedAssemblys.Add(Assembly.LoadFrom(fileName));
+            }
+
+            var allTypes = loadedAssemblys
                 .SelectMany(S => S.DefinedTypes)
                 .Where(C => C.ImplementedInterfaces.Contains(typeof(IExternalComponent))).ToList();
 
