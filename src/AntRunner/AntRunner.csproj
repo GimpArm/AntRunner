@@ -303,4 +303,8 @@
     <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\ts" DestinationFile="$(OutputPath)\Examples\ts.zip" />
     <ZipDirectory Overwrite="true" SourceDirectory="$(ProjectDir)\..\..\Examples\js" DestinationFile="$(OutputPath)\Examples\js.zip" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>
