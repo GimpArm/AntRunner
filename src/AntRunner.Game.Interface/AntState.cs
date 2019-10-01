@@ -9,6 +9,7 @@ namespace AntRunner.Game.Interface
 {
     public class AntState
     {
+        public long CurrentTick { get; set; }
         public Guid ID { get; set; }
 
         public string Name { get; set; }

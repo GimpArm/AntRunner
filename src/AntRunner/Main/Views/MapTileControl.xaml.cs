@@ -29,7 +29,7 @@ namespace AntRunner.Main.Views
         {
             InitializeComponent();
 
-            NameLabel.Content = Path.GetFileNameWithoutExtension(info.Name).Replace('_', ' ');
+            NameLabel.Text = Path.GetFileNameWithoutExtension(info.Name).Replace('_', ' ');
             Map = new BitmapImage(new Uri(info.FullName));
             Image.Source = Map;
         }
@@ -37,7 +37,7 @@ namespace AntRunner.Main.Views
         public MapTileControl()
         {
             InitializeComponent();
-            NameLabel.Content = "Generate Map";
+            NameLabel.Text = "Generate Map";
             this.Image.Source = BitmapFrame.Create(new Uri("pack://application:,,,/AntRunner;component/Images/RandomMap.png", UriKind.RelativeOrAbsolute));
         }
 

@@ -4,32 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="200" d:DesignWidth="200"
              x:Name="ThisControl">
-    <Button BorderThickness="1" Margin="5,0,5,0" Command="{Binding Command, ElementName=ThisControl}" CommandParameter="{Binding ElementName=ThisControl}" Background="Transparent">
-        <Button.Style>
-            <Style TargetType="Button">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Selected, ElementName=ThisControl}" Value="True">
-                        <Setter Property="BorderBrush" Value="CornflowerBlue" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Selected, ElementName=ThisControl}" Value="False">
-                        <Setter Property="BorderBrush" Value="GhostWhite" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Button.Style>
-        <Grid Width="200" Height="200" Background="Gainsboro">
+    <ToggleButton Style="{StaticResource MapToggleButton}" BorderThickness="0" Background="White" 
+                  IsChecked="{Binding Selected, ElementName=ThisControl}" Command="{Binding Command, ElementName=ThisControl}" 
+                  CommandParameter="{Binding ElementName=ThisControl}" >
+
+        <Grid Width="150" Height="150" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Viewbox Grid.Row="0" Stretch="Uniform" Margin="5">
-                <Border BorderThickness="1" BorderBrush="Black">
-                    <Image x:Name="Image" />
-                </Border>
-            </Viewbox>
-            <Label Grid.Row="1" x:Name="NameLabel" FontSize="16" FontWeight="Bold" FontFamily="Verdana"  HorizontalAlignment="Center" />
+
+            <Image x:Name="Image" Margin="10,10,10,5" />
+
+            <Grid Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Selected, ElementName=ThisControl}" Value="True">
+                                <Setter Property="Background" Value="#67daff" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Selected, ElementName=ThisControl}" Value="False">
+                                <Setter Property="Background" Value="Transparent" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <TextBlock x:Name="NameLabel" Foreground="{Binding Foreground, ElementName=ThisControl}" FontSize="16" Margin="0,5" FontWeight="SemiBold" HorizontalAlignment="Center" />
+            </Grid>
+
         </Grid>
-    </Button>
+    </ToggleButton>
 </UserControl>

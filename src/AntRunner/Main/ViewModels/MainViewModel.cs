@@ -148,12 +148,13 @@ namespace AntRunner.Main.ViewModels
             }
             _gameManager.OnGameOver += OnGameOver;
             _gameManager.OnRunningModeChanged += OnRunningModeChanged;
+
+            RefreshComponents();
+
             _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
             LoadPlayers(_players);
             ScreenLockManager.DisableSleep();
-
-            RefreshComponents();
         }
 
         private void RefreshComponents()
@@ -166,14 +167,17 @@ namespace AntRunner.Main.ViewModels
 
             foreach (var currentComponent in _gameManager.ExternalComponents)
             {
-                externalComponents.ChildItems.Add(new MenuItemViewModel
+                if (!currentComponent.IsAutoRun)
                 {
-                    DisplayText = currentComponent.DisplayText,
-                    ExecuteAction = () =>
+                    externalComponents.ChildItems.Add(new MenuItemViewModel
                     {
-                        currentComponent.Start();
-                    }
-                });
+                        DisplayText = currentComponent.DisplayText,
+                        ExecuteAction = () =>
+                        {
+                            currentComponent.Start();
+                        }
+                    });
+                }
             }
         }
 

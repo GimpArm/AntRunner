@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Timers;
@@ -37,6 +38,8 @@ namespace AntRunner.Models
         public bool GameRunning { get; private set; }
         public EventHandler<GameOverEventArgs> OnGameOver;
         public EventHandler<ExplosionEventArgs> OnExplosion;
+
+        private readonly string _externalComponentFolderName = "ExternalComponents";
 
         #region Member - CurrentState
         private GameRunningModeType _currentRunningMode = GameRunningModeType.Playing;
@@ -86,12 +89,24 @@ namespace AntRunner.Models
 
         private void FindAndStartExternalComponents()
         {
-            var externalAssemblys = new Assembly[]
+            if (!Directory.Exists(_externalComponentFolderName))
             {
-                Assembly.Load("AntRunner.ExternalComponent.LoggerWithUI")
-            };
+                return;
+            }
 
-            var allTypes = externalAssemblys
+            string[] files = Directory.GetFiles(_externalComponentFolderName, "*.dll");
+            var loadedAssemblys = new List<Assembly>();
+            foreach (var fileName in files)
+            {
+                if (!fileName.ToLower().Contains("antrunner"))
+                {
+                    continue;
+                }
+
+                loadedAssemblys.Add(Assembly.LoadFrom(fileName));
+            }
+
+            var allTypes = loadedAssemblys
                 .SelectMany(S => S.DefinedTypes)
                 .Where(C => C.ImplementedInterfaces.Contains(typeof(IExternalComponent))).ToList();
 
@@ -101,6 +116,10 @@ namespace AntRunner.Models
                 if (newInstance != null)
                 {
                     _externalComponentList.Add(newInstance);
+                    if (newInstance.IsAutoRun)
+                    {
+                        newInstance.Start();
+                    }
                 }
             });
         }
@@ -256,6 +275,7 @@ namespace AntRunner.Models
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     {
                         GameHookList.ForEach(H => H.SetPlayerAction(new AntState {
+                            CurrentTick = _currentTick,
                             ID = current.ID,
                             Name = current.Name,
                             Color = current.Color,
