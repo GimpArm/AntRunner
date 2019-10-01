@@ -280,10 +280,24 @@
     <None Include="Maps\A-Small-Chaos.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AntRunner.Game.Interface\AntRunner.Game.Interface.csproj">
-      <Project>{C23E328C-6003-4C62-866A-0DD0F4C3012C}</Project>
+      <Project>{c23e328c-6003-4c62-866a-0dd0f4c3012c}</Project>
       <Name>AntRunner.Game.Interface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+     <None Include="..\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\bin\Debug\AntRunner.ExternalComponent.LoggerWithUI.dll">
+        <Link>ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+     </None>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <None Include="..\..\bin\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll">
+      <Link>ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">

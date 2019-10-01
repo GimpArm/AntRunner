@@ -43,6 +43,7 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _isDebug, value);
+                this.RaisePropertyChanged(nameof(WindowTitle));
             }
         }
         #endregion
@@ -65,7 +66,7 @@ namespace AntRunner.Main.ViewModels
         {
             get => _counterValue;
             set => SetValue(ref _counterValue, value);
-        } 
+        }
         #endregion
 
         #region Member - IsModePlaying

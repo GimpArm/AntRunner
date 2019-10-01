@@ -1,12 +1,6 @@
 ﻿using AntRunner.ExternalComponent.LoggerWithUI.ViewModels;
 using AntRunner.Game.Interface;
 using AntRunner.Game.Interface.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace AntRunner.ExternalComponent.LoggerWithUI
 {
@@ -33,7 +27,7 @@ namespace AntRunner.ExternalComponent.LoggerWithUI
                 _window.Show();
                 _isActive = true;
             });
-            
+
         }
 
         public void Stop()

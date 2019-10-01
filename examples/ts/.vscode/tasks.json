@@ -25,7 +25,10 @@
             "group": "test",
             "presentation": {
                 "reveal": "never"
-            }
+            },
+            "dependsOn":[
+                "CompileTypeScript"
+            ]
         },
         {
             "label": "KillAntRunner",
