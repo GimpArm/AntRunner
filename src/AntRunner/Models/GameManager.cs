@@ -15,6 +15,7 @@ namespace AntRunner.Models
 {
     public class GameManager : IDisposable
     {
+        public static int GameSpeed = 200;
         public readonly int MapHeight;
         public readonly int MapWidth;
         private readonly Timer _gameTicker = new Timer(250);
@@ -150,6 +151,7 @@ namespace AntRunner.Models
 
         private void GameTickerOnElapsed(object sender, ElapsedEventArgs e)
         {
+            _gameTicker.Interval = GameManager.GameSpeed;
             if (_currentRunningMode == GameRunningModeType.Pause)
             { 
                 return;
