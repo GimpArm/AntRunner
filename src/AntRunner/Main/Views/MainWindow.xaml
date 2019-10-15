@@ -50,6 +50,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ToggleButton Margin="0,5,5,5" Content="Turbo" IsChecked="{Binding IsTurboMode}" />
                 <ToggleButton Margin="0,5,5,5" Content="Play" IsChecked="{Binding IsModePlaying}" />
                 <ToggleButton Margin="0,5,5,5" Content="Pause" IsChecked="{Binding IsModePause}" />
                 <ToggleButton Margin="0,5,5,5" Content="NextStep" IsChecked="{Binding IsModeNextStep}" />
@@ -68,7 +69,7 @@
             <Label Content="{Binding CounterValue}" Margin="0,-40,0,0" FontSize="175" FontWeight="Bold" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
         </Border>
 
-        <Grid Grid.Column="0" Background="Black" Opacity="0.75" Visibility="{Binding GameStopped, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2" Background="Black" Opacity="0.75" Visibility="{Binding GameStopped, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />

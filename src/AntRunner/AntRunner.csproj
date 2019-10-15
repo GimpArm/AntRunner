@@ -288,10 +288,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-     <None Include="..\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\bin\Debug\AntRunner.ExternalComponent.LoggerWithUI.dll">
-        <Link>ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-     </None>
+    <None Include="..\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI\bin\Debug\AntRunner.ExternalComponent.LoggerWithUI.dll">
+      <Link>ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <None Include="..\..\bin\ExternalComponents\AntRunner.ExternalComponent.LoggerWithUI.dll">

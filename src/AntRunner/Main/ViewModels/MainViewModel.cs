@@ -115,6 +115,19 @@ namespace AntRunner.Main.ViewModels
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; } = new ObservableCollection<MenuItemViewModel>();
         #endregion
 
+        #region Member - IsTurboMode
+        public bool IsTurboMode
+        {
+            get => GameManager.GameSpeed == 25;
+            set
+            {
+                GameManager.GameSpeed = value ? 25 : 250;
+                _mapViewModel?.UpdateGameSpeedOnPlayer();
+                RaisePropertyChanged("IsTurboMode");
+            }
+        }
+        #endregion
+
         public string WindowTitle => "Ant Runner" + (IsDebug ? " - Debug" : string.Empty);
         public ImageSource WinnerLogo => _players.FirstOrDefault(x => x.Color == WinnerColor)?.Icon;
 

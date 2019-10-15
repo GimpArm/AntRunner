@@ -9,6 +9,7 @@ using AntRunner.Events;
 using AntRunner.Game.Interface.Models;
 using AntRunner.Interface;
 using AntRunner.Models;
+using System.Linq;
 using WallRender = AntRunner.Controls.Map.Models.WallRender;
 
 namespace AntRunner.Controls.Map.ViewModels
@@ -40,6 +41,15 @@ namespace AntRunner.Controls.Map.ViewModels
             {
                 _mapControl.MapArea.Children.Add(new ExplosionControl(e.Tile));
             });
+        }
+
+        public void UpdateGameSpeedOnPlayer()
+        {
+            var players = _mapControl.MapArea.Children.OfType<PlayerControl>().ToArray();
+            foreach (var currentPlayer in players)
+            {
+                currentPlayer.UpdateAnimationDuration();
+            }
         }
 
         public void AddPlayer(AntWrapper ant)

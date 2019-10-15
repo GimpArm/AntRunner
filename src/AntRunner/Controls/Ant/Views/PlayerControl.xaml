@@ -21,8 +21,8 @@
         <EventTrigger RoutedEvent="Binding.TargetUpdated">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)" Duration="0:0:0.200" To="{Binding Y, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Converter={StaticResource PositionToCanvasScaleConverter}}" />
-                    <DoubleAnimation Storyboard.TargetProperty="(Canvas.Left)" Duration="0:0:0.200" To="{Binding X, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Converter={StaticResource PositionToCanvasScaleConverter}}" />
+                    <DoubleAnimation Storyboard.TargetProperty="(Canvas.Top)" Duration="{Binding AnimationDuration, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" To="{Binding Y, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Converter={StaticResource PositionToCanvasScaleConverter}}" />
+                    <DoubleAnimation Storyboard.TargetProperty="(Canvas.Left)" Duration="{Binding AnimationDuration, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" To="{Binding X, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Converter={StaticResource PositionToCanvasScaleConverter}}" />
 
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Default" Storyboard.TargetProperty="Visibility" Duration="0:0:0.250">
                         <DiscreteObjectKeyFrame KeyTime="0:0:00" Value="{x:Static Visibility.Visible}"/>
