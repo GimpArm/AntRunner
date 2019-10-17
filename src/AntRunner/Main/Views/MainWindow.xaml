@@ -9,7 +9,7 @@
         xmlns:converters1="http://waf.codeplex.com/schemas"
         xmlns:converters2="clr-namespace:AntRunner.Main.Converters"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Width="1024" Height="768"
+        Title="{Binding WindowTitle}" Width="1280" Height="800"
         WindowStartupLocation="CenterOwner" Background="WhiteSmoke"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=False}">
     <Window.Resources>
@@ -29,36 +29,49 @@
             </HierarchicalDataTemplate>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MenuItems}" />
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=MenuItems}" Background="White" />
 
-        <views:MapControl Grid.Row="1" Grid.Column="0" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <views:MapControl Grid.Row="1" Grid.Column="0" Margin="5" x:Name="MapArea" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Column="1" Grid.RowSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" >
+                    <GradientStop Color="LightGray" Offset="1"/>
+                    <GradientStop Color="Transparent" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+        
+        <Grid Grid.RowSpan="2" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <ToggleButton Margin="0,5,5,5" Content="Turbo" IsChecked="{Binding IsTurboMode}" />
-                <ToggleButton Margin="0,5,5,5" Content="Play" IsChecked="{Binding IsModePlaying}" />
-                <ToggleButton Margin="0,5,5,5" Content="Pause" IsChecked="{Binding IsModePause}" />
-                <ToggleButton Margin="0,5,5,5" Content="NextStep" IsChecked="{Binding IsModeNextStep}" />
-            </StackPanel>
-
-            <Viewbox Grid.Row="1" Stretch="Uniform" MaxWidth="300" VerticalAlignment="Top">
-                <StackPanel x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Right" />
-            </Viewbox>
+            <Grid Background="#007ac1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" TextBlock.FontSize="16" >
+                    <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEB9D;" IsChecked="{Binding IsTurboMode}" ToolTip="Turbo" />
+                    <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEDB5;" IsChecked="{Binding IsModePlaying}" ToolTip="Play" />
+                    <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEDB4;" IsChecked="{Binding IsModePause}" ToolTip="Pause" />
+                    <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xE1CC;" IsChecked="{Binding IsModeNextStep}" ToolTip="Next Step" />
+                </StackPanel>
+            </Grid>
+           
+            <Grid Grid.Row="1">
+                <ItemsControl x:Name="PlayerArea" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                              HorizontalContentAlignment="Stretch" Margin="10" BorderThickness="0" />
+            </Grid>
         </Grid>
 
 
@@ -69,7 +82,7 @@
             <Label Content="{Binding CounterValue}" Margin="0,-40,0,0" FontSize="175" FontWeight="Bold" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
         </Border>
 
-        <Grid Grid.ColumnSpan="2" Grid.RowSpan="2" Background="Black" Opacity="0.75" Visibility="{Binding GameStopped, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Black" Opacity="0.75" Visibility="{Binding GameStopped, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
