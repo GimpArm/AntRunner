@@ -133,7 +133,6 @@
     </Compile>
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Controls\Ant\Converters\HealthToVisibilityConverter.cs" />
-    <Compile Include="Controls\Ant\Converters\LevelToBarWidthConverter.cs" />
     <Compile Include="Controls\Tiles\Converters\ShotRotatationConverter.cs" />
     <Compile Include="Controls\Ant\Views\PlayerControl.xaml.cs">
       <DependentUpon>PlayerControl.xaml</DependentUpon>
