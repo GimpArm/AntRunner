@@ -147,6 +147,8 @@ namespace AntRunner.Main.ViewModels
             _players.Shuffle();
 
             Initialize();
+
+            RefreshComponents();
         }
 
         private void Initialize()
@@ -162,8 +164,6 @@ namespace AntRunner.Main.ViewModels
             }
             _gameManager.OnGameOver += OnGameOver;
             _gameManager.OnRunningModeChanged += OnRunningModeChanged;
-
-            RefreshComponents();
 
             _mapViewModel?.Dispose();
             _mapViewModel = new MapViewModel(_gameManager, _control.MapArea);
@@ -212,10 +212,10 @@ namespace AntRunner.Main.ViewModels
 
         private void LoadPlayers(IEnumerable<AntWrapper> players)
         {
-            _control.PlayerArea.Children.Clear();
+            _control.PlayerArea.Items.Clear();
             foreach (var player in players)
             {
-                _control.PlayerArea.Children.Add(new StatusControl { Color = player.Color, Ant = player });
+                _control.PlayerArea.Items.Add(new StatusControl { Color = player.Color, Ant = player });
                 _mapViewModel.AddPlayer(player);
             }
         }

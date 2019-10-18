@@ -14,7 +14,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="#FF409039"/>
+                                <Setter Property="Background" TargetName="border" Value="#134b6b"/>
                                 <Setter Property="TextBlock.Foreground" TargetName="contentPresenter" Value="#ECECEC" />
                                 <Setter Property="TextBlock.FontWeight" TargetName="contentPresenter" Value="Bold" />
                             </Trigger>

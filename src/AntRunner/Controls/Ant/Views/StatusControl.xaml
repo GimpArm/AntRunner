@@ -7,7 +7,7 @@
              xmlns:converters1="clr-namespace:AntRunner.Converters"
              xmlns:converters2="http://waf.codeplex.com/schemas"
              mc:Ignorable="d" 
-             d:DesignHeight="110" d:DesignWidth="200"
+             d:DesignHeight="140" d:DesignWidth="300"
              x:Name="ThisControl">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,17 +17,16 @@
             <converters2:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border BorderBrush="Black" BorderThickness="0" Margin="0,0,0,10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Background="{Binding Color, ElementName=ThisControl, Converter={StaticResource ColorToBrushConverter}}">
                 <Border Width="40" Height="40" BorderThickness="1" BorderBrush="Black">
@@ -59,21 +58,41 @@
                 </StackPanel>
             </Grid>
             <Label Grid.Row="1" Grid.Column="0" Content="Health" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Width="150" Height="28" Margin="0,2,0,2">
-                <Grid>
-                    <Border Background="Green" Width="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource LevelToBarWidthConverter}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
-                    <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Health, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
-                </Grid>
-            </Border>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Border BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Height="28" Margin="10,2">
+                    <Grid Name="HealthBar">
+                        <Border Background="Green" HorizontalAlignment="Left" VerticalAlignment="Stretch" >
+                            <Border.Width>
+                                <MultiBinding Converter="{StaticResource LevelToBarWidthConverter}">
+                                    <Binding ElementName="ThisControl" Path="Ant.Health" />
+                                    <Binding ElementName="HealthBar" Path="ActualWidth" />
+                                </MultiBinding>
+                            </Border.Width>
+                        </Border>
+                        <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Health, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
+                    </Grid>
+                </Border>
+            </Grid>
+            
 
             <Label Grid.Row="2" Grid.Column="0" Content="Shields" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" />
-            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Width="150" Height="28" Margin="0,2,0,2">
-                <Grid>
-                    <Border Background="Green" Width="{Binding Ant.Shields, ElementName=ThisControl, Converter={StaticResource LevelToBarWidthConverter}}" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
-                    <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Shields, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
-                </Grid>
-            </Border>
-            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Background="Black" Opacity="0.3"
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Border BorderBrush="Black" BorderThickness="1" Background="Red" HorizontalAlignment="Stretch" Height="28" Margin="10,5">
+                    <Grid Name="ShieldBar">
+                        <Border Background="Green" HorizontalAlignment="Left" VerticalAlignment="Stretch" >
+                            <Border.Width>
+                                <MultiBinding Converter="{StaticResource LevelToBarWidthConverter}">
+                                    <Binding ElementName="ThisControl" Path="Ant.Shields" />
+                                    <Binding ElementName="ShieldBar" Path="ActualWidth" />
+                                </MultiBinding>
+                            </Border.Width>
+                        </Border>
+                        <Label HorizontalAlignment="Right" VerticalAlignment="Center" Content="{Binding Ant.Shields, ElementName=ThisControl}" ContentStringFormat="{}{0}%" FontWeight="Bold" Foreground="White" />
+                    </Grid>
+                </Border>
+            </Grid>
+            
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Background="Black" Opacity="0.3"
                   Visibility="{Binding Ant.Health, ElementName=ThisControl, Converter={StaticResource HealthToVisibilityConverter}, ConverterParameter=invert}"/>
         </Grid>
     </Border>
