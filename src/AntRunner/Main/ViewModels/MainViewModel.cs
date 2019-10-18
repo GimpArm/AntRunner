@@ -116,13 +116,14 @@ namespace AntRunner.Main.ViewModels
         #endregion
 
         #region Member - IsTurboMode
+        private bool _isTurboModeActive;
         public bool IsTurboMode
         {
-            get => GameManager.GameSpeed == 25;
+            get => _isTurboModeActive;
             set
             {
-                GameManager.GameSpeed = value ? 25 : 250;
-                _mapViewModel?.UpdateGameSpeedOnPlayer();
+                _isTurboModeActive = value;
+                UpdateTurboModeSpeed();
                 RaisePropertyChanged("IsTurboMode");
             }
         }
@@ -138,6 +139,21 @@ namespace AntRunner.Main.ViewModels
             set => SetValue(ref _winnerName, value);
         }
 
+        public ObservableCollection<TurboModeItemViewModel> TurboModeItems { get; set; } = new ObservableCollection<TurboModeItemViewModel>();
+
+        #region Member - SelectedTurboModeItem
+        private TurboModeItemViewModel _selectedTurboModeItem;
+        public TurboModeItemViewModel SelectedTurboModeItem
+        {
+            get => _selectedTurboModeItem;
+            set
+            {
+                SetValue(ref _selectedTurboModeItem, value);
+                UpdateTurboModeSpeed();
+            }
+        } 
+        #endregion
+
         public MainViewModel(MainWindow control, MapTileControl map, IList<AntWrapper> players, bool isDebug = false)
         {
             _control = control;
@@ -146,9 +162,29 @@ namespace AntRunner.Main.ViewModels
             _players = players;
             _players.Shuffle();
 
+            InitTurboModes();
             Initialize();
-
             RefreshComponents();
+        }
+
+        private void InitTurboModes()
+        {
+            TurboModeItems.Clear();
+            int[] turboModes = new int[] { 25, 50, 100, 150 };
+            foreach (var item in turboModes)
+            {
+                TurboModeItems.Add(new TurboModeItemViewModel
+                {
+                    Value = item
+                });
+            }
+            SelectedTurboModeItem = TurboModeItems.FirstOrDefault();
+        }
+
+        private void UpdateTurboModeSpeed()
+        {
+            GameManager.GameSpeed = _isTurboModeActive ? _selectedTurboModeItem.Value : 250;
+            _mapViewModel?.UpdateGameSpeedOnPlayer();
         }
 
         private void Initialize()

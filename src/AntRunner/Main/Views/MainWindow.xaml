@@ -61,6 +61,8 @@
 
             <Grid Background="#007ac1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" TextBlock.FontSize="16" >
+                    <ComboBox ItemsSource="{Binding TurboModeItems}"  SelectedItem="{Binding SelectedTurboModeItem}" 
+                              VerticalAlignment="Center" Margin="0,5,5,5" Padding="5" DisplayMemberPath="Text" Style="{DynamicResource TurboModeComboBox}" />
                     <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEB9D;" IsChecked="{Binding IsTurboMode}" ToolTip="Turbo" />
                     <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEDB5;" IsChecked="{Binding IsModePlaying}" ToolTip="Play" />
                     <ToggleButton Margin="0,5,5,5" FontFamily="Segoe MDL2 Assets" Content="&#xEDB4;" IsChecked="{Binding IsModePause}" ToolTip="Pause" />
