@@ -47,6 +47,7 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
@@ -133,7 +134,6 @@
     </Compile>
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Controls\Ant\Converters\HealthToVisibilityConverter.cs" />
-    <Compile Include="Controls\Ant\Converters\LevelToBarWidthConverter.cs" />
     <Compile Include="Controls\Tiles\Converters\ShotRotatationConverter.cs" />
     <Compile Include="Controls\Ant\Views\PlayerControl.xaml.cs">
       <DependentUpon>PlayerControl.xaml</DependentUpon>
@@ -181,6 +181,7 @@
     <Compile Include="Main\ViewModels\MainViewModel.cs" />
     <Compile Include="Main\ViewModels\MenuItemViewModel.cs" />
     <Compile Include="Main\ViewModels\StartupViewModel.cs" />
+    <Compile Include="Main\ViewModels\TurboModeItemViewModel.cs" />
     <Compile Include="Main\Views\LoadAntControl.xaml.cs">
       <DependentUpon>LoadAntControl.xaml</DependentUpon>
     </Compile>
