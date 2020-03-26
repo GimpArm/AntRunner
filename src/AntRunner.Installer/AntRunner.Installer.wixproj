@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion Condition=" '$(ProductVersion)' == '' ">1.2.3.1</ProductVersion>
+    <ProductVersion Condition=" '$(ProductVersion)' == '' ">1.2.4.0</ProductVersion>
     <ProjectGuid>2ca1eed0-c807-4661-9074-6cdc4c676c82</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>AntRunner-$(ProductVersion)</OutputName>
