@@ -26,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AntRunner.Interface">
-      <HintPath>C:\Program Files (x86)\AntRunner\AntRunner.Interface.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <PackageReference Include="AntRunner.Interface" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

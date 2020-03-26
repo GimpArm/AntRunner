@@ -41,13 +41,7 @@ namespace ExampleAnt
 
             //Initialize internal map
             _map = new MapPosition[_mapWidth, _mapHeight];
-            for (var y = 0; y < _mapHeight; ++y)
-            {
-                for (var x = 0; x < _mapWidth; ++x)
-                {
-                    _map[x, y] = new MapPosition();
-                }
-            }
+            _map.Initialize();
 
             _map[_currentX, _currentY].Known = true;
             SetSearchDirection();
