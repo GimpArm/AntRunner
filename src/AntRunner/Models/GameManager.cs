@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Timers;
 using System.Windows;
+using AntRunner.Enums;
 using AntRunner.Events;
 using AntRunner.Extensions;
 using AntRunner.Game.Interface;
@@ -56,12 +57,12 @@ namespace AntRunner.Models
                     OnRunningModeChanged?.Invoke(value, null);
                 }
             }
-        } 
+        }
         #endregion
 
         public List<IGameEventHook> GameHookList => ExternalComponents.Where(E => E.IsActiv).Select(H => H.GameEventHook).ToList();
 
-        public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null)
+        public GameManager(IEnumerable<AntWrapper> players, bool isDebug, Bitmap mapDefinition = null, MapSize mapSize = MapSize.Random)
         {
             _currentGameID = Guid.NewGuid();
 
@@ -73,7 +74,7 @@ namespace AntRunner.Models
             }
             else
             {
-                Map = new Map(Players.Keys.ToList());
+                Map = new Map(Players.Keys.ToList(), mapSize);
             }
             MapHeight = Map.Height;
             MapWidth = Map.Width;
@@ -153,7 +154,7 @@ namespace AntRunner.Models
         {
             _gameTicker.Interval = GameManager.GameSpeed;
             if (_currentRunningMode == GameRunningModeType.Pause)
-            { 
+            {
                 return;
             }
 

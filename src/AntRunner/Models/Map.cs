@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using AntRunner.Enums;
 using AntRunner.Interface;
 
 namespace AntRunner.Models
@@ -21,9 +22,9 @@ namespace AntRunner.Models
         public int MaxWidth { get; }
         public int MaxHeight { get; }
 
-        public Map(IList<ItemColor> colorList)
+        public Map(IList<ItemColor> colorList, MapSize mapSize)
         {
-            var map = new MapGenerator();
+            var map = new MapGenerator(mapSize);
             _tiles = map.Generate();
             Width = map.Width;
             Height = map.Height;

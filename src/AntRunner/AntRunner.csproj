@@ -170,12 +170,14 @@
     </Compile>
     <Compile Include="Converters\DirectionToRotationConverter.cs" />
     <Compile Include="Converters\PositionToCanvasScaleConverter.cs" />
+    <Compile Include="Enums\MapSize.cs" />
     <Compile Include="Events\ExplosionEventArgs.cs" />
     <Compile Include="Events\GameOverEventArgs.cs" />
     <Compile Include="Events\ShootEventHandler.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Main\Converters\ColorComparerMultiConverter.cs" />
     <Compile Include="Main\Converters\CountDownValueToColorConverter.cs" />
+    <Compile Include="Main\Converters\EnumConverter.cs" />
     <Compile Include="Main\Converters\NullToParameterTextConverter.cs" />
     <Compile Include="Main\Converters\PlayerLookupConverter.cs" />
     <Compile Include="Main\ViewModels\MainViewModel.cs" />
@@ -300,6 +302,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildScript" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
     <MakeDir Directories="$(OutputPath)\Examples" Condition="!Exists('$(OutputPath)\Examples')" />

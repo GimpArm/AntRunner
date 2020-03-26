@@ -43,7 +43,7 @@ namespace AntRunner.Main.ViewModels
             set
             {
                 SetValue(ref _isDebug, value);
-                this.RaisePropertyChanged(nameof(WindowTitle));
+                RaisePropertyChanged(nameof(WindowTitle));
             }
         }
         #endregion
@@ -53,10 +53,7 @@ namespace AntRunner.Main.ViewModels
         public ItemColor WinnerColor
         {
             get => _winnerColor;
-            set
-            {
-                SetValue(ref _winnerColor, value);
-            }
+            set => SetValue(ref _winnerColor, value);
         }
         #endregion
 
@@ -124,7 +121,7 @@ namespace AntRunner.Main.ViewModels
             {
                 _isTurboModeActive = value;
                 UpdateTurboModeSpeed();
-                RaisePropertyChanged("IsTurboMode");
+                RaisePropertyChanged();
             }
         }
         #endregion
@@ -151,7 +148,7 @@ namespace AntRunner.Main.ViewModels
                 SetValue(ref _selectedTurboModeItem, value);
                 UpdateTurboModeSpeed();
             }
-        } 
+        }
         #endregion
 
         public MainViewModel(MainWindow control, MapTileControl map, IList<AntWrapper> players, bool isDebug = false)
@@ -196,7 +193,7 @@ namespace AntRunner.Main.ViewModels
             }
             else
             {
-                _gameManager = new GameManager(_players, IsDebug);
+                _gameManager = new GameManager(_players, IsDebug, mapSize: _selectedMap.MapSize);
             }
             _gameManager.OnGameOver += OnGameOver;
             _gameManager.OnRunningModeChanged += OnRunningModeChanged;
@@ -236,15 +233,15 @@ namespace AntRunner.Main.ViewModels
             var runningMode = (sender as GameRunningModeType?);
             if (runningMode.HasValue)
             {
-                RaisePropertyChanged("IsModePlaying");
-                RaisePropertyChanged("IsModePause");
-                RaisePropertyChanged("IsModeNextStep");
+                RaisePropertyChanged(nameof(IsModePlaying));
+                RaisePropertyChanged(nameof(IsModePause));
+                RaisePropertyChanged(nameof(IsModeNextStep));
             }
         }
 
-        public ICommand RunAgainCommand => _runAgainCommand ?? (_runAgainCommand = new DelegateCommand(RunAgain));
-        public ICommand ExitCommand => _exitCommand ?? (_exitCommand = new DelegateCommand(_control.Close));
-        public ICommand ToggleDebugCommand => _toggleDebugCommand ?? (_toggleDebugCommand = new DelegateCommand(ToggleDebug));
+        public ICommand RunAgainCommand => _runAgainCommand ??= new DelegateCommand(RunAgain);
+        public ICommand ExitCommand => _exitCommand ??= new DelegateCommand(_control.Close);
+        public ICommand ToggleDebugCommand => _toggleDebugCommand ??= new DelegateCommand(ToggleDebug);
 
         private void LoadPlayers(IEnumerable<AntWrapper> players)
         {

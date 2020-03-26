@@ -3,21 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:AntRunner.Main.Converters"
+             xmlns:enums="clr-namespace:AntRunner.Enums"
              mc:Ignorable="d"
              x:Name="ThisControl">
-    <ToggleButton Style="{StaticResource MapToggleButton}" BorderThickness="0" Background="White" 
-                  IsChecked="{Binding Selected, ElementName=ThisControl}" Command="{Binding Command, ElementName=ThisControl}" 
+    <UserControl.Resources>
+        <converters:EnumConverter x:Key="EnumConverter" />
+    </UserControl.Resources>
+    <ToggleButton Style="{StaticResource MapToggleButton}" BorderThickness="0" Background="White"
+                  IsChecked="{Binding Selected, ElementName=ThisControl}" Command="{Binding Command, ElementName=ThisControl}"
                   CommandParameter="{Binding ElementName=ThisControl}" >
 
         <Grid Width="150" Height="150" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Image x:Name="Image" Margin="10,10,10,5" />
+            <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Image" Margin="10,10,10,5" />
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Style.Triggers>
@@ -32,7 +43,14 @@
                 </Grid.Style>
                 <TextBlock x:Name="NameLabel" Foreground="{Binding Foreground, ElementName=ThisControl}" FontSize="16" Margin="0,5" FontWeight="SemiBold" HorizontalAlignment="Center" />
             </Grid>
-
+            <Label Grid.Row="2" Grid.Column="0" Content="Size:" HorizontalAlignment="Left" />
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="MapSizeText" VerticalAlignment="Center" />
+            <ComboBox Grid.Row="2" Grid.Column="1" x:Name="MapSizeCombo" SelectedIndex="{Binding MapSize, ElementName=ThisControl, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type enums:MapSize}}">
+                <ComboBoxItem IsSelected="True">Small</ComboBoxItem>
+                <ComboBoxItem>Medium</ComboBoxItem>
+                <ComboBoxItem>Large</ComboBoxItem>
+                <ComboBoxItem>Random</ComboBoxItem>
+            </ComboBox>
         </Grid>
     </ToggleButton>
 </UserControl>

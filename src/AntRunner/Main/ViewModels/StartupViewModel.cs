@@ -57,10 +57,9 @@ namespace AntRunner.Main.ViewModels
 
             foreach (var map in Directory.GetFiles("Maps\\", "*.bmp"))
             {
-                var info = new FileInfo(map);
-                tile = new MapTileControl(info) { Command = LoadMapCommand };
+                tile = new MapTileControl(map) { Command = LoadMapCommand };
                 tile.InputBindings.Add(new MouseBinding(LoadMapCommand, new MouseGesture(MouseAction.LeftClick)) { CommandParameter = tile });
-                if (selected != null && info.FullName.Equals(selected.FullName))
+                if (selected != null && tile.FullName.Equals(selected.FullName))
                 {
                     LoadMap(tile);
                     selected = null;
@@ -70,7 +69,7 @@ namespace AntRunner.Main.ViewModels
 
             if (selected != null)
             {
-                tile = new MapTileControl(selected) { Command = LoadMapCommand };
+                tile = new MapTileControl(selected.FullName) { Command = LoadMapCommand };
                 _control.MapSelectionArea.Children.Add(tile);
                 LoadMap(tile);
             }

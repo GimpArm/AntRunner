@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using AntRunner.Enums;
 
 namespace AntRunner.Main.Views
 {
@@ -25,25 +26,30 @@ namespace AntRunner.Main.Views
 
         public BitmapImage Map { get; }
 
-        public MapTileControl(FileSystemInfo info)
-        {
-            InitializeComponent();
+        public MapSize MapSize { get; set; } = MapSize.Small;
 
-            NameLabel.Text = Path.GetFileNameWithoutExtension(info.Name).Replace('_', ' ');
-            Map = new BitmapImage(new Uri(info.FullName));
-            Image.Source = Map;
-        }
+        public string FullName { get; }
 
         public MapTileControl()
         {
             InitializeComponent();
             NameLabel.Text = "Generate Map";
-            this.Image.Source = BitmapFrame.Create(new Uri("pack://application:,,,/AntRunner;component/Images/RandomMap.png", UriKind.RelativeOrAbsolute));
+            Image.Source = BitmapFrame.Create(new Uri("pack://application:,,,/AntRunner;component/Images/RandomMap.png", UriKind.RelativeOrAbsolute));
+            MapSizeText.Visibility = Visibility.Collapsed;
+            MapSizeCombo.Visibility = Visibility.Visible;
         }
 
-        public MapTileControl(string filename) : this(new FileInfo(filename))
+        public MapTileControl(string filename)
         {
-
+            InitializeComponent();
+            var info = new FileInfo(filename);
+            NameLabel.Text = Path.GetFileNameWithoutExtension(info.Name).Replace('_', ' ');
+            FullName = info.FullName;
+            Map = new BitmapImage(new Uri(info.FullName));
+            Image.Source = Map;
+            MapSizeText.Visibility = Visibility.Visible;
+            MapSizeCombo.Visibility = Visibility.Collapsed;
+            MapSizeText.Text = $"{Map.PixelWidth} x {Map.PixelHeight}";
         }
     }
 }
