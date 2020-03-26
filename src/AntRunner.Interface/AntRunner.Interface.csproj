@@ -5,6 +5,17 @@
     <LangVersion>latest</LangVersion>
     <DocumentationFile>AntRunner.Interface.xml</DocumentationFile>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Description>Interface library for AntRunner.
+
+A programming exercise game. Create an AI for your cyborg ant to battle up to 8 cyborg ants in a game of capture the flag. Ants are randomly placed on the map knowing only the map size, their starting position, and their own color. They must use echo location to find their way around the map being careful not to run into walls, other ants, or step on bombs. Your ant isn't defense less, it's armed with a high powered laser cannon, a defensive energy shield, and can pick up bombs to deploy traps for other ants. Each ant gets 250ms of processing time to decide what to do next or else they miss their turn.</Description>
+    <Company>Figz International UG</Company>
+    <Authors>Scott Downing</Authors>
+    <Product>AntRunner</Product>
+    <Copyright>Copyright © Figz International UG 2020</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -15,6 +26,10 @@
 
   <ItemGroup>
     <None Remove="Flag.png" />
+    <None Include="Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
